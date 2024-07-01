@@ -18,9 +18,8 @@ export default function BlurImages({ data }: { data: MyData }) {
     <div className="overflow-y-scroll overflow-x-visible w-screen h-screen relative border border-black">
       {projects.map((project) =>
         data[project].map((e, index) => (
-          <Link href={"/te"}>
+          <Link href={"/te"} key={index}>
             <div
-              key={index}
               style={positions[`${project}-${index}`]}
               className={`group hover:blur-none hover:shadow-xl shadow-black transition-all duration-200 absolute hover:z-40  ${
                 e.depth === 1
