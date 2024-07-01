@@ -1,6 +1,7 @@
 import { Client } from "@notionhq/client";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
+export const dynamic = "force-dynamic";
 let cachedData: MyData | null = null;
 
 interface MyType extends DatabaseObjectResponse {
