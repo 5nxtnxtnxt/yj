@@ -1,10 +1,12 @@
 import BlurImages from "@/components/blurImages";
 import NavigationBar from "@/components/navigationBar";
-import { getDataFromNotionForce } from "@/utils/notion";
+import { MyData, getDataFromNotion } from "@/utils/notion";
 
-export const dynamic = "force-dynamic";
+let data: null | MyData = null;
 export default async function Home() {
-  const data = await getDataFromNotionForce();
+  if (!data) {
+    data = await getDataFromNotion();
+  }
   return (
     <main className="">
       <NavigationBar data={data} />
