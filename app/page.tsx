@@ -3,8 +3,8 @@ import NavigationBar from "@/components/navigationBar";
 import { MyData, getDataFromNotion } from "@/utils/notion";
 
 let data: null | MyData = null;
-console.log(data);
 export default async function Home() {
+  console.log(data);
   if (!data) {
     data = await getDataFromNotion();
   }
