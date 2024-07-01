@@ -1,8 +1,7 @@
 import { Client } from "@notionhq/client";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-let cachedData: MyData | null = null;
-
+export const dynamic = "force-dynamic";
 interface BlockType {
   paragraph: {
     plain_text: string;
@@ -93,8 +92,6 @@ export async function getDataFromNotion() {
       des: `${e.내용.rich_text[0].plain_text}`, //
     });
   });
-  cachedData = newData;
-  // console.log(newData);
   return newData;
 }
 export async function getDataFromNotionForce() {
@@ -124,7 +121,5 @@ export async function getDataFromNotionForce() {
       des: `${e.내용.rich_text[0].plain_text}`, //
     });
   });
-  cachedData = newData;
-  console.log(newData);
   return newData;
 }
