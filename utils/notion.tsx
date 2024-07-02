@@ -1,12 +1,13 @@
 import { Client } from "@notionhq/client";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-export const dynamic = "force-dynamic";
 interface BlockType {
   paragraph: {
     plain_text: string;
   };
 }
+
+let cd: null | MyData = null;
 
 interface MyType extends DatabaseObjectResponse {
   properties: {
@@ -66,6 +67,10 @@ export interface MyData {
   }[];
 }
 export async function getDataFromNotion() {
+  if (cd) {
+    console.log("cached");
+    return cd;
+  }
   console.log("fetching");
   const notion = new Client({ auth: process.env.NOTION_SECRET });
   const databaseId = process.env.NOTION_DB_ID as string;
@@ -92,6 +97,7 @@ export async function getDataFromNotion() {
       des: `${e.내용.rich_text[0].plain_text}`, //
     });
   });
+  cd = newData;
   return newData;
 }
 export async function getDataFromNotionForce() {
@@ -102,7 +108,6 @@ export async function getDataFromNotionForce() {
     database_id: databaseId,
   });
   const res = response.results as MyType[];
-
   const data = res.map((e) => e.properties);
   const newData: MyData = {};
   data.forEach((e, index) => {
@@ -121,5 +126,6 @@ export async function getDataFromNotionForce() {
       des: `${e.내용.rich_text[0].plain_text}`, //
     });
   });
+  cd = newData;
   return newData;
 }
