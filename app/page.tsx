@@ -4,13 +4,8 @@ import { MyData, getDataFromNotion } from "@/utils/notion";
 
 export const dynamic = "force-dynamic";
 
-let data: null | MyData = null;
-console.log(data, "!!!");
 export default async function Home() {
-  console.log(data);
-  if (!data) {
-    data = await getDataFromNotion();
-  }
+  const data = await getDataFromNotion();
   return (
     <main className="">
       <NavigationBar data={data} />
