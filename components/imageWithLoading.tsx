@@ -27,19 +27,20 @@ export default function ImageWithLoading({
   //   setIsLoad(true);
   // };
   function onLoad() {
+    if (isLoad) return;
     if (!imgRef.current) return;
     const img = imgRef.current;
     const container = img.parentElement;
+    if (!container) return;
     const top = parseInt(container?.style.top as string);
     const left = parseInt(container?.style.left as string);
     const width = parseInt(container?.style.width as string);
-    console.log(top, left, width);
-    container?.classList.add(
-      `${top > 50 ? "-translate-y-full" : "translate-y-full"}`
-    );
-    container?.classList.add(
-      `${left > 50 ? "-translate-x-full" : "translate-x-full"}`
-    );
+    // container.classList.add(
+    //   `${top > 50 ? "-translate-y-full" : "translate-y-full"}`
+    // );
+    // container.classList.add(
+    //   `${left > 50 ? "-translate-x-full" : "translate-x-full"}`
+    // );
     setIsLoad(true);
   }
   useEffect(() => {
