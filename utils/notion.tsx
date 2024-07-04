@@ -1,5 +1,9 @@
 import { Client } from "@notionhq/client";
-import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import {
+  BlockObjectResponse,
+  DatabaseObjectResponse,
+  PartialBlockObjectResponse,
+} from "@notionhq/client/build/src/api-endpoints";
 
 interface BlockType {
   paragraph: {
@@ -64,10 +68,11 @@ export interface MyData {
     left: number;
     width: number;
     des: string;
+    texts: string[];
   }[];
 }
-export async function getDataFromNotion() {
-  if (cd) {
+export async function getDataFromNotion(forceUpdate: boolean = false) {
+  if (cd && !forceUpdate) {
     console.log("cached");
     return cd;
   }
@@ -81,35 +86,16 @@ export async function getDataFromNotion() {
 
   const data = res.map((e) => e.properties);
   const newData: MyData = {};
-  data.forEach((e, index) => {
-    const title = e.프로젝트.select.name ?? "undefined";
-    if (!(title in newData)) {
-      newData[title] = [];
-    }
-    newData[title].push({
-      date: e.날짜.date?.end ?? e.날짜.date?.start ?? "2099-12-31",
-      thumbNailSrc: e.썸네일.files[0]?.file.url ?? "none.png",
-      title: e.타이틀.title[0]?.plain_text ?? "무제",
-      width: e.사진넓이.number ?? 0.3,
-      top: e.위치_top.number ?? 0,
-      left: e.위치_left.number ?? 0,
-      depth: e.뎁스.number ?? 3,
-      des: `${e.내용.rich_text[0].plain_text}`, //
+  const getTextRes = res.map(async (e) => {
+    const res = await notion.blocks.children.list({
+      block_id: e.id,
     });
+    const paragraphs = res.results
+      .filter((e: any) => e.type === "paragraph")
+      .map((e: any) => e.paragraph.rich_text[0].plain_text);
+    return paragraphs;
   });
-  cd = newData;
-  return newData;
-}
-export async function getDataFromNotionForce() {
-  console.log("force");
-  const notion = new Client({ auth: process.env.NOTION_SECRET });
-  const databaseId = process.env.NOTION_DB_ID as string;
-  const response = await notion.databases.query({
-    database_id: databaseId,
-  });
-  const res = response.results as MyType[];
-  const data = res.map((e) => e.properties);
-  const newData: MyData = {};
+  const texts = await Promise.all(getTextRes);
   data.forEach((e, index) => {
     const title = e.프로젝트.select.name ?? "undefined";
     if (!(title in newData)) {
@@ -123,7 +109,8 @@ export async function getDataFromNotionForce() {
       top: e.위치_top.number ?? 0,
       left: e.위치_left.number ?? 0,
       depth: e.뎁스.number ?? 3,
-      des: `${e.내용.rich_text[0].plain_text}`, //
+      des: `${e.내용.rich_text[0].plain_text}`,
+      texts: texts[index],
     });
   });
   cd = newData;

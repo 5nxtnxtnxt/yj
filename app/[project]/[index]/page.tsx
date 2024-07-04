@@ -1,3 +1,4 @@
+import NavigationBar from "@/components/navigationBar";
 import { getDataFromNotion } from "@/utils/notion";
 import Link from "next/link";
 export const dynamic = "force-dynamic";
@@ -12,5 +13,15 @@ export default async function a({
 
   const data = await getDataFromNotion();
 
-  return <Link href={"/"}>{data[project][index].des}</Link>;
+  return (
+    <div>
+      <NavigationBar data={data} />
+      <div className=" ml-48">
+        <Link href={"/"}>뒤로가기</Link>
+        {data[project][index].texts.map((e, index) => (
+          <h2 key={index}>{e}</h2>
+        ))}
+      </div>
+    </div>
+  );
 }
