@@ -19,7 +19,12 @@ export default async function a({
       <div className=" ml-48">
         <Link href={"/"}>뒤로가기</Link>
         {data[project][index].texts.map((e, index) => (
-          <h2 key={index}>{e}</h2>
+          <>
+            <h2 key={index} className=" whitespace-pre-line">
+              {e}
+            </h2>
+            <br />
+          </>
         ))}
       </div>
     </div>
