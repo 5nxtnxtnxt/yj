@@ -38,7 +38,7 @@ export default function BlurImages({ data }: { data: MyData }) {
                 src={e.thumbNailSrc}
                 className="group-hover:opacity-0 transition-opacity duration-200 ease-in w-full h-full object-cover group-hover:delay-200"
               />
-              <div className="grid grid-cols-2 grid-rows-5 bg-[rgb(241,242,234)] absolute top-0 left-0 size-full opacity-0 text-black  group-hover:opacity-80 transition-opacity duration-300 p-5 group-hover:delay-300">
+              <div className="grid grid-cols-2 grid-rows-5 bg-[rgb(241,242,234)] absolute top-0 left-0 size-full opacity-0 text-black  group-hover:opacity-80 transition-opacity duration-200 p-5 group-hover:delay-300">
                 <h3 className="col-span-1 col-start-1">{project}</h3>
                 <h4 className="col-span-1 col-start-2 text-right">{e.date}</h4>
                 <h3 className="col-span-2 text-2xl">{e.title}</h3>
