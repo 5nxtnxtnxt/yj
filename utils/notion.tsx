@@ -68,7 +68,11 @@ export interface MyData {
     left: number;
     width: number;
     des: string;
-    texts: string[];
+    data: (
+      | { type: "image"; url: string }
+      | { type: "text"; text: string[] }
+      | undefined
+    )[];
   }[];
 }
 export async function getDataFromNotion(forceUpdate: boolean = false) {
@@ -90,12 +94,24 @@ export async function getDataFromNotion(forceUpdate: boolean = false) {
     const res = await notion.blocks.children.list({
       block_id: e.id,
     });
-    const paragraphs = res.results
-      .filter((e: any) => e.type === "paragraph")
-      .map((e: any) => e.paragraph.rich_text[0].plain_text);
-    return paragraphs;
+    const paragraphs = res.results.map((e) => {
+      if (!("type" in e)) {
+        return;
+      }
+      const data = e as BlockObjectResponse;
+      if (data.type === "paragraph") {
+        return {
+          type: "text" as const,
+          text: data.paragraph.rich_text.map((e) => e.plain_text),
+        };
+      }
+      if (data.type === "image" && data.image.type === "file") {
+        return { type: "image" as const, url: data.image.file.url };
+      }
+    });
+    return paragraphs ? paragraphs : [];
   });
-  const texts = await Promise.all(getTextRes);
+  const BlockData = await Promise.all(getTextRes);
   data.forEach((e, index) => {
     const title = e.프로젝트.select.name ?? "undefined";
     if (!(title in newData)) {
@@ -110,7 +126,7 @@ export async function getDataFromNotion(forceUpdate: boolean = false) {
       left: e.위치_left.number ?? 0,
       depth: e.뎁스.number ?? 3,
       des: `${e.내용.rich_text[0].plain_text}`,
-      texts: texts[index],
+      data: BlockData[index],
     });
   });
   cd = newData;
