@@ -1,11 +1,18 @@
 import { MyData } from "@/utils/notion";
+import Link from "next/link";
 
-export default function NavigationBar({ data }: { data: MyData }) {
+interface NavProps extends React.ImgHTMLAttributes<HTMLDivElement> {
+  data: MyData;
+}
+
+export default function NavigationBar({ data, ...props }: NavProps) {
   const projects = Object.keys(data);
 
   return (
-    <div className="fixed flex flex-col z-40 gap-14 p-5">
-      <h1 className="text-2xl">예진으로부터</h1>
+    <div className={`flex flex-col z-40 gap-14 p-5 ${props.className}`}>
+      <Link href={"/"}>
+        <h1 className="text-2xl">예진으로부터</h1>
+      </Link>
       <div className="">
         {projects.map((project, index) => (
           <div key={index}>

@@ -2,7 +2,6 @@ import { Client } from "@notionhq/client";
 import {
   BlockObjectResponse,
   DatabaseObjectResponse,
-  PartialBlockObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 
 interface BlockType {

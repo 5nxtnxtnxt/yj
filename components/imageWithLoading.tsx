@@ -13,34 +13,12 @@ export default function ImageWithLoading({
 }: ImageWithLoadingProps) {
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const imgRef = useRef<HTMLImageElement>(null);
-  // const handle = (e: SyntheticEvent) => {
-  //   const target = e.target as HTMLElement;
-  //   const container = target.parentElement;
-  //   const top = parseInt(container?.style.top.split("%")[0] as string);
-  //   const left = parseInt(container?.style.left.split("%")[0] as string);
-  //   console.log(top, left);
-  //   container?.classList.add(
-  //     `${top > 50 ? "-translate-y-full" : "translate-y-full"}`,
-  //     `${left > 50 ? "-translate-x-full" : "translate-x-full"}`
-  //   );
-  //   target.style.opacity = "100%";
-  //   setIsLoad(true);
-  // };
   function onLoad() {
     if (isLoad) return;
     if (!imgRef.current) return;
     const img = imgRef.current;
     const container = img.parentElement;
     if (!container) return;
-    const top = parseInt(container?.style.top as string);
-    const left = parseInt(container?.style.left as string);
-    const width = parseInt(container?.style.width as string);
-    // container.classList.add(
-    //   `${top > 50 ? "-translate-y-full" : "translate-y-full"}`
-    // );
-    // container.classList.add(
-    //   `${left > 50 ? "-translate-x-full" : "translate-x-full"}`
-    // );
     setIsLoad(true);
   }
   useEffect(() => {

@@ -17,10 +17,10 @@ export default function BlurImages({ data }: { data: MyData }) {
     });
   });
   return (
-    <div className="overflow-y-scroll overflow-x-hidden w-screen h-screen relative border border-black">
+    <div className="overflow-y-scroll overflow-x-hidden w-screen h-screen relative ">
       {projects.map((project) =>
         data[project].map((e, index) => (
-          <Link href={`${project}/${index}`} key={`${index}+${project}`}>
+          <Link href={`${project}/${index}/0`} key={`${index}+${project}`}>
             <div
               style={positions[`${project}-${index}`]}
               className={`group hover:blur-none hover:shadow-xl shadow-black transition-all duration-200 absolute hover:z-40  ${
