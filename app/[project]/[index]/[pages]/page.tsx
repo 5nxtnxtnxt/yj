@@ -1,5 +1,6 @@
 import NavigationBar from "@/components/navigationBar";
 import { getDataFromNotion } from "@/utils/notion";
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -31,10 +32,11 @@ export default async function a({
               id="img-container"
               className="absolute w-full top-1/2 -translate-y-1/2 overflow-hidden flex justify-center"
             >
-              <img
+              <Image
                 src={left.url}
                 className="max-h-screen object-contain object-center"
-              ></img>
+                alt={left.type}
+              ></Image>
             </div>
           ) : (
             <div>
@@ -45,7 +47,7 @@ export default async function a({
         <div>
           {right?.type === "image" ? (
             <div className="w-1/2">
-              <img src={right.url}></img>
+              <Image src={right.url} alt="s"></Image>
             </div>
           ) : (
             <div>

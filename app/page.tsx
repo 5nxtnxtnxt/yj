@@ -8,8 +8,11 @@ export default async function Home() {
   return (
     <main className="">
       <Suspense fallback={<div>loading.....</div>}>
-        <div className="">
-          <NavigationBar data={data} className="fixed w-1/5" />
+        <div className="flex relative">
+          <NavigationBar
+            data={data}
+            className="w-60 border-r border-gray-500"
+          />
           <BlurImages data={data} />
         </div>
       </Suspense>

@@ -1,6 +1,7 @@
 "use client";
 
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 interface ImageWithLoadingProps
   extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -28,8 +29,10 @@ export default function ImageWithLoading({
   }, []);
   return (
     <>
-      <img
-        loading="eager"
+      <Image
+        width={1000}
+        height={1000}
+        alt=""
         onLoad={onLoad}
         src={src}
         ref={imgRef}

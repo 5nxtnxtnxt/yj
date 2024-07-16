@@ -9,7 +9,7 @@ export default function NavigationBar({ data, ...props }: NavProps) {
   const projects = Object.keys(data);
 
   return (
-    <div className={`flex flex-col z-40 gap-14 p-5 ${props.className}`}>
+    <div className={`flex flex-col z-50 gap-14 p-5 ${props.className}`}>
       <Link href={"/"}>
         <h1 className="text-2xl">예진으로부터</h1>
       </Link>
