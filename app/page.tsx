@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <main className="">
       <Suspense fallback={<div>loading.....</div>}>
-        <div className="flex relative">
+        <div className="flex relative w-screen h-screen">
           <NavigationBar
             data={data}
             className="w-60 border-r border-gray-500"

@@ -1,28 +1,32 @@
+"use client";
+
 import { MyData } from "@/utils/notion";
 import Link from "next/link";
 import ImageWithLoading from "./imageWithLoading";
+import { useState } from "react";
 
 export default function BlurImages({ data }: { data: MyData }) {
   const projects = Object.keys(data);
   const positions: any = {};
+  const [nowHover, setNowHover] = useState<number>();
   Object.keys(data).forEach((project) => {
     data[project].forEach(({ width, top, left }, index) => {
       const calcLeft = (1 - width) * left;
       positions[`${project}-${index}`] = {
         width: `${width * 100}%`,
-        top: `${top * 100}%`,
+        top: `calc(100vw * ${top})`,
         left: `${calcLeft * 100}%`,
       };
     });
   });
   return (
-    <div className="overflow-y-scroll overflow-x-hidden w-screen h-screen relative ">
+    <div className="overflow-x-hidden w-screen relative ">
       {projects.map((project) =>
         data[project].map((e, index) => (
           <Link href={`${project}/${index}/0`} key={`${index}+${project}`}>
             <div
               style={positions[`${project}-${index}`]}
-              className={`group hover:blur-none hover:shadow-xl shadow-black transition-all duration-200 absolute hover:z-40  ${
+              className={`group hover:blur-none hover:shadow-xl shadow-black transition-[filter,box-shadow] duration-200 absolute hover:z-40  ${
                 e.depth === 1
                   ? "blur-none z-30"
                   : e.depth === 2
@@ -32,6 +36,8 @@ export default function BlurImages({ data }: { data: MyData }) {
                   : "blur-[3px] -z-0"
               }
               `}
+              // onMouseEnter={console.log}
+              onMouseOver={console.log}
             >
               <ImageWithLoading
                 src={e.thumbNailSrc}
