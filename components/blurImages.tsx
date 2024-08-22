@@ -3,12 +3,13 @@
 import { MyData } from "@/utils/notion";
 import Link from "next/link";
 import ImageWithLoading from "./imageWithLoading";
-import { useState } from "react";
+import { CSSProperties, useRef, useState } from "react";
 
 export default function BlurImages({ data }: { data: MyData }) {
   const projects = Object.keys(data);
-  const positions: any = {};
-  const [nowHover, setNowHover] = useState<number>();
+  const positions: { [key: string]: CSSProperties } = {};
+  const [nowHover, setNowHover] = useState<string>("");
+  let maxWidth = 200;
   Object.keys(data).forEach((project) => {
     data[project].forEach(({ width, top, left }, index) => {
       const calcLeft = (1 - width) * left;
@@ -16,17 +17,39 @@ export default function BlurImages({ data }: { data: MyData }) {
         width: `${width * 100}%`,
         top: `calc(100vw * ${top})`,
         left: `${calcLeft * 100}%`,
+        marginLeft: `10%`,
+        marginTop: `-20%`,
       };
     });
   });
+  const onMouseEnter = (nowPost: string) => {
+    setNowHover(nowPost);
+  };
+  const onMouseOut = () => {
+    setNowHover("");
+  };
   return (
-    <div className="overflow-x-hidden w-screen relative ">
+    <div className="overflow-x-hidden w-full relative overflow-y-scroll">
       {projects.map((project) =>
         data[project].map((e, index) => (
           <Link href={`${project}/${index}/0`} key={`${index}+${project}`}>
             <div
-              style={positions[`${project}-${index}`]}
-              className={`group hover:blur-none hover:shadow-xl shadow-black transition-[filter,box-shadow] duration-200 absolute hover:z-40  ${
+              style={{
+                width: positions[`${project}-${index}`].width,
+                top: positions[`${project}-${index}`].top,
+                left: positions[`${project}-${index}`].left,
+                marginLeft:
+                  nowHover !== "" && nowHover !== `${project}-${index}`
+                    ? positions[`${project}-${index}`].marginLeft
+                    : "",
+                marginTop:
+                  nowHover !== "" && nowHover !== `${project}-${index}`
+                    ? positions[`${project}-${index}`].marginTop
+                    : "",
+              }}
+              className={` shadow-black absolute transition-[margin-left,margin-top] duration-[800ms] ease-in-out   ${
+                nowHover === `${project}-${index}` && "z-50 blur-none"
+              }  ${
                 e.depth === 1
                   ? "blur-none z-30"
                   : e.depth === 2
@@ -34,16 +57,15 @@ export default function BlurImages({ data }: { data: MyData }) {
                   : e.depth === 3
                   ? "blur-[2px] z-10"
                   : "blur-[3px] -z-0"
-              }
-              `}
-              // onMouseEnter={console.log}
-              onMouseOver={console.log}
+              }`}
+              onMouseEnter={() => onMouseEnter(`${project}-${index}`)}
+              onMouseOut={() => onMouseOut()}
             >
               <ImageWithLoading
                 src={e.thumbNailSrc}
-                className="group-hover:opacity-0 transition-opacity duration-200 ease-in w-full h-full object-cover group-hover:delay-200"
+                className="pointer-events-none"
               />
-              <div className="grid grid-cols-2 grid-rows-5 bg-[rgb(241,242,234)] absolute top-0 left-0 size-full opacity-0 text-black  group-hover:opacity-80 transition-opacity duration-200 group-hover:delay-300 p-3 gap-3">
+              <div className="grid grid-cols-2 grid-rows-5 bg-[rgb(241,242,234)] absolute top-0 left-0 size-full opacity-0 text-black p-3 gap-3 pointer-events-none">
                 <h3 className="col-span-1 col-start-1 text-ellipsis text-nowrap overflow-hidden">
                   {project}
                 </h3>
