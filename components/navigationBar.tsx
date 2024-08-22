@@ -1,31 +1,32 @@
-import { MyData } from "@/utils/notion";
 import Link from "next/link";
+import { Project } from "@/firebase/firestoreTypes.d";
+import { useEffect } from "react";
 
-interface NavProps extends React.ImgHTMLAttributes<HTMLDivElement> {
-  data: MyData;
-}
-
-export default function NavigationBar({ data, ...props }: NavProps) {
-  const projects = Object.keys(data);
-
+export default function NavigationBar({ data }: { data: Project[] }) {
   return (
-    <div className={`flex flex-col z-50 gap-14 p-5 ${props.className}`}>
-      <Link href={"/"}>
-        <h1 className="text-2xl">예진으로부터</h1>
-      </Link>
-      <div className="">
-        {projects.map((project, index) => (
-          <div key={index}>
-            <h2 className="text-base">{project}</h2>
-            {/* <ul>
-              {data[project].map((e, index) => (
-                <li key={index} className="text-sm">
-                  {e.title}
-                </li>
-              ))}
-            </ul> */}
-          </div>
-        ))}
+    <div className="w-80 h-screen border-r border-black fixed">
+      <div className="flex flex-col items-center border-b border-black h-40 justify-center">
+        <h1 className="text-4xl">예진으로부터</h1>
+        <h3 className="text-2xl">fromfor.hyunye</h3>
+      </div>
+      <div className="flex flex-col p-10 gap-10">
+        {data.map((project, index) => {
+          return (
+            <div key={index}>
+              <h2 className="text-xl">{project.title}</h2>
+              {project.essays.map((essay) => {
+                return (
+                  <h3
+                    key={`${project.title}${index}`}
+                    className="text-base ml-10"
+                  >
+                    {essay.title}
+                  </h3>
+                );
+              })}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

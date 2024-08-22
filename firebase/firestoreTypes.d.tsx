@@ -1,23 +1,22 @@
-import { Timestamp } from "firebase/firestore";
-
 interface EssayBase {
   layout: 0 | 1 | 2;
   title: string;
   order: number;
-  date: Timestamp;
+  date: { seconds: number; nanoseconds: number };
   thumbnail: string;
-  marginTop: number;
-  marginLeft: number;
+  top: number;
+  left: number;
   depth: number;
   width: number;
+  onMain: boolean;
 }
-interface EssayLayout0 {
+interface EssayLayout0 extends EssayBase {
   layout: 0;
   contents:
     | { page: number; type: "image"; imageURL: string }
     | { page: number; type: "text"; text: string }[];
 }
-interface EssayLayout1 {
+interface EssayLayout1 extends EssayBase {
   layout: 1;
   backgroundURL: string;
   contents: string;

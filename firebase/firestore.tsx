@@ -4,11 +4,12 @@ import { Project } from "@/firebase/firestoreTypes.d";
 
 let myData: Project[] | undefined;
 
-export async function getProjectData(force: boolean = false) {
-  if (myData) return myData;
-
+export async function getProjectData(
+  force: boolean = false
+): Promise<Project[]> {
+  if (myData && !force) return myData;
   const fireStore = getFirestore(firebasedb);
-  if (!fireStore) return;
+  if (!fireStore) return [];
   const data = await getDocs(collection(fireStore, "project"));
 
   myData = [];
