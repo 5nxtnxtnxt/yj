@@ -14,7 +14,14 @@ export async function getProjectData(
 
   myData = [];
   data.forEach((e) => {
-    myData!.push(e.data() as Project);
+    const nowData = e.data() as Project;
+    nowData.essays.forEach((essay) => {
+      essay.date = {
+        seconds: essay.date.seconds,
+        nanoseconds: essay.date.nanoseconds,
+      };
+    });
+    myData!.push(nowData);
   });
   return myData;
 }
