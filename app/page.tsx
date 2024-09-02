@@ -5,9 +5,9 @@ import { getProjectData } from "@/firebase/firestore";
 export default async function Home() {
   const data = await getProjectData(true);
   return (
-    <main className="relative w-screen">
+    <main className="">
       <NavigationBar data={data}></NavigationBar>
-      <div className="ml-80">
+      <div className="ml-80 overflow-x-hidden">
         <ImageSection data={data} />
       </div>
     </main>
