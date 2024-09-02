@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Project } from "@/firebase/firestoreTypes.d";
-import { useEffect } from "react";
 
 export default function NavigationBar({ data }: { data: Project[] }) {
   return (

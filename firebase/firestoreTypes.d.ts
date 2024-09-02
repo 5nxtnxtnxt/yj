@@ -9,21 +9,21 @@ interface EssayBase {
   depth: number;
   width: number;
   onMain: boolean;
+  contents: EssayContent[];
 }
+export type EssayContent =
+  | { type: "image"; imageURL: string }
+  | { type: "text"; text: string };
 interface EssayLayout0 extends EssayBase {
   layout: 0;
-  contents:
-    | { page: number; type: "image"; imageURL: string }
-    | { page: number; type: "text"; text: string }[];
 }
 interface EssayLayout1 extends EssayBase {
   layout: 1;
   backgroundURL: string;
-  contents: string;
   link: string;
   linkText: string;
 }
-type Essay = EssayLayout0 | EssayLayout1;
+export type Essay = EssayLayout0 | EssayLayout1;
 export interface Project {
   title: string;
   infoTitle: string;
