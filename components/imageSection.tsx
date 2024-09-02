@@ -23,7 +23,20 @@ export default function ImageSection({ data }: { data: Project[] }) {
                   width: `${essay.width}%`,
                   left: `${essay.left}%`,
                 }}
-                className={`absolute shadow-xl transition-all duration-200   ${
+                className={`absolute shadow-xl transition-all duration-200 
+                  ${
+                    essay.depth === 0
+                      ? "blur-none"
+                      : essay.depth === 1
+                      ? "blur-sm"
+                      : essay.depth === 2
+                      ? "blur"
+                      : "blur-md"
+                  }
+                  ${
+                    nowHover === `${project.title}-${essay.title}` &&
+                    "blur-none"
+                  } ${
                   nowHover !== "" &&
                   nowHover !== `${project.title}-${essay.title}` &&
                   `scale-90 ${

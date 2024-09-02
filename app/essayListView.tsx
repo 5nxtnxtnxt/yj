@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function EssayListView({ data }: { data: Project[] }) {
   const [page, setPage] = useState(1);
-  const ESSAY_PER_PAGE = 7;
+  const ESSAY_PER_PAGE = 1;
   console.log(page);
   const essayList = data
     .map((project) =>
@@ -31,7 +31,7 @@ export default function EssayListView({ data }: { data: Project[] }) {
           <div
             key={index}
             className={`grid grid-cols-5 p-3 border-b border-black  ${
-              index < essayList.length - 1 && "border-dashed"
+              index < nowList.length - 1 && "border-dashed"
             }`}
           >
             <h3>{essay.projectTitle}</h3>
@@ -43,7 +43,7 @@ export default function EssayListView({ data }: { data: Project[] }) {
       })}
       <div className="h-40 flex items-center justify-center">
         {essayList.length > page * ESSAY_PER_PAGE ? (
-          <h3 className="" onClick={() => setPage(page + 1)}>
+          <h3 className=" cursor-pointer" onClick={() => setPage(page + 1)}>
             ↓ LOAD MORE ↓
           </h3>
         ) : (

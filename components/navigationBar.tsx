@@ -14,15 +14,18 @@ export default function NavigationBar({ data }: { data: Project[] }) {
         {data.map((project, index) => {
           return (
             <div key={index}>
-              <h2 className="text-xl">{project.title}</h2>
+              <Link href={`/project/${project.title}`} className="text-xl">
+                {project.title}
+              </Link>
               {project.essays.map((essay) => {
                 return (
-                  <h3
+                  <Link
                     key={`${project.title}${index}`}
-                    className="text-base ml-10"
+                    className="text-base ml-10 block"
+                    href={`/essay/${project.title}/${essay.title}/0`}
                   >
                     {essay.title}
-                  </h3>
+                  </Link>
                 );
               })}
             </div>
