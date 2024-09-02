@@ -16,8 +16,16 @@ const layout0 = ({ data, page }: { data: Essay; page: number }) => {
       : undefined;
   const TextPage = ({ index }: { index: number }) => {
     return (
-      <div className="size-full overflow-y-scroll">
-        {data.contents[index].type == "text" && data.contents[index].text}
+      <div className="size-full overflow-y-scroll flex flex-col gap-10">
+        {data.contents.findIndex((e) => e.type === "text") === index && (
+          <h1 className="text-2xl ">{data.title}</h1>
+        )}
+
+        {data.contents[index].type == "text" && (
+          <h5 className=" whitespace-pre-line">
+            {data.contents[index].text.join("\n\n")}
+          </h5>
+        )}
       </div>
     );
   };
@@ -47,6 +55,7 @@ const layout0 = ({ data, page }: { data: Essay; page: number }) => {
         ) : (
           <TextPage index={page * 2} />
         )}
+        <h6 className="text-center">{page * 2 + 1}</h6>
       </div>
       <div className="size-full relative p-10">
         {rightSide === undefined ? (
@@ -56,6 +65,7 @@ const layout0 = ({ data, page }: { data: Essay; page: number }) => {
         ) : (
           <TextPage index={page * 2 + 1} />
         )}
+        {rightSide && <h6 className="text-center">{page * 2 + 2}</h6>}
       </div>
     </div>
   );

@@ -4,10 +4,12 @@ import { Project } from "@/firebase/firestoreTypes.d";
 export default function NavigationBar({ data }: { data: Project[] }) {
   return (
     <div className="w-80 h-screen border-r border-black fixed">
-      <div className="flex flex-col items-center border-b border-black h-40 justify-center">
-        <h1 className="text-4xl">예진으로부터</h1>
-        <h3 className="text-2xl">fromfor.hyunye</h3>
-      </div>
+      <Link href={"/"}>
+        <div className="flex flex-col items-center border-b border-black h-40 justify-center">
+          <h1 className="text-4xl">예진으로부터</h1>
+          <h3 className="text-2xl">fromfor.hyunye</h3>
+        </div>
+      </Link>
       <div className="flex flex-col p-10 gap-10">
         {data.map((project, index) => {
           return (

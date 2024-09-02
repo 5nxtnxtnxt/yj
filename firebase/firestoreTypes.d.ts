@@ -13,7 +13,7 @@ interface EssayBase {
 }
 export type EssayContent =
   | { type: "image"; imageURL: string }
-  | { type: "text"; text: string };
+  | { type: "text"; text: string[] };
 interface EssayLayout0 extends EssayBase {
   layout: 0;
 }
