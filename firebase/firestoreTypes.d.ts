@@ -27,7 +27,7 @@ export type Essay = EssayLayout0 | EssayLayout1;
 export interface Project {
   title: string;
   infoTitle: string;
-  infoContent: string;
+  infoContent: string[];
   categoryOpened: boolean;
   order: number;
   visible: true;
