@@ -1,6 +1,7 @@
 "use client";
 
 import { Project } from "@/firebase/firestoreTypes";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function EssayListView({ data }: { data: Project[] }) {
@@ -12,7 +13,7 @@ export default function EssayListView({ data }: { data: Project[] }) {
       project.essays.map((essay) => ({ ...essay, projectTitle: project.title }))
     )
     .flat()
-    .sort((a, b) => a.date.nanoseconds - b.date.nanoseconds);
+    .sort((a, b) => b.date.seconds - a.date.seconds);
   const nowList = essayList.slice(0, page * ESSAY_PER_PAGE);
   return (
     <div className="flex flex-col">
@@ -24,21 +25,26 @@ export default function EssayListView({ data }: { data: Project[] }) {
       </div>
       {nowList.map((essay, index) => {
         const nowDate = new Date(essay.date.seconds * 1000);
-        const dateString = `${nowDate.getFullYear()}.${
-          nowDate.getMonth() + 1
-        }.${nowDate.getDate()}`;
+        const dateString = `${nowDate.getFullYear()}.${(nowDate.getMonth() + 1)
+          .toString()
+          .padStart(2, "0")}.${nowDate.getDate().toString().padStart(2, "0")}`;
+
         return (
-          <div
+          <Link
             key={index}
-            className={`grid grid-cols-5 p-3 border-b border-black  ${
-              index < nowList.length - 1 && "border-dashed"
-            }`}
+            href={`/essay/${essay.projectTitle}/${essay.title}/0`}
           >
-            <h3>{essay.projectTitle}</h3>
-            <h2 className="col-span-2">{essay.title}</h2>
-            <h4>단편</h4>
-            <h3>{dateString}</h3>
-          </div>
+            <div
+              className={`grid grid-cols-5 p-3 border-b border-black  ${
+                index < nowList.length - 1 && "border-dashed"
+              }`}
+            >
+              <h3>{essay.projectTitle}</h3>
+              <h2 className="col-span-2">{essay.title}</h2>
+              <h4>단편</h4>
+              <h3>{dateString}</h3>
+            </div>
+          </Link>
         );
       })}
       <div className="h-40 flex items-center justify-center">

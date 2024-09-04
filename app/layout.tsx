@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Info from "@/components/info";
 
 export const metadata: Metadata = {
   title: "예진으로부터",
@@ -16,7 +17,10 @@ export default function RootLayout({
       lang="en"
       className="text-[8px] sm:text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px]"
     >
-      <body>{children}</body>
+      <body>
+        <Info></Info>
+        {children}
+      </body>
     </html>
   );
 }

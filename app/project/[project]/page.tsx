@@ -2,6 +2,7 @@ import NavigationBar from "@/components/navigationBar";
 import { getProjectData } from "@/firebase/firestore";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import ProjectGridView from "./projectGridView";
 
 export default async function a({ params }: { params: { project: string } }) {
   const projectTitle = decodeURIComponent(params.project);
@@ -11,15 +12,16 @@ export default async function a({ params }: { params: { project: string } }) {
 
   if (!nowData) redirect("/error");
   return (
-    <div className="w-screen  h-screen">
+    <div className="w-screen  h-screen overflow-x-hidden">
       <NavigationBar data={data}></NavigationBar>
       <div className="ml-80 relative flex flex-col">
-        <div className="w-full aspect-[2/1] border-b border-black flex flex-col justify-center items-center gap-6">
+        <div className="w-full h-[50rem] border-b border-black flex flex-col justify-center items-center gap-6">
           <h1 className="text-7xl">{nowData.infoTitle}</h1>
           <h4 className=" whitespace-pre-line text-center">
             {nowData.infoContent.join("\n")}
           </h4>
         </div>
+        <ProjectGridView data={nowData}></ProjectGridView>
       </div>
     </div>
   );

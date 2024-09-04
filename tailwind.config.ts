@@ -10,6 +10,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "bg-white": "#EFEEEB",
+      },
       fontFamily: {
         sans: ['"Gowun Dodum"', ...defaultTheme.fontFamily.sans],
       },
