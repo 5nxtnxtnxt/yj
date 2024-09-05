@@ -1,4 +1,4 @@
-import firebasedb from "./firebasedb";
+import firebaseApp from "./firebase";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
 import { Project } from "@/firebase/firestoreTypes.d";
 
@@ -8,7 +8,7 @@ export async function getProjectData(
   force: boolean = false
 ): Promise<Project[]> {
   if (myData && !force) return myData;
-  const fireStore = getFirestore(firebasedb);
+  const fireStore = getFirestore(firebaseApp);
   if (!fireStore) return [];
   const data = await getDocs(collection(fireStore, "project"));
 
