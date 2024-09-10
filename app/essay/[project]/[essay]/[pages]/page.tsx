@@ -1,7 +1,7 @@
 import NavigationBar from "@/components/navigationBar";
 import { getProjectData } from "@/firebase/firestore";
 import { redirect } from "next/navigation";
-import EssayView from "./essay";
+import EssayView from "@/components/essay";
 import Link from "next/link";
 
 export default async function a({

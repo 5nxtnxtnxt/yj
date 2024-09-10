@@ -11,16 +11,16 @@ export default function NavigationBar({ data }: { data: Project[] }) {
         </div>
       </Link>
       <div className="flex flex-col p-10 gap-10">
-        {data.map((project, index) => {
+        {data.map((project, indexP) => {
           return (
-            <div key={index}>
+            <div key={indexP}>
               <Link href={`/project/${project.title}`} className="text-xl">
                 {project.title}
               </Link>
-              {project.essays.map((essay) => {
+              {project.essays.map((essay, indexE) => {
                 return (
                   <Link
-                    key={`${project.title}${index}`}
+                    key={`${project.title}${indexE}`}
                     className="text-base ml-10 block"
                     href={`/essay/${project.title}/${essay.title}/0`}
                   >

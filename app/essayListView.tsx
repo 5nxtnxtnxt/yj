@@ -31,7 +31,7 @@ export default function EssayListView({ data }: { data: Project[] }) {
 
         return (
           <Link
-            key={index}
+            key={essay.title + index}
             href={`/essay/${essay.projectTitle}/${essay.title}/0`}
           >
             <div

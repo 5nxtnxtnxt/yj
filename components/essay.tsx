@@ -1,7 +1,6 @@
 import { Essay, EssayContent } from "@/firebase/firestoreTypes";
 import { redirect } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 
 const EssayView = ({ data, page }: { data: Essay; page: number }) => {
   const layout = [layout0, layout1];

@@ -2,15 +2,17 @@
 
 import { isLoggedIn } from "@/firebase/auth";
 import { useRouter } from "next/navigation";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const [nowLoggedIn, setNowLoggedIn] = useState(false);
 
   useEffect(() => {
     const checkLoggedIn = async () => {
       const loggedIn = await isLoggedIn();
-      if (loggedIn === false) router.push("/admin/signIn");
+      if (loggedIn === false) router.push("/signin");
+      else setNowLoggedIn(true);
     };
     checkLoggedIn();
   }, [router]);

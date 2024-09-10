@@ -1,5 +1,5 @@
-interface EssayBase {
-  layout: 0 | 1 | 2;
+export type Essay = {
+  layout: 0 | 1;
   title: string;
   order: number;
   date: { seconds: number; nanoseconds: number };
@@ -9,22 +9,28 @@ interface EssayBase {
   depth: number;
   width: number;
   onMain: boolean;
+  description: string[];
   contents: EssayContent[];
-}
-export type EssayContent =
-  | { type: "image"; imageURL: string }
-  | { type: "text"; text: string[] };
-interface EssayLayout0 extends EssayBase {
-  layout: 0;
-}
-interface EssayLayout1 extends EssayBase {
-  layout: 1;
   backgroundURL: string;
   link: string;
+
   linkText: string;
-}
-export type Essay = EssayLayout0 | EssayLayout1;
+};
+export type EssayContent =
+  | { type: "image"; imageURL: string }
+  | { type: "text"; text: string[] }
+  | Series;
+export type Series = {
+  type: "series";
+  imageURL: string;
+  title: string;
+  date: { seconds: number };
+  order: number;
+  text: string[];
+  link: string;
+};
 export interface Project {
+  isSeries: boolean;
   title: string;
   infoTitle: string;
   infoContent: string[];
