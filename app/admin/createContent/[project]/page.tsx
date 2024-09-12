@@ -5,7 +5,7 @@ import ImageSection from "@/components/imageSection";
 import { getProjectData } from "@/firebase/firestore";
 import { Essay, Project } from "@/firebase/firestoreTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form, useForm } from "react-hook-form";
 import * as z from "zod";
 import WriteArea from "./writeArea";
@@ -22,28 +22,30 @@ export const EssayContentSchema = z.union([
   }),
   z.object({
     type: z.literal("series"),
-    imageURL: z.string(),
-    title: z.string(),
-    date: z.object({ seconds: z.number() }),
+    imageURL: z.string().min(1, "이미지를 선택해주세요"),
+    title: z.string().min(1, "제목을 입력해주세요"),
+    date: z.string().min(1, "날짜를 입력해주세요"),
     order: z.number(),
     text: z.array(z.string()),
     link: z.string(),
   }),
 ]);
-
 // EssayBase 스키마 정의
 export const EssaySchema = z.object({
   layout: z.union([z.literal(0), z.literal(1), z.literal(2)]),
-  title: z.string(),
+  title: z.string().min(1),
   order: z.number(),
-  date: z.string(),
-  thumbnail: z.string(),
+  date: z.string().min(1),
+  thumbnail: z.instanceof(File, { message: "썸네일파일을 선택해주세요" }),
   top: z.number(),
   left: z.number(),
   depth: z.number(),
   width: z.number(),
   onMain: z.boolean(),
-  contents: z.array(EssayContentSchema),
+  description: z.array(z.string()),
+  contents: z
+    .array(EssayContentSchema)
+    .min(1, { message: "하나이상 작성해주세요" }),
   backgroundURL: z.string(),
   link: z.string(),
   linkText: z.string(),
@@ -72,39 +74,29 @@ export default function CreateContent({
     resolver: zodResolver(EssaySchema),
     defaultValues: {
       layout: 0,
-      title: "",
       order: 0,
-      date: "2024-01-01",
-      thumbnail: "",
       top: 0,
       left: 0,
       depth: 0,
       width: 0,
       onMain: false,
-      contents: [
-        {
-          type: "text",
-          text: [""],
-        },
-      ],
-      backgroundURL: "",
-      link: "",
-      linkText: "",
+      contents: [],
     },
   });
   useEffect(() => {
     if (projectData?.isSeries) {
       setNowLayout(2);
       form.setValue("layout", 2);
-      form.setValue("contents", [
-        { type: "text", text: ["여기가 설명부분일듯"] },
-      ]);
+      form.setValue("link", "");
+      form.setValue("linkText", "");
+      form.setValue("backgroundURL", "");
     }
   }, [projectData]);
   const onSubmit = (values: z.infer<typeof EssaySchema>) => {
+    console.log("SUBMIT!!");
     console.log(values);
   };
-  console.log(projectData);
+
   if (projectData === undefined) return <div>loading...</div>;
   return (
     <div>
@@ -142,11 +134,28 @@ export default function CreateContent({
           )}
           <label htmlFor="title">title</label>
           <input type="text" id="title" {...form.register("title")} />
+          <h3 className="text-red-500">
+            {form.formState.errors.title?.message}
+          </h3>
           <label htmlFor="date">date</label>
           <input type="date" {...form.register("date")} />
+          <h3 className="text-red-500">
+            {form.formState.errors.date?.message}
+          </h3>
           <label htmlFor="thumbnail">thumbnail</label>
-          <input type="file" />
-
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const nowSelected = e.target.files?.item(0);
+              if (!nowSelected) return;
+              form.setValue("thumbnail", nowSelected);
+              form.trigger("thumbnail");
+            }}
+          />
+          <h3 className="text-red-500">
+            {form.formState.errors.thumbnail?.message}
+          </h3>
           <div>
             <label htmlFor="onMain">onMain</label>
             <input
@@ -157,7 +166,6 @@ export default function CreateContent({
               }}
             />
           </div>
-
           <div className={`${!onMain && "opacity-50 pointer-events-none"}`}>
             <label htmlFor="top">top</label>
             <input
@@ -187,6 +195,7 @@ export default function CreateContent({
           </div>
           {/* <ImageSection data={data}></ImageSection> */}
           {/* <EssayView></EssayView> */}
+
           <div className="flex justify-center">
             <button
               type="submit"

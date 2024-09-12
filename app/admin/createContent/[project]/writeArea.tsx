@@ -1,8 +1,9 @@
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { EssaySchema } from "./page";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EssayContent } from "@/firebase/firestoreTypes";
+import WriteSeries from "./writeSeries";
 
 export default function WriteArea({
   layout,
@@ -11,30 +12,25 @@ export default function WriteArea({
   layout: number;
   form: UseFormReturn<z.infer<typeof EssaySchema>>;
 }) {
-  const [nowPage, setNowPage] = useState(1);
-  const [editable, setEditable] = useState<boolean[]>([true]);
-  useEffect(() => {
-    if (editable.length < nowPage) {
-      setEditable([...editable, true]);
-    }
-  }, [nowPage]);
+  const [nowPage, setNowPage] = useState(0);
+  const [pageElements, setPageElements] = useState<JSX.Element[]>([]);
+  console.log("render", pageElements);
 
-  const saveClick = (index: number) => {
-    const edit = [...editable];
-    edit[index] = !edit[index];
-    const newContents = form.getValues("contents");
-    if (layout === 2) {
-      newContents[index + 1];
-    }
-
-    setEditable(edit);
-  };
   const deletePage = () => {
-    const newEdit = [...editable];
-    newEdit.pop();
-    setEditable(newEdit);
     setNowPage(nowPage - 1);
+    const newPageElements = [...pageElements];
+    newPageElements.pop();
+    setPageElements(newPageElements);
   };
+  const addPage = () => {
+    setNowPage(nowPage + 1);
+    const newPageElements = [...pageElements];
+    if (newPageElements.length < nowPage + 1) {
+      newPageElements.push(<WriteSeries index={nowPage} form={form} />);
+    }
+    setPageElements(newPageElements);
+  };
+
   if (layout === 2)
     return (
       <div>
@@ -43,56 +39,30 @@ export default function WriteArea({
           className="w-full"
           name="info"
           onChange={(e) => {
-            const origin = form.getValues("contents");
-            if (origin[0].type === "text")
-              origin[0].text = e.currentTarget.value.split("\n");
-            form.setValue("contents", origin);
+            form.setValue("description", e.currentTarget.value.split("\n"));
           }}
         />
-        {Array.from({ length: nowPage }).map((_, index) => {
-          return (
-            <div
-              key={index}
-              className={`py-6 border-b  border-black flex flex-col gap-3 ${
-                editable[index] === false && "pointer-events-none opacity-50"
-              }`}
-            >
-              <div className="flex w-full gap-2">
-                <h3>title:</h3> <input className="w-full" type="text" />
-              </div>
-              <div className="flex w-full gap-2">
-                <h3>date:</h3> <input className="w-full" type="date" />
-                <h3>link:</h3> <input className="w-full" type="text" />
-              </div>
-              <div>
-                image: <input type="file" name="" id="" />
-              </div>
-              본문 <textarea className="w-full h-48" />
-              <div className="flex justify-evenly pointer-events-auto">
-                <button
-                  className=" "
-                  onClick={() => {
-                    saveClick(index);
-                  }}
-                >
-                  {editable[index] ? "추가" : "수정"}
-                </button>
-              </div>
-            </div>
-          );
-        })}
+        <h3 className="text-red-500">
+          {form.formState.errors.description?.message}
+        </h3>
 
-        {/* <button type="button" onClick={() => setNowPage(nowPage + 1)}>
-          +
-        </button>
+        <h3>contents</h3>
+        <h3 className="text-red-500">
+          {form.formState.errors.contents?.message}
+        </h3>
+        {pageElements.map((addSeriesDiv, index) => (
+          <div key={index} className="border-t border-black p-5">
+            {addSeriesDiv}
+          </div>
+        ))}
         <button
           type="button"
-          onClick={() => {
-            deletePage();
-          }}
+          onClick={addPage}
+          className="text-3xl border rounded-md border-black h-10 w-full border-dashed"
         >
-          -
-        </button> */}
+          +
+        </button>
+        <button onClick={() => deletePage()}>삭제</button>
       </div>
     );
 

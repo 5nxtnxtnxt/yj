@@ -8,7 +8,7 @@ export default function Info() {
 
   return (
     <>
-      {opened || (
+      {opened  || (
         <Image
           src="/민들레.png"
           alt="infoIcon"

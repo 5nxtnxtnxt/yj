@@ -16,5 +16,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     };
     checkLoggedIn();
   }, [router]);
-  return <div className="h-screen w-screen bg-bg-white">{children}</div>;
+  return (
+    <div className="h-screen w-screen bg-bg-white">
+      {nowLoggedIn && children}
+    </div>
+  );
 }
