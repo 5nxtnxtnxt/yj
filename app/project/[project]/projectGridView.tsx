@@ -40,7 +40,7 @@ export default function ProjectGridView({ data }: { data: Project }) {
                   </h4>
                   <Link
                     className="border-t border-black border-dotted text-center pt-3"
-                    href={`/essay/${data.title}/${essay.title}/0`}
+                    href={`/project/${data.title}/${essay.title}/0`}
                   >
                     READ MORE
                   </Link>

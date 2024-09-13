@@ -8,12 +8,9 @@ export const dynamic = "force-dynamic";
 export default async function Home() {
   const data = await getProjectData(true);
   return (
-    <main className="">
-      <NavigationBar data={data}></NavigationBar>
-      <div className="ml-80 overflow-x-hidden">
-        <ImageSection data={data} />
-        <EssayListView data={data} />
-      </div>
-    </main>
+    <div className="w-full">
+      <ImageSection data={data} />
+      <EssayListView data={data} />
+    </div>
   );
 }

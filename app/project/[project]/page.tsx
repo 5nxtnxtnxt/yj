@@ -12,17 +12,14 @@ export default async function a({ params }: { params: { project: string } }) {
 
   if (!nowData) redirect("/error");
   return (
-    <div className="w-screen  h-screen overflow-x-hidden">
-      <NavigationBar data={data}></NavigationBar>
-      <div className="ml-80 relative flex flex-col">
-        <div className="w-full h-[50rem] border-b border-black flex flex-col justify-center items-center gap-6">
-          <h1 className="text-7xl">{nowData.infoTitle}</h1>
-          <h4 className=" whitespace-pre-line text-center">
-            {nowData.infoContent}
-          </h4>
-        </div>
-        <ProjectGridView data={nowData}></ProjectGridView>
+    <div className=" flex flex-col">
+      <div className="w-full h-[50rem] border-b border-black flex flex-col justify-center items-center gap-6">
+        <h1 className="text-7xl">{nowData.infoTitle}</h1>
+        <h4 className=" whitespace-pre-line text-center">
+          {nowData.infoContent}
+        </h4>
       </div>
+      <ProjectGridView data={nowData}></ProjectGridView>
     </div>
   );
 }

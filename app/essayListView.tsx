@@ -49,27 +49,32 @@ export default function EssayListView({ data }: { data: YJData }) {
   const nowList = essays.slice(0, page * ESSAY_PER_PAGE);
   return (
     <div className="flex flex-col">
-      <div className="grid grid-cols-5 border-t p-4 border-b border-black ">
-        <h2>CATEGORY</h2>
+      <div
+        className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-y border-black
+              }`}
+      >
+        <h3 className="hidden md:inline-block">CATEGORY</h3>
         <h2 className="col-span-2">TITLE</h2>
-        <h2>TYPE</h2>
-        <h2>DATE</h2>
+        <h4 className="hidden md:inline-block text-right">TYPE</h4>
+
+        <h3 className="text-right">DATE</h3>
       </div>
       {nowList.map((essay, index) => {
         return (
           <Link
             key={essay.title + index}
-            href={`/essay/${essay.request}/${essay.title}/0`}
+            href={`/project/${essay.request}/${essay.title}/0`}
           >
             <div
-              className={`grid grid-cols-5 p-3 border-b border-black  ${
+              className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-b border-black  ${
                 index < nowList.length - 1 && "border-dashed"
               }`}
             >
-              <h3>{essay.request}</h3>
+              <h3 className="hidden md:inline-block">{essay.request}</h3>
               <h2 className="col-span-2">{essay.title}</h2>
-              <h4>단편</h4>
-              <h3>{essay.date}</h3>
+              <h4 className="hidden md:inline-block text-right">단편</h4>
+
+              <h3 className="text-right">{essay.date}</h3>
             </div>
           </Link>
         );

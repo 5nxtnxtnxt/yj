@@ -23,26 +23,20 @@ export default async function a({
   }
   console.log(nowData);
   return (
-    <div className="w-screen  h-screen">
-      <NavigationBar data={data}></NavigationBar>
-      <div className="ml-80 relative h-full">
-        {page > 0 && (
-          <Link className="absolute top-1/2 left-0 z-50" href={`./${page - 1}`}>
-            {"<"}
-          </Link>
-        )}
+    <div className="h-full">
+      {page > 0 && (
+        <Link className="absolute top-1/2 left-0 z-50" href={`./${page - 1}`}>
+          {"<"}
+        </Link>
+      )}
 
-        <EssayView data={nowData} page={page}></EssayView>
+      <EssayView data={nowData} page={page}></EssayView>
 
-        {page < nowData.contents.length / 2 - 1 && (
-          <Link
-            className="absolute top-1/2 right-0 z-50"
-            href={`./${page + 1}`}
-          >
-            {">"}
-          </Link>
-        )}
-      </div>
+      {page < nowData.contents.length / 2 - 1 && (
+        <Link className="absolute top-1/2 right-0 z-50" href={`./${page + 1}`}>
+          {">"}
+        </Link>
+      )}
     </div>
   );
 }
