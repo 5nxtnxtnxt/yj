@@ -13,7 +13,7 @@ export default function EssayListView({ data }: { data: Project[] }) {
       project.essays.map((essay) => ({ ...essay, projectTitle: project.title }))
     )
     .flat()
-    .sort((a, b) => b.date.seconds - a.date.seconds);
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
   const nowList = essayList.slice(0, page * ESSAY_PER_PAGE);
   return (
     <div className="flex flex-col">
@@ -24,11 +24,6 @@ export default function EssayListView({ data }: { data: Project[] }) {
         <h2>DATE</h2>
       </div>
       {nowList.map((essay, index) => {
-        const nowDate = new Date(essay.date.seconds * 1000);
-        const dateString = `${nowDate.getFullYear()}.${(nowDate.getMonth() + 1)
-          .toString()
-          .padStart(2, "0")}.${nowDate.getDate().toString().padStart(2, "0")}`;
-
         return (
           <Link
             key={essay.title + index}
@@ -42,7 +37,7 @@ export default function EssayListView({ data }: { data: Project[] }) {
               <h3>{essay.projectTitle}</h3>
               <h2 className="col-span-2">{essay.title}</h2>
               <h4>단편</h4>
-              <h3>{dateString}</h3>
+              <h3>{essay.date}</h3>
             </div>
           </Link>
         );

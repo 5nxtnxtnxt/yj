@@ -13,20 +13,11 @@ export default function ImageSection({ data }: { data: Project[] }) {
         {data.map((project) => {
           if (!project.visible) return null;
           return project.essays.map((essay) => {
-            const nowDate = new Date(essay.date.seconds * 1000);
-            const dateString = `${nowDate.getFullYear()}.${(
-              nowDate.getMonth() + 1
-            )
-              .toString()
-              .padStart(2, "0")}.${nowDate
-              .getDate()
-              .toString()
-              .padStart(2, "0")}`;
-
             return (
               <Link
-                key={`${project.title}-${essay.title}`}
-                href={`/essay/${project.title}/${essay.title}/0`}
+                // key={`${project.title}-${essay.title}`}
+                key={project.title + essay.title}
+                href={`/project/${project.title}/${essay.title}/0`}
               >
                 <div
                   style={{
@@ -84,14 +75,12 @@ export default function ImageSection({ data }: { data: Project[] }) {
                   >
                     <div className="flex justify-between">
                       <h4 className="">{project.title}</h4>
-                      <h4 className="">{dateString}</h4>
+                      <h4 className="">{essay.date}</h4>
                     </div>
 
                     <h2 className="text-2xl mt-6 mb-10">{essay.title}</h2>
                     <h4 className="whitespace-pre-line overflow-y-auto">
-                      {essay.contents
-                        .find((e) => e.type === "text")
-                        ?.text.join("\n")}
+                      {essay.contents.find((e) => e.type === "text")?.data}
                     </h4>
                   </div>
                 </div>

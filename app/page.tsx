@@ -11,8 +11,8 @@ export default async function Home() {
     <main className="">
       <NavigationBar data={data}></NavigationBar>
       <div className="ml-80 overflow-x-hidden">
-        <ImageSection data={data} />
-        <EssayListView data={data} />
+        {/* <ImageSection data={data} />
+        <EssayListView data={data} /> */}
       </div>
     </main>
   );

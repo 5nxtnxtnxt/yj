@@ -83,15 +83,7 @@ export default function CreateContent({
       contents: [],
     },
   });
-  useEffect(() => {
-    if (projectData?.isSeries) {
-      setNowLayout(2);
-      form.setValue("layout", 2);
-      form.setValue("link", "");
-      form.setValue("linkText", "");
-      form.setValue("backgroundURL", "");
-    }
-  }, [projectData]);
+  useEffect(() => {}, [projectData]);
   const onSubmit = (values: z.infer<typeof EssaySchema>) => {
     console.log("SUBMIT!!");
     console.log(values);
@@ -106,7 +98,7 @@ export default function CreateContent({
           className="w-[800px] flex flex-col gap-2"
         >
           <h1 className="text-xl">{projectData?.title} 콘텐츠 추가</h1>
-          {projectData?.isSeries !== true && (
+          {
             <div className="flex gap-3">
               <button
                 type="button"
@@ -131,7 +123,7 @@ export default function CreateContent({
                 type B
               </button>
             </div>
-          )}
+          }
           <label htmlFor="title">title</label>
           <input type="text" id="title" {...form.register("title")} />
           <h3 className="text-red-500">

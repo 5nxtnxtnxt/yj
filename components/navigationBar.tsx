@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Project } from "@/firebase/firestoreTypes.d";
+import { Project, YJData } from "@/firebase/firestoreTypes.d";
 
-export default function NavigationBar({ data }: { data: Project[] }) {
+export default function NavigationBar({ data }: { data: YJData }) {
   return (
     <div className="w-80 h-screen border-r border-black fixed">
       <Link href={"/"}>
@@ -11,7 +11,7 @@ export default function NavigationBar({ data }: { data: Project[] }) {
         </div>
       </Link>
       <div className="flex flex-col p-10 gap-10">
-        {data.map((project, indexP) => {
+        {data.projects.map((project, indexP) => {
           return (
             <div key={indexP}>
               <Link href={`/project/${project.title}`} className="text-xl">
@@ -25,6 +25,26 @@ export default function NavigationBar({ data }: { data: Project[] }) {
                     href={`/essay/${project.title}/${essay.title}/0`}
                   >
                     {essay.title}
+                  </Link>
+                );
+              })}
+            </div>
+          );
+        })}
+        {data.series.map((series, indexS) => {
+          return (
+            <div key={indexS}>
+              <Link href={`/project/${series.title}`} className="text-xl">
+                {series.title}
+              </Link>
+              {series.seriesProjects.map((sProject, indexP) => {
+                return (
+                  <Link
+                    key={`${sProject.title}${indexP}`}
+                    className="text-base ml-10 block"
+                    href={`/essay/${series.title}/${sProject.title}/0`}
+                  >
+                    {sProject.title}
                   </Link>
                 );
               })}
