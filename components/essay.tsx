@@ -22,9 +22,7 @@ const layout0 = ({ data, page }: { data: Essay; page: number }) => {
         )}
 
         {data.contents[index].type == "text" && (
-          <h5 className=" whitespace-pre-line">
-            {data.contents[index].text.join("\n\n")}
-          </h5>
+          <h5 className=" whitespace-pre-line">{data.contents[index].data}</h5>
         )}
       </div>
     );
@@ -32,9 +30,9 @@ const layout0 = ({ data, page }: { data: Essay; page: number }) => {
   const ImagePage = ({ index }: { index: number }) => {
     return (
       <div className="size-full">
-        {data.contents[index].type == "image" && (
+        {data.contents[index].type === "image" && (
           <Image
-            src={data.contents[index].imageURL}
+            src={data.contents[index].data}
             alt=""
             className="object-contain size-full "
             width={1000}
@@ -77,7 +75,7 @@ const layout1 = ({ data, page }: { data: Essay; page: number }) => {
     <div className="size-full relative">
       <Image
         className="object-cover size-full absolute top-0 left-0"
-        src={data.backgroundURL}
+        src={data.contents[0].data}
         alt=""
         width={1000}
         height={1000}
@@ -85,10 +83,7 @@ const layout1 = ({ data, page }: { data: Essay; page: number }) => {
       <div className="py-40 px-72 size-full absolute top-0 left-0">
         <div className="size-full bg-white flex flex-col p-10 gap-14 overflow-y-scroll">
           <h1 className="text-3xl">{data.title}</h1>
-          <h5 className=" whitespace-pre-line">
-            {data.contents[0].type === "text" &&
-              data.contents[0].text.join("\n\n")}
-          </h5>
+          <h5 className=" whitespace-pre-line">{data.contents[1].data}</h5>
         </div>
 
         <a
@@ -96,7 +91,7 @@ const layout1 = ({ data, page }: { data: Essay; page: number }) => {
           href={data.link}
           target="_blank"
         >
-          {data.linkText}
+          전문 보러가기
         </a>
       </div>
     </div>

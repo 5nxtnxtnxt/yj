@@ -8,7 +8,7 @@ export default async function a({ params }: { params: { project: string } }) {
   const projectTitle = decodeURIComponent(params.project);
 
   const data = await getProjectData();
-  const nowData = data.find((p) => p.title === projectTitle);
+  const nowData = data.projects.find((p) => p.title === projectTitle);
 
   if (!nowData) redirect("/error");
   return (
@@ -18,7 +18,7 @@ export default async function a({ params }: { params: { project: string } }) {
         <div className="w-full h-[50rem] border-b border-black flex flex-col justify-center items-center gap-6">
           <h1 className="text-7xl">{nowData.infoTitle}</h1>
           <h4 className=" whitespace-pre-line text-center">
-            {nowData.infoContent.join("\n")}
+            {nowData.infoContent}
           </h4>
         </div>
         <ProjectGridView data={nowData}></ProjectGridView>

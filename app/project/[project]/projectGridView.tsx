@@ -8,13 +8,6 @@ export default function ProjectGridView({ data }: { data: Project }) {
       <h2 className="block border-b border-black w-full text-xl p-6">LIST</h2>
       <div className="grid grid-cols-1 md:grid-cols-2">
         {data.essays.map((essay, index) => {
-          const nowDate = new Date(essay.date.seconds * 1000);
-          const dateStr = `${nowDate.getFullYear()}.${(nowDate.getMonth() + 1)
-            .toString()
-            .padStart(2, "0")}.${nowDate
-            .getDate()
-            .toString()
-            .padStart(2, "0")}`;
           return (
             <div
               key={index}
@@ -36,16 +29,14 @@ export default function ProjectGridView({ data }: { data: Project }) {
                 <div className="truncate flex flex-col gap-4">
                   <div className="flex justify-between">
                     <h2>{data.title}</h2>
-                    <h3>{dateStr}</h3>
+                    <h3>{essay.date}</h3>
                   </div>
 
                   <h1 className="text-2xl">{essay.title}</h1>
                 </div>
                 <div className="flex flex-col justify-between">
                   <h4 className="line-clamp-4 whitespace-pre-line">
-                    {essay.contents
-                      .find((e) => e.type === "text")
-                      ?.text.join("\n")}
+                    {essay.contents.find((e) => e.type === "text")?.data}
                   </h4>
                   <Link
                     className="border-t border-black border-dotted text-center pt-3"
