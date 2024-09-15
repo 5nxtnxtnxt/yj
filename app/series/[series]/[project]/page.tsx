@@ -22,7 +22,7 @@ export default async function a({
   }
   console.log(nowData);
   return (
-    <div className="w-full relative border border-red-500">
+    <div className="w-full relative">
       <div className="border-b border-black flex flex-col justify-end h-80 gap-6 p-14">
         <h1 className="text-4xl font-extrabold">{nowData.title}</h1>
         <h2>{nowData.description}</h2>
