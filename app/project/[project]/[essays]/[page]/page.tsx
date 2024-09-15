@@ -23,9 +23,12 @@ export default async function a({
   }
   console.log(nowData);
   return (
-    <div className="h-full">
+    <div className="h-full relative ">
       {page > 0 && (
-        <Link className="absolute top-1/2 left-0 z-50" href={`./${page - 1}`}>
+        <Link
+          className="text-2xl absolute top-1/2 left-0 w-10 text-center z-50 -translate-y-1/2 "
+          href={`./${page - 1}`}
+        >
           {"<"}
         </Link>
       )}
@@ -33,7 +36,10 @@ export default async function a({
       <EssayView data={nowData} page={page}></EssayView>
 
       {page < nowData.contents.length / 2 - 1 && (
-        <Link className="absolute top-1/2 right-0 z-50" href={`./${page + 1}`}>
+        <Link
+          className="text-2xl absolute top-1/2 right-0 w-10 text-center z-50 -translate-y-1/2"
+          href={`./${page + 1}`}
+        >
           {">"}
         </Link>
       )}

@@ -29,12 +29,12 @@ const layout0 = ({ data, page }: { data: Essay; page: number }) => {
   };
   const ImagePage = ({ index }: { index: number }) => {
     return (
-      <div className="size-full">
+      <div className="size-full ">
         {data.contents[index].type === "image" && (
           <Image
             src={data.contents[index].data}
-            alt=""
-            className="object-contain size-full "
+            alt="tt"
+            className="size-full object-contain"
             width={1000}
             height={1000}
           />
@@ -47,15 +47,17 @@ const layout0 = ({ data, page }: { data: Essay; page: number }) => {
   };
   return (
     <div className="grid grid-cols-2 grid-rows-1 h-full">
-      <div className="size-full relative border-r border-black p-10">
+      <div className="size-full relative p-10 pb-20 flex flex-col border-r border-black">
         {leftSide.type === "image" ? (
           <ImagePage index={page * 2} />
         ) : (
           <TextPage index={page * 2} />
         )}
-        <h6 className="text-center">{page * 2 + 1}</h6>
+        <h6 className="text-center h-20 absolute bottom-0 content-center w-full left-0">
+          {page * 2 + 1}
+        </h6>
       </div>
-      <div className="size-full relative p-10">
+      <div className="size-full relative p-10 pb-20 flex flex-coㅣ">
         {rightSide === undefined ? (
           <EmptyPage />
         ) : rightSide.type === "image" ? (
@@ -63,7 +65,11 @@ const layout0 = ({ data, page }: { data: Essay; page: number }) => {
         ) : (
           <TextPage index={page * 2 + 1} />
         )}
-        {rightSide && <h6 className="text-center">{page * 2 + 2}</h6>}
+        {rightSide && (
+          <h6 className="text-center h-20 absolute bottom-0 content-center w-full left-0">
+            {page * 2 + 2}
+          </h6>
+        )}
       </div>
     </div>
   );

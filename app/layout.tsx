@@ -15,14 +15,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const data = await getProjectData(true);
+  // sm:text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px]
   return (
-    <html
-      lang="en"
-      className="text-[8px] sm:text-[10px] md:text-[14px] lg:text-[16px] xl:text-[18px]"
-    >
+    <html lang="en" className="text-[2.5dvw] md:text-[0.9dvw]">
       <body>
-        <Info></Info>
-        <div className="w-screen h-screen grid grid-rows-[100px_1fr] md:grid-cols-[320px_1fr]">
+        <div className="w-screen h-screen grid grid-rows-[10rem_1fr] md:grid-rows-1 md:grid-cols-[17rem_1fr]">
           <NavigationBar data={data} />
           <main className="overflow-y-auto border-r border-black">
             {children}
