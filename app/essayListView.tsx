@@ -66,7 +66,7 @@ export default function EssayListView({ data }: { data: YJData }) {
             href={
               essay.type === "단편"
                 ? `/project/${essay.request}/${essay.title}/0`
-                : `/series/${essay.request}/${essay.title}`
+                : `/series/에세이%20시리즈/${essay.request}`
             }
           >
             <div
