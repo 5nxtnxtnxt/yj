@@ -85,7 +85,7 @@ export default function ImageSection({ data }: { data: YJData }) {
                 >
                   <div className="grid grid-cols-2 relative">
                     <h4 className="truncate">{e.highTitle}</h4>
-                    <h4 className="truncate">{e.date}</h4>
+                    <h4 className="truncate text-right">{e.date}</h4>
                   </div>
 
                   <h2 className="text-2xl mt-6 mb-10">{e.title}</h2>
