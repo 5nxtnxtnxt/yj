@@ -9,7 +9,7 @@ const ESSAY_PER_PAGE = 3;
 type EssayTypeForListView = {
   title: string;
   request: string;
-  type: string;
+  type: "단편" | "시리즈";
   date: string;
 };
 export default function EssayListView({ data }: { data: YJData }) {
@@ -63,7 +63,11 @@ export default function EssayListView({ data }: { data: YJData }) {
         return (
           <Link
             key={essay.title + index}
-            href={`/project/${essay.request}/${essay.title}/0`}
+            href={
+              essay.type === "단편"
+                ? `/project/${essay.request}/${essay.title}/0`
+                : `/series/${essay.request}/${essay.title}`
+            }
           >
             <div
               className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-b border-black  ${
