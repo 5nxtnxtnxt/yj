@@ -47,7 +47,7 @@ export default function SeriesGridView({ data }: { data: Series }) {
                   </h4>
                   <Link
                     className="border-t border-black border-dotted text-center pt-3"
-                    href={`/series/${data.title}/${project.title}s`}
+                    href={`/series/${data.title}/${project.title}`}
                   >
                     READ MORE
                   </Link>
