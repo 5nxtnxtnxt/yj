@@ -1,4 +1,3 @@
-import NavigationBar from "@/components/navigationBar";
 import { getProjectData } from "@/firebase/firestore";
 import { redirect } from "next/navigation";
 import EssayView from "@/components/essay";

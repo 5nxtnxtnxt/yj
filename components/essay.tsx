@@ -1,14 +1,18 @@
+"use client";
+
 import { Essay, EssayContent } from "@/firebase/firestoreTypes";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import { useState } from "react";
 
 const EssayView = ({ data, page }: { data: Essay; page: number }) => {
-  const layout = [layout0, layout1];
+  const layout = [Layout0, layout1];
   const NowLayout = layout[data.layout];
   return <NowLayout data={data} page={page} />;
 };
-const layout0 = ({ data, page }: { data: Essay; page: number }) => {
+const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
   if (data.contents.length / 2 <= page) redirect("/error");
+  const [nowPage, setNowPage] = useState(page * 2);
   const leftSide = data.contents[page * 2];
   const rightSide =
     data.contents.length > page * 2 + 1
@@ -45,33 +49,65 @@ const layout0 = ({ data, page }: { data: Essay; page: number }) => {
   const EmptyPage = () => {
     return <div>empty</div>;
   };
+
   return (
-    <div className="grid grid-cols-2 grid-rows-1 h-full">
-      <div className="size-full relative p-10 pb-20 flex flex-col border-r border-black">
-        {leftSide.type === "image" ? (
-          <ImagePage index={page * 2} />
-        ) : (
-          <TextPage index={page * 2} />
+    <>
+      <div className="md:hidden bg-bg-white z-[60] p-10 pb-20 relative size-full">
+        {nowPage > 0 && (
+          <button
+            onClick={() => setNowPage(nowPage - 1)}
+            className="absolute left-0 top-1/2 w-10 text-2xl"
+          >
+            {"<"}
+          </button>
         )}
-        <h6 className="text-center h-20 absolute bottom-0 content-center w-full left-0">
-          {page * 2 + 1}
-        </h6>
+
+        <div className="size-full relative">
+          {data.contents[nowPage].type === "image" ? (
+            <ImagePage index={nowPage} />
+          ) : (
+            <TextPage index={nowPage} />
+          )}
+        </div>
+        <div className=" text-center w-full h-20 absolute left-0 bottom-0 flex items-center justify-center">
+          <h6 className="text-lg">{nowPage + 1}</h6>
+        </div>
+        {nowPage + 1 < data.contents.length && (
+          <button
+            onClick={() => setNowPage(nowPage + 1)}
+            className="absolute right-0 w-10 top-1/2 text-2xl"
+          >
+            {">"}
+          </button>
+        )}
       </div>
-      <div className="size-full relative p-10 pb-20 flex flex-col">
-        {rightSide === undefined ? (
-          <EmptyPage />
-        ) : rightSide.type === "image" ? (
-          <ImagePage index={page * 2 + 1} />
-        ) : (
-          <TextPage index={page * 2 + 1} />
-        )}
-        {rightSide && (
+      <div className="grid grid-cols-2 grid-rows-1 h-full max-md:hidden">
+        <div className="size-full relative p-10 pb-20 flex flex-col border-r border-black ">
+          {leftSide.type === "image" ? (
+            <ImagePage index={page * 2} />
+          ) : (
+            <TextPage index={page * 2} />
+          )}
           <h6 className="text-center h-20 absolute bottom-0 content-center w-full left-0">
-            {page * 2 + 2}
+            {page * 2 + 1}
           </h6>
-        )}
+        </div>
+        <div className="size-full relative p-10 pb-20 flex flex-col">
+          {rightSide === undefined ? (
+            <EmptyPage />
+          ) : rightSide.type === "image" ? (
+            <ImagePage index={page * 2 + 1} />
+          ) : (
+            <TextPage index={page * 2 + 1} />
+          )}
+          {rightSide && (
+            <h6 className="text-center h-20 absolute bottom-0 content-center w-full left-0">
+              {page * 2 + 2}
+            </h6>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
