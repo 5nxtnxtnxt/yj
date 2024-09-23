@@ -34,7 +34,7 @@ export default function ImageSection({ data }: { data: YJData }) {
               key={e.highTitle + e.title + index}
               href={`/${e.isSeries ? "series" : "project"}/${e.highTitle}/${
                 e.title
-              }/0`}
+              }${e.isSeries ? "" : "/0"}`}
             >
               <div
                 style={{
