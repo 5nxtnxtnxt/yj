@@ -57,7 +57,7 @@ const layout0 = ({ data, page }: { data: Essay; page: number }) => {
           {page * 2 + 1}
         </h6>
       </div>
-      <div className="size-full relative p-10 pb-20 flex flex-coㅣ">
+      <div className="size-full relative p-10 pb-20 flex flex-col">
         {rightSide === undefined ? (
           <EmptyPage />
         ) : rightSide.type === "image" ? (
