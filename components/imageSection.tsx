@@ -37,7 +37,7 @@ export default function ImageSection({ data }: { data: YJData }) {
   return (
     <>
       {isMobile ? (
-        <div className="w-full relative">
+        <div className="w-full aspect-[1/1.5] relative">
           <button
             className="absolute left-5 bottom-0 z-20"
             onClick={() => {
@@ -56,7 +56,7 @@ export default function ImageSection({ data }: { data: YJData }) {
           >
             {">"}
           </button>
-          <div className="w-full aspect-[1/1.5] relative overflow-hidden p-24">
+          <div className="w-full h-full relative overflow-hidden p-24">
             <div
               className="w-full flex h-full transition-all duration-300"
               style={{ transform: `translateX(${nowScroll * -100}%)` }}
@@ -82,7 +82,9 @@ export default function ImageSection({ data }: { data: YJData }) {
                         }`}
                       />
                       <Link
-                        href={"/test"}
+                        href={`/${e.isSeries ? "series" : "project"}/${
+                          e.highTitle
+                        }/${e.title}${e.isSeries ? "" : "/0"}`}
                         className={`flip-preview size-full top-0 left-0 absolute opacity-0 transition-opacity duration-200 delay-75 h-full flex flex-col ${
                           nowClick === index
                             ? "opacity-100"
