@@ -11,11 +11,11 @@ export default function SeriesGridView({ data }: { data: Series }) {
           return (
             <div
               key={index}
-              className={`border-b border-black grid grid-rows-2 grid-cols-2 md:h-96  w-full p-4 relative gap-4 ${
-                index % 2 || "border-r"
+              className={`border-b border-black flex flex-col md:grid grid-rows-2 grid-cols-2  w-full p-4 relative gap-4 ${
+                index % 2 || "md:border-r"
               }`}
             >
-              <div className="w-full h-96 md:h-full overflow-hidden relative md:row-span-2 row-span-1 md:col-span-1 col-span-2">
+              <div className="w-full aspect-[2/1] md:aspect-[1/1.2] overflow-hidden relative md:row-span-2 row-span-1 md:col-span-1 col-span-2">
                 <Image
                   width={500}
                   height={500}
@@ -23,21 +23,12 @@ export default function SeriesGridView({ data }: { data: Series }) {
                   src={project.thumbnail}
                   className="size-full object-cover"
                 />
-                <div className="truncate flex flex-col gap-4 text-white z-10 top-0 md:hidden w-full h-full p-6 absolute ">
-                  <div className="flex justify-between">
-                    <h2>{data.title}</h2>
-                    <h3>{project.date}</h3>
-                  </div>
-
-                  <h1 className="text-2xl">{project.title}</h1>
-                </div>
               </div>
-              <div className="truncate md:flex flex-col gap-4 text-black z-10 top-auto w-full h-full p-6 hidden">
+              <div className="truncate flex flex-col gap-6 text-black z-10 top-auto w-full max-md:pb-8">
                 <div className="flex justify-between">
                   <h2>{data.title}</h2>
                   <h3>{project.date}</h3>
                 </div>
-
                 <h1 className="text-2xl">{project.title}</h1>
               </div>
               <div className="flex w-full flex-col col-span-2 md:col-span-1">

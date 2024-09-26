@@ -10,7 +10,7 @@ export default async function Home() {
   const data = await getProjectData(true);
   return (
     <div className="w-full">
-      <Info></Info>
+      <Info data={data}></Info>
       <ImageSection data={data} />
       <EssayListView data={data} />
     </div>

@@ -11,7 +11,7 @@ export default async function a({ params }: { params: { series: string } }) {
   if (!nowData) redirect("/error");
   return (
     <div className=" flex flex-col">
-      <div className="w-full h-[50rem] border-b border-black flex flex-col justify-center items-center gap-6">
+      <div className="w-full aspect-square md:h-[50rem] border-b border-black flex flex-col justify-center items-center gap-6">
         <h1 className="text-7xl">{nowData.infoTitle}</h1>
         <h4 className=" whitespace-pre-line text-center">
           {nowData.infoContent}
