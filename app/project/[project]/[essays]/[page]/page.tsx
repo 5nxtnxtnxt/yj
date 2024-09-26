@@ -2,6 +2,7 @@ import { getProjectData } from "@/firebase/firestore";
 import { redirect } from "next/navigation";
 import EssayView from "@/components/essay";
 import Link from "next/link";
+import Info from "@/components/info";
 
 export default async function a({
   params,
@@ -22,26 +23,29 @@ export default async function a({
   }
   console.log(nowData);
   return (
-    <div className="h-full relative ">
-      {page > 0 && (
-        <Link
-          className="text-2xl absolute top-1/2 left-0 w-10 text-center z-50 -translate-y-1/2 "
-          href={`./${page - 1}`}
-        >
-          {"<"}
-        </Link>
-      )}
+    <>
+      <Info data={data}></Info>
+      <div className="h-full relative ">
+        {page > 0 && (
+          <Link
+            className="text-2xl absolute top-1/2 left-0 w-10 text-center z-50 -translate-y-1/2 "
+            href={`./${page - 1}`}
+          >
+            {"<"}
+          </Link>
+        )}
 
-      <EssayView data={nowData} page={page}></EssayView>
+        <EssayView data={nowData} page={page}></EssayView>
 
-      {page < nowData.contents.length / 2 - 1 && (
-        <Link
-          className="text-2xl absolute top-1/2 right-0 w-10 text-center z-50 -translate-y-1/2"
-          href={`./${page + 1}`}
-        >
-          {">"}
-        </Link>
-      )}
-    </div>
+        {page < nowData.contents.length / 2 - 1 && (
+          <Link
+            className="text-2xl absolute top-1/2 right-0 w-10 text-center z-50 -translate-y-1/2"
+            href={`./${page + 1}`}
+          >
+            {">"}
+          </Link>
+        )}
+      </div>
+    </>
   );
 }

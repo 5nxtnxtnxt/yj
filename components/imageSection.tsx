@@ -39,7 +39,7 @@ export default function ImageSection({ data }: { data: YJData }) {
       {isMobile ? (
         <div className="w-full aspect-[1/1.5] relative">
           <button
-            className="absolute left-5 bottom-0 z-20"
+            className="absolute size-8 m-2 z-20 top-1/2 bg-white bg-opacity-50 rounded-full"
             onClick={() => {
               setNowClick(-1);
               setNowScroll((nowList.length + nowScroll - 1) % nowList.length);
@@ -48,7 +48,7 @@ export default function ImageSection({ data }: { data: YJData }) {
             {"<"}
           </button>
           <button
-            className="absolute right-5 bottom-0 z-20"
+            className="absolute size-8 m-2 z-20 top-1/2 right-0 bg-white bg-opacity-50  rounded-full"
             onClick={() => {
               setNowClick(-1);
               setNowScroll((nowScroll + 1) % nowList.length);

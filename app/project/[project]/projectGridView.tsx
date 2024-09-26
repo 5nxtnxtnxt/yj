@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function ProjectGridView({ data }: { data: Project }) {
   return (
-    <div className="flex w-full flex-col mb-40">
+    <div className="flex w-full flex-col">
       <h2 className="block border-b border-black w-full text-xl p-6">LIST</h2>
       <div className="grid grid-cols-1 md:grid-cols-2">
         {data.essays.map((essay, index) => {

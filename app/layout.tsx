@@ -19,7 +19,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className="text-[2.5dvw] md:text-[0.9dvw]">
       <body>
-        <div className="w-screen h-screen grid grid-rows-[10rem_1fr] md:grid-rows-1 md:grid-cols-[17rem_1fr]">
+        <div className="w-screen h-screen grid grid-rows-[8rem_1fr] md:grid-rows-1 md:grid-cols-[17rem_1fr]">
           <NavigationBar data={data} />
           <main className="overflow-y-auto border-r border-black">
             {children}
