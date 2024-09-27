@@ -13,7 +13,7 @@ export default function NavigationBar({ data }: { data: YJData }) {
         </div>
       </Link>
       <div className="flex-col p-10 gap-10 hidden md:flex">
-        {data.projects.map((project, indexP) => {
+        {data.projects?.map((project, indexP) => {
           return (
             <div key={indexP}>
               <Link href={`/project/${project.title}`} className="text-xl">

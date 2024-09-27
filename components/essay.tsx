@@ -1,7 +1,7 @@
 "use client";
 
 import { Essay, EssayContent } from "@/firebase/firestoreTypes";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -112,12 +112,19 @@ const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
 };
 
 const layout1 = ({ data, page }: { data: Essay; page: number }) => {
+  const router = useRouter();
   if (page !== 0 || data.layout !== 1) redirect("/error");
+  const imagesrc = data.contents.find((e) => e.type === "image")?.data;
+  const text = data.contents.find((e) => e.type === "text")?.data;
+  if (imagesrc === undefined || text === undefined) {
+    router.push("/404");
+    return <div></div>;
+  }
   return (
     <div className="size-full relative">
       <Image
         className="object-cover size-full absolute top-0 left-0"
-        src={data.contents[0].data}
+        src={imagesrc}
         alt=""
         width={1000}
         height={1000}
@@ -125,7 +132,7 @@ const layout1 = ({ data, page }: { data: Essay; page: number }) => {
       <div className="py-40 px-20 md:px-72 size-full absolute top-0 left-0">
         <div className="size-full bg-white flex flex-col p-10 gap-14 overflow-y-scroll">
           <h1 className="text-3xl">{data.title}</h1>
-          <h5 className=" whitespace-pre-line">{data.contents[1].data}</h5>
+          <h5 className=" whitespace-pre-line">{text}</h5>
         </div>
 
         <a

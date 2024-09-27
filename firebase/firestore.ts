@@ -1,25 +1,44 @@
 import firebaseApp from "./firebase";
 import {
   getFirestore,
-  getDocs,
   collection,
   setDoc,
   doc,
-  addDoc,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
-import { Project, YJData } from "@/firebase/firestoreTypes.d";
+import { Essay, Project, YJData } from "@/firebase/firestoreTypes.d";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 let myData: YJData | undefined;
 
 console.log("hello");
 // initializeProjectData();
 
+export async function uploadImageToFireStroage(imageFile: File) {
+  const fireStorage = getStorage(firebaseApp);
+  const imageListRef = ref(fireStorage, "images/");
+  const newImageRef = ref(fireStorage, `images/${imageFile.name}`);
+  const snapshot = await uploadBytes(newImageRef, imageFile);
+  const url = await getDownloadURL(snapshot.ref);
+  return url;
+}
+
 export async function addData(str: string) {
   const firestore = getFirestore(firebaseApp);
 
   await setDoc(doc(firestore, "FromYJ", "test"), { test: str });
   console.log("done");
+}
+
+export async function updateProject(project: Project[]) {
+  try {
+    const firestore = getFirestore(firebaseApp);
+    await updateDoc(doc(firestore, "FromYJ", "YJData"), {
+      projects: project,
+    });
+    return true;
+  } catch (error) {}
 }
 
 export async function getProjectData(force: boolean = false): Promise<YJData> {
@@ -256,13 +275,6 @@ export async function initializeProjectData() {
           },
         ],
       },
-      // {
-      //   title: "인터뷰 시리즈",
-      //   infoTitle: "interview series",
-      //   infoContent: "안녕하세요 저는 인터뷰시리즈입니다.\n\n줄바꿈두개테스트",
-      //   visible: true,
-      //   seriesProjects: [],
-      // },
     ],
   };
   await setDoc(doc(collection(firestore, "FromYJ"), "YJData"), data);

@@ -17,7 +17,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="w-screen h-screen ">
+    <div className="size-full">
       <div className="text-xl size-full relative flex items-center justify-center">
         <div className="flex flex-col gap-3">
           <div>

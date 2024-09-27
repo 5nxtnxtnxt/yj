@@ -16,7 +16,7 @@ export interface Project {
   title: string;
   infoTitle: string;
   infoContent: string;
-  visible: true;
+  visible: boolean;
   essays: Essay[];
 }
 
