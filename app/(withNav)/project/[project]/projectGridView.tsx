@@ -11,7 +11,7 @@ export default function ProjectGridView({ data }: { data: Project }) {
           return (
             <Link
               key={index}
-              className={`border-b border-black flex flex-col md:grid grid-rows-1 grid-cols-2 w-full p-8 relative gap-[1.875rem] md:h-[500 ${
+              className={`border-b border-black flex flex-col md:grid grid-rows-1 grid-cols-2 w-full p-8 relative gap-[1.875rem] md:h-[31.25rem] ${
                 index % 2 || "md:border-r"
               }`}
               href={`/project/${data.title}/${essay.title}/0`}
@@ -35,12 +35,11 @@ export default function ProjectGridView({ data }: { data: Project }) {
               </div>
 
               <div className="flex md:grid grid-cols-1 grid-rows-[1fr_2fr] gap-6">
-                <div className="truncate flex flex-col gap-[30px] max-md:hidden">
+                <div className="truncate flex flex-col gap-[1.875rem] max-md:hidden">
                   <div className="flex justify-between">
                     <h2>{data.title}</h2>
                     <h3>{essay.date}</h3>
                   </div>
-
                   <h1 className="text-4xl">{essay.title}</h1>
                 </div>
                 <div className="flex flex-col justify-end gap-6 leading-8">

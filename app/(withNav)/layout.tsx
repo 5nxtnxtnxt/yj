@@ -14,7 +14,7 @@ export default async function RootLayout({
 }>) {
   const data = await getProjectData(true);
   return (
-    <div className="w-screen h-screen grid grid-rows-[8rem_1fr] md:grid-rows-1 md:grid-cols-[20rem_1fr] overflow-x-hidden">
+    <div className="w-screen h-[100svh] grid grid-rows-[8rem_1fr] md:grid-rows-1 md:grid-cols-[20rem_1fr] overflow-x-hidden">
       <NavigationBar data={data} />
       <main className="overflow-y-auto">{children}</main>
     </div>
