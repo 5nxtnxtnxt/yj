@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 const EssayView = ({ data, page }: { data: Essay; page: number }) => {
-  const layout = [Layout0, layout1];
+  const layout = [Layout0, Layout1];
   const NowLayout = layout[data.layout];
   return <NowLayout data={data} page={page} />;
 };
@@ -111,7 +111,7 @@ const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
   );
 };
 
-const layout1 = ({ data, page }: { data: Essay; page: number }) => {
+const Layout1 = ({ data, page }: { data: Essay; page: number }) => {
   const router = useRouter();
   if (page !== 0 || data.layout !== 1) redirect("/error");
   const imagesrc = data.contents.find((e) => e.type === "image")?.data;
