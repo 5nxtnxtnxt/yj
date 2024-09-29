@@ -11,7 +11,7 @@ export default function ProjectGridView({ data }: { data: Project }) {
           return (
             <Link
               key={index}
-              className={`border-b border-black flex flex-col md:grid grid-rows-1 grid-cols-2 w-full p-8 relative gap-[30px] md:h-[500px] ${
+              className={`border-b border-black flex flex-col md:grid grid-rows-1 grid-cols-2 w-full p-8 relative gap-[1.875rem] md:h-[500 ${
                 index % 2 || "md:border-r"
               }`}
               href={`/project/${data.title}/${essay.title}/0`}

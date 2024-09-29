@@ -163,19 +163,16 @@ export default function ImageSection({ data }: { data: YJData }) {
                   <div
                     className={`flip-preview size-full top-0 left-0 absolute opacity-0 transition-opacity duration-200 delay-75 h-full flex flex-col ${
                       nowHover === `${e.highTitle}-${e.title}` && "opacity-100"
-                    } `}
+                    } p-[1.87rem] overflow-y-auto overflow-x-hidden gap-8`}
                   >
-                    <div className="grid grid-cols-2 relative p-[30px]">
+                    <div className="grid grid-cols-2 relative ">
                       <h4 className="truncate">{e.highTitle}</h4>
                       <h4 className="truncate text-right">{e.date}</h4>
                     </div>
 
-                    <h2 className="text-4xl px-[30px] mb-[85px]">{e.title}</h2>
-                    <div className="h-full w-full overflow-y-auto px-[30px] mb-[30px]">
-                      <h4 className="whitespace-pre-line overflow-y-auto overflow-x-hidden break-words">
-                        {e.des}
-                      </h4>
-                    </div>
+                    <h2 className="text-4xl pb-6">{e.title}</h2>
+
+                    <h4 className="whitespace-pre-line break-words">{e.des}</h4>
                   </div>
                 </div>
               </Link>
