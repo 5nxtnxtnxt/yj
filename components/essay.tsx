@@ -129,12 +129,13 @@ const Layout1 = ({ data, page }: { data: Essay; page: number }) => {
         width={1000}
         height={1000}
       ></Image>
-      <div className="py-40 px-20 md:px-72 size-full absolute top-0 left-0">
-        <div className="size-full bg-white flex flex-col p-10 gap-14 overflow-y-scroll">
-          <h1 className="text-3xl">{data.title}</h1>
-          <h5 className=" whitespace-pre-line">{text}</h5>
+      <div className="py-40 px-20 md:px-72 size-full absolute top-0 left-0 p-10">
+        <div className=" px-10 relative size-full overflow-y-auto">
+          <div className="bg-white flex flex-col p-10 gap-14">
+            <h1 className="text-3xl">{data.title}</h1>
+            <h5 className=" whitespace-pre-line">{text}</h5>
+          </div>
         </div>
-
         <a
           className="text-white text-center block"
           href={data.link}
