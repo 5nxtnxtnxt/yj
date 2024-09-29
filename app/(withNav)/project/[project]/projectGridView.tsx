@@ -9,13 +9,14 @@ export default function ProjectGridView({ data }: { data: Project }) {
       <div className="grid grid-cols-1 md:grid-cols-2">
         {data.essays.map((essay, index) => {
           return (
-            <div
+            <Link
               key={index}
-              className={`border-b border-black flex flex-col md:grid grid-rows-1 grid-cols-2  w-full p-4 relative gap-4 ${
+              className={`border-b border-black flex flex-col md:grid grid-rows-1 grid-cols-2 w-full p-8 relative gap-[30px] md:h-[500px] ${
                 index % 2 || "md:border-r"
               }`}
+              href={`/project/${data.title}/${essay.title}/0`}
             >
-              <div className="w-full aspect-square md:aspect-[1/1.2] overflow-hidden relative row-start-1 col-start-1">
+              <div className="w-full aspect-square md:h-full overflow-hidden relative row-start-1 col-start-1">
                 <Image
                   width={500}
                   height={500}
@@ -34,27 +35,25 @@ export default function ProjectGridView({ data }: { data: Project }) {
               </div>
 
               <div className="flex md:grid grid-cols-1 grid-rows-[1fr_2fr] gap-6">
-                <div className="truncate flex flex-col gap-4 max-md:hidden">
+                <div className="truncate flex flex-col gap-[30px] max-md:hidden">
                   <div className="flex justify-between">
                     <h2>{data.title}</h2>
                     <h3>{essay.date}</h3>
                   </div>
 
-                  <h1 className="text-2xl">{essay.title}</h1>
+                  <h1 className="text-4xl">{essay.title}</h1>
                 </div>
-                <div className="flex flex-col justify-between gap-6">
-                  <h4 className="line-clamp-6 whitespace-pre-line">
+                <div className="flex flex-col justify-end gap-6 leading-8">
+                  <h4 className="line-clamp-5 whitespace-pre-line">
                     {essay.contents.find((e) => e.type === "text")?.data}
                   </h4>
-                  <Link
-                    className="border-t border-black border-dotted text-center pt-3"
-                    href={`/project/${data.title}/${essay.title}/0`}
-                  >
+
+                  <h4 className="border-t border-gray-500 border-dotted text-center pt-8">
                     READ MORE
-                  </Link>
+                  </h4>
                 </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

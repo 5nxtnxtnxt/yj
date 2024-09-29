@@ -20,7 +20,7 @@ const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
       : undefined;
   const TextPage = ({ index }: { index: number }) => {
     return (
-      <div className="size-full overflow-y-scroll flex flex-col gap-10">
+      <div className="size-full overflow-y-auto flex flex-col gap-10">
         {data.contents.findIndex((e) => e.type === "text") === index && (
           <h1 className="text-2xl ">{data.title}</h1>
         )}
@@ -129,10 +129,10 @@ const Layout1 = ({ data, page }: { data: Essay; page: number }) => {
         width={1000}
         height={1000}
       ></Image>
-      <div className="py-40 px-20 md:px-72 size-full absolute top-0 left-0 p-10">
-        <div className=" px-10 relative size-full overflow-y-auto">
-          <div className="bg-white flex flex-col p-10 gap-14">
-            <h1 className="text-3xl">{data.title}</h1>
+      <div className="pt-16 flex flex-col gap-[50px] md:py-32 px-5 md:px-[350px] size-full absolute top-0 left-0 p-10">
+        <div className="px-4 relative size-full overflow-y-auto">
+          <div className="bg-white flex flex-col p-[50px] gap-20 min-h-full">
+            <h1 className="text-[40px]">{data.title}</h1>
             <h5 className=" whitespace-pre-line">{text}</h5>
           </div>
         </div>
@@ -141,7 +141,7 @@ const Layout1 = ({ data, page }: { data: Essay; page: number }) => {
           href={data.link}
           target="_blank"
         >
-          전문 보러가기
+          전문 구매하기 {">"}
         </a>
       </div>
     </div>

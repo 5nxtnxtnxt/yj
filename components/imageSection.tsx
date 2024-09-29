@@ -21,7 +21,6 @@ type DataType = {
 
 export default function ImageSection({ data }: { data: YJData }) {
   const isMobile = useMediaQuery("(max-width: 768px)");
-
   const [nowScroll, setNowScroll] = useState(0);
   const [nowClick, setNowClick] = useState(-1);
   const [nowHover, setNowHover] = useState<string>("");
@@ -131,12 +130,12 @@ export default function ImageSection({ data }: { data: YJData }) {
                     nowHover === `${e.highTitle}-${e.title}`
                       ? "blur-none z-[90] bg-bg-white"
                       : e.depth === 0
-                      ? "blur-none z-40"
+                      ? "blur-none z-40 scale-95"
                       : e.depth === 1
-                      ? "blur-[2px] z-30"
+                      ? "blur-[2px] z-30 scale-90"
                       : e.depth === 2
-                      ? "blur-sm z-20"
-                      : "blur z-10"
+                      ? "blur-sm z-20 scale-[0.8]"
+                      : "blur z-10 scale-[0.7]"
                   } ${
                     nowHover !== "" &&
                     nowHover !== `${e.highTitle}-${e.title}` &&
@@ -164,17 +163,19 @@ export default function ImageSection({ data }: { data: YJData }) {
                   <div
                     className={`flip-preview size-full top-0 left-0 absolute opacity-0 transition-opacity duration-200 delay-75 h-full flex flex-col ${
                       nowHover === `${e.highTitle}-${e.title}` && "opacity-100"
-                    } p-6`}
+                    } `}
                   >
-                    <div className="grid grid-cols-2 relative">
+                    <div className="grid grid-cols-2 relative p-[30px]">
                       <h4 className="truncate">{e.highTitle}</h4>
                       <h4 className="truncate text-right">{e.date}</h4>
                     </div>
 
-                    <h2 className="text-2xl mt-6 mb-10">{e.title}</h2>
-                    <h4 className="whitespace-pre-line overflow-y-auto">
-                      {e.des}
-                    </h4>
+                    <h2 className="text-4xl px-[30px] mb-[85px]">{e.title}</h2>
+                    <div className="h-full w-full overflow-y-auto px-[30px] mb-[30px]">
+                      <h4 className="whitespace-pre-line overflow-y-auto overflow-x-hidden break-words">
+                        {e.des}
+                      </h4>
+                    </div>
                   </div>
                 </div>
               </Link>

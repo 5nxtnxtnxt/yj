@@ -32,7 +32,8 @@ body {
 }
 ::-webkit-scrollbar {
   width: 5px; /* 스크롤 바의 너비 */
-  background: #00000082;
+  border-radius: 20px;
+  background: #00000033;
 }
 
 /* 스크롤 바의 색상 지정 */

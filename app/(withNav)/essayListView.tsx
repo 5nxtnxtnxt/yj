@@ -4,7 +4,7 @@ import { YJData } from "@/firebase/firestoreTypes";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const ESSAY_PER_PAGE = 3;
+const ESSAY_PER_PAGE = 10;
 
 type EssayTypeForListView = {
   title: string;
@@ -55,14 +55,15 @@ export default function EssayListView({ data }: { data: YJData }) {
   return (
     <div className="flex flex-col">
       <div
-        className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-y border-black
+        className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-y border-black h-16
               }`}
       >
-        <h3 className="hidden md:inline-block">CATEGORY</h3>
-        <h2 className="col-span-2">TITLE</h2>
-        <h4 className="hidden md:inline-block text-right">TYPE</h4>
-
-        <h3 className="text-right">DATE</h3>
+        <h3 className="hidden md:inline-block content-center">CATEGORY</h3>
+        <h2 className="col-span-2 content-center">TITLE</h2>
+        <h4 className="hidden md:inline-block text-right content-center">
+          TYPE
+        </h4>
+        <h3 className="text-right content-center">DATE</h3>
       </div>
       {nowList.map((essay, index) => {
         return (
@@ -75,7 +76,7 @@ export default function EssayListView({ data }: { data: YJData }) {
             }
           >
             <div
-              className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-b border-black  ${
+              className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-b border-black h-16 content-center  ${
                 index < nowList.length - 1 && "border-dashed"
               }`}
             >
@@ -95,9 +96,7 @@ export default function EssayListView({ data }: { data: YJData }) {
           <h3 className=" cursor-pointer" onClick={() => setPage(page + 1)}>
             ↓ LOAD MORE ↓
           </h3>
-        ) : (
-          <h4>다 불러왔으요</h4>
-        )}
+        ) : null}
       </div>
     </div>
   );
