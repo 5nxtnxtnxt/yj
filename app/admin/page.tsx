@@ -28,7 +28,7 @@ export default function AdminPage() {
                 <div className="flex gap-10 text-2xl">
                   <h2>{project.title}</h2>
                   <div className="flex gap-3 text-base">
-                    <button className="text-red-600">Edit</button>
+                    {/* <button className="text-red-600">Edit</button> */}
                     <DeleteButton callback={() => {}}>Delete</DeleteButton>
                   </div>
                 </div>
@@ -38,7 +38,7 @@ export default function AdminPage() {
                       <div className="pl-6 flex gap-10 text-xl">
                         <h2>{essay.title}</h2>
                         <div className="flex gap-3 text-sm">
-                          <button className="text-red-600">EditEssay</button>
+                          {/* <button className="text-red-600">EditEssay</button> */}
                           <DeleteButton callback={() => {}}>
                             Delete
                           </DeleteButton>
@@ -63,53 +63,59 @@ export default function AdminPage() {
             프로젝트 추가하기
           </a>
           <div className="w-full border-t border-black"></div>
-          {yjData.series.map((project, indexP) => {
+          {yjData.series.map((series, indexP) => {
             return (
               <div
-                key={project.title + indexP}
+                key={series.title + indexP}
                 className="flex flex-col gap-2 border-b p-6 border-black"
               >
                 <div className="flex gap-10 text-2xl">
-                  <h2>{project.title}</h2>
+                  <h2>{series.title}</h2>
                   <div className="flex gap-3 text-base">
-                    <button className="text-red-600">Edit</button>
+                    {/* <button className="text-red-600">Edit</button> */}
                     <DeleteButton callback={() => {}}>Delete</DeleteButton>
                   </div>
                 </div>
-                {project.seriesProjects.map((essay, index) => {
+                {series.seriesProjects.map((project, index) => {
                   return (
-                    <div key={project.title + indexP + essay.title + index}>
+                    <div key={series.title + indexP + project.title + index}>
                       <div className="pl-6 flex gap-8 text-xl">
-                        <h2>{essay.title}</h2>
+                        <h2>{project.title}</h2>
                         <div className="flex gap-3 text-sm">
-                          <button className="text-red-600">Edit</button>
+                          {/* <button className="text-red-600">Edit</button> */}
                           <DeleteButton callback={() => {}}>
                             Delete
                           </DeleteButton>
                         </div>
                       </div>
                       <div className="flex flex-col gap-2">
-                        {essay.seriesContents.map((content, indexS) => (
+                        {project.seriesContents.map((content, indexS) => (
                           <div
-                            key={essay.title + index + indexS}
+                            key={project.title + index + indexS}
                             className="flex gap-8"
                           >
                             <h3 className="pl-10">{content.title}</h3>
                             <div className="flex gap-3 text-sm">
-                              <button className="text-red-600">Edit</button>
+                              {/* <button className="text-red-600">Edit</button> */}
                               <DeleteButton callback={() => {}}>
                                 Delete
                               </DeleteButton>
                             </div>
                           </div>
                         ))}
+                        <a
+                          className="pl-10"
+                          href={`/admin/create/series/${series.title}/${project.title}`}
+                        >
+                          에세이 추가하기
+                        </a>
                       </div>
                     </div>
                   );
                 })}
                 <a
-                  className="pl-6"
-                  href={`/admin/createContent/${project.title}`}
+                  className="pl-6 text-xl"
+                  href={`/admin/create/series/${series.title}`}
                 >
                   프로젝트 추가하기
                 </a>
@@ -118,7 +124,7 @@ export default function AdminPage() {
           })}
           <a
             className="p-6 text-xl text-gray-600"
-            href={`/admin/createProject`}
+            href={`/admin/create/series`}
           >
             시리즈 추가하기
           </a>

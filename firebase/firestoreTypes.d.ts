@@ -40,7 +40,7 @@ export type Series = {
   title: string;
   infoTitle: string;
   infoContent: string;
-  visible: true;
+  visible: boolean;
   seriesProjects: SeriesProject[];
 };
 

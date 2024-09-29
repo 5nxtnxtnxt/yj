@@ -41,7 +41,12 @@ export default function EssayListView({ data }: { data: YJData }) {
         });
       });
     });
-    newList.sort((a, b) => (a.date < b.date ? 1 : -1));
+    newList.sort((a, b) => {
+      const aDate = new Date(a.date).valueOf();
+      const bDate = new Date(b.date).valueOf();
+
+      return bDate - aDate;
+    });
     console.log("useEffect");
     setEssays(newList);
   }, []);
@@ -76,7 +81,9 @@ export default function EssayListView({ data }: { data: YJData }) {
             >
               <h3 className="hidden md:inline-block">{essay.request}</h3>
               <h2 className="col-span-2">{essay.title}</h2>
-              <h4 className="hidden md:inline-block text-right">단편</h4>
+              <h4 className="hidden md:inline-block text-right">
+                {essay.type}
+              </h4>
 
               <h3 className="text-right">{essay.date}</h3>
             </div>

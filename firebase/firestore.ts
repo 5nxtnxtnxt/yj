@@ -7,7 +7,7 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
-import { Essay, Project, YJData } from "@/firebase/firestoreTypes.d";
+import { Essay, Project, Series, YJData } from "@/firebase/firestoreTypes.d";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 let myData: YJData | undefined;
@@ -29,6 +29,16 @@ export async function addData(str: string) {
 
   await setDoc(doc(firestore, "FromYJ", "test"), { test: str });
   console.log("done");
+}
+
+export async function updateSeries(series: Series[]) {
+  try {
+    const firestore = getFirestore(firebaseApp);
+    await updateDoc(doc(firestore, "FromYJ", "YJData"), {
+      series: series,
+    });
+    return true;
+  } catch (error) {}
 }
 
 export async function updateProject(project: Project[]) {
