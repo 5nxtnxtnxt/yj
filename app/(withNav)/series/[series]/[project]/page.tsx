@@ -21,7 +21,6 @@ export default async function a({
   if (!nowData) {
     redirect("/error");
   }
-  console.log(nowData);
   return (
     <>
       <Info data={data}></Info>
@@ -57,9 +56,11 @@ export default async function a({
                   className={`w-full h-full object-cover md:object-contain `}
                 />
                 <div className="flex flex-col gap-10 md:hidden text-white  z-10 absolute top-0 w-full p-5">
-                  <div className="flex justify-between w-full text-lg">
-                    <h2 className="">{essay.title}</h2>
-                    <h3>{essay.date}</h3>
+                  <div className="flex justify-between w-full text-lg gap-3">
+                    <h2 className="flex-grow overflow-hidden  ">
+                      {essay.title}
+                    </h2>
+                    <h3 className="flex-shrink-0 ">{essay.date}</h3>
                   </div>
 
                   <h1 className="text-4xl">{essay.title}</h1>
@@ -70,8 +71,16 @@ export default async function a({
                   index % 2 && "col-start-1 row-start-1"
                 }`}
               >
-                <h1 className="text-3xl pb-10 max-md:hidden">{essay.title}</h1>
-                <h3 className="text-right max-md:hidden">{essay.date}</h3>
+                <div className="flex justify-between w-full text-lg gap-3 col-span-2">
+                  <h2 className="flex-grow overflow-hidden text-3xl">
+                    {essay.title}
+                  </h2>
+                  <h3 className="flex-shrink-0 ">{essay.date}</h3>
+                </div>
+                {/* <h1 className="text-3xl pb-10 max-md:hidden overflow-hidden">
+                  {essay.title}
+                </h1>
+                <h3 className="text-right max-md:hidden">{essay.date}</h3> */}
                 <textarea
                   className="col-span-2 bg-bg-white h-[30rem]  resize-none outline-none overflow-hidden md:line-clamp-[20] line-clamp-6 max-md:h-36"
                   readOnly

@@ -27,9 +27,9 @@ export default function SeriesGridView({ data }: { data: Series }) {
               </div>
               <div className="truncate flex flex-col gap-6 text-black z-10 top-auto w-full row-span-2 md:grid grid-cols-1 grid-rows-[1fr_2fr]">
                 <div className="truncate flex flex-col gap-3 md:gap-[1.875rem] ">
-                  <div className="flex justify-between w-full text-lg">
-                    <h2>{data.title}</h2>
-                    <h3>{project.date}</h3>
+                  <div className="flex justify-between w-full text-lg ">
+                    <h2 className="flex-grow overflow-hidden">{data.title}</h2>
+                    <h3 className="flex-shrink-0">{project.date}</h3>
                   </div>
                   <h1 className="text-4xl">{project.title}</h1>
                 </div>

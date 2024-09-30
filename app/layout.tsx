@@ -9,8 +9,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  //"md:text-[0.84dvw] text-[3.25dvw]"
+  //md:text-[16px] text-[14px]
   return (
-    <html lang="en" className="md:text-[0.84dvw] text-[3.25dvw]">
+    <html
+      lang="en"
+      className="2xl:text-[16px] xl:text-[14px] md:text-[12px] text-[14px]"
+    >
       <body>{children}</body>
     </html>
   );

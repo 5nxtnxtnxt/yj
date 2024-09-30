@@ -4,9 +4,10 @@ import { YJData } from "@/firebase/firestoreTypes";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const ESSAY_PER_PAGE = 10;
+const ESSAY_PER_PAGE = 5;
 
 type EssayTypeForListView = {
+  href: string;
   title: string;
   request: string;
   type: "단편" | "시리즈";
@@ -22,6 +23,7 @@ export default function EssayListView({ data }: { data: YJData }) {
     data.projects.forEach((e) => {
       e.essays.forEach((essay) => {
         newList.push({
+          href: "project",
           title: essay.title,
           request: e.title,
           type: "단편",
@@ -33,6 +35,7 @@ export default function EssayListView({ data }: { data: YJData }) {
       series.seriesProjects.forEach((project) => {
         project.seriesContents.forEach((essay) => {
           newList.push({
+            href: series.title,
             title: essay.title,
             request: project.title,
             type: "시리즈",
@@ -72,16 +75,27 @@ export default function EssayListView({ data }: { data: YJData }) {
             href={
               essay.type === "단편"
                 ? `/project/${essay.request}/${essay.title}/0`
-                : `/series/에세이%20시리즈/${essay.request}`
+                : `/series/${essay.href}/${essay.request}`
             }
           >
             <div
               className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-b border-black h-16 content-center  ${
                 index < nowList.length - 1 && "border-dashed"
+              } ${
+                page * ESSAY_PER_PAGE > index + ESSAY_PER_PAGE
+                  ? "md:hidden"
+                  : null
               }`}
             >
               <h3 className="hidden md:inline-block">{essay.request}</h3>
-              <h2 className="col-span-2">{essay.title}</h2>
+              <h2 className="col-span-2 flex gap-2">
+                {index < 3 ? (
+                  <h5 className="bg-black text-bg-white px-2 rounded-sm text-center content-center realNova font-bold">
+                    new
+                  </h5>
+                ) : null}
+                <h4 className=" truncate w-full  ">{essay.title}</h4>
+              </h2>
               <h4 className="hidden md:inline-block text-right">
                 {essay.type}
               </h4>
@@ -91,14 +105,34 @@ export default function EssayListView({ data }: { data: YJData }) {
           </Link>
         );
       })}
-      <div className="h-40 flex items-center justify-center">
+      <div className="flex items-center justify-center">
         {essays.length > page * ESSAY_PER_PAGE ? (
-          <h3 className=" cursor-pointer" onClick={() => setPage(page + 1)}>
+          <h3
+            className="md:hidden cursor-pointer h-40 content-center"
+            onClick={() => setPage(page + 1)}
+          >
             ↓ LOAD MORE ↓
           </h3>
         ) : null}
       </div>
-      {/*  1 2 3 > 페이지식으로 pc에선 */}
+      <div className="h-96 flex flex-col justify-center items-center max-md:hidden">
+        <div className="flex gap-4 items-center">
+          {Array.from({
+            length: Math.ceil(essays.length / ESSAY_PER_PAGE),
+          }).map((_, index) => (
+            <div
+              key={index}
+              onClick={() => setPage(index + 1)}
+              className={` cursor-pointer
+                ${
+                  index + 1 === page ? "text-lg font-bold" : "text-opacity-80"
+                }`}
+            >
+              {index + 1}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

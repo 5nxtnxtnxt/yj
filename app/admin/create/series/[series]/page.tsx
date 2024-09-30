@@ -129,9 +129,8 @@ export default function CreateProjectPage({
 
         <div className="flex flex-col gap-1">
           <label htmlFor="description">description</label>
-          <input
+          <textarea
             className="bg-bg-white border rounded-md border-black border-dashed"
-            type="text"
             id="description"
             {...form.register("description")}
           />
