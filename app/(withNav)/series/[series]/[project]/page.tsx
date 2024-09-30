@@ -71,7 +71,7 @@ export default async function a({
                   index % 2 && "col-start-1 row-start-1"
                 }`}
               >
-                <div className="flex justify-between w-full text-lg gap-3 col-span-2">
+                <div className="flex justify-between w-full text-lg gap-3 col-span-2 max-md:hidden">
                   <h2 className="flex-grow overflow-hidden text-3xl">
                     {essay.title}
                   </h2>

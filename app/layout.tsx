@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="2xl:text-[16px] xl:text-[14px] md:text-[12px] text-[14px]"
+      className="2xl:text-[16px] xl:text-[14px] md:text-[10px] text-[14px]"
     >
       <body>{children}</body>
     </html>
