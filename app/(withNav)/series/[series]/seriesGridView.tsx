@@ -46,9 +46,9 @@ export default function SeriesGridView({ data }: { data: Series }) {
             </Link>
           );
         })}
-        {data.seriesProjects.length % 2 && (
+        {data.seriesProjects.length % 2 ? (
           <div className="border-b border-black"></div>
-        )}
+        ) : null}
       </div>
     </div>
   );

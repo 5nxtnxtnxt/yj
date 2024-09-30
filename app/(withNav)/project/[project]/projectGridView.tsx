@@ -55,9 +55,9 @@ export default function ProjectGridView({ data }: { data: Project }) {
             </Link>
           );
         })}
-        {data.essays.length % 2 && (
+        {data.essays.length % 2 ? (
           <div className="border-b border-black"></div>
-        )}
+        ) : null}
       </div>
     </div>
   );
