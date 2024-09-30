@@ -12,6 +12,7 @@ type EssayTypeForListView = {
   request: string;
   type: "단편" | "시리즈";
   date: string;
+  page: number;
 };
 export default function EssayListView({ data }: { data: YJData }) {
   const [page, setPage] = useState(1);
@@ -28,18 +29,20 @@ export default function EssayListView({ data }: { data: YJData }) {
           request: e.title,
           type: "단편",
           date: essay.date,
+          page: 0,
         });
       });
     });
     data.series.forEach((series) => {
       series.seriesProjects.forEach((project) => {
-        project.seriesContents.forEach((essay) => {
+        project.seriesContents.forEach((essay, index) => {
           newList.push({
             href: series.title,
             title: essay.title,
             request: project.title,
             type: "시리즈",
             date: essay.date,
+            page: index,
           });
         });
       });
@@ -75,7 +78,7 @@ export default function EssayListView({ data }: { data: YJData }) {
             href={
               essay.type === "단편"
                 ? `/project/${essay.request}/${essay.title}/0`
-                : `/series/${essay.href}/${essay.request}`
+                : `/series/${essay.href}/${essay.request}/${essay.page}}`
             }
           >
             <div
