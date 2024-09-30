@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Project, YJData } from "@/firebase/firestoreTypes.d";
+import Image from "next/image";
 
 export default function NavigationBar({ data }: { data: YJData }) {
   return (
@@ -8,7 +9,13 @@ export default function NavigationBar({ data }: { data: YJData }) {
         href={"/"}
         className="flex  items-center border-b border-black h-full md:h-[12.25rem] justify-center"
       >
-        <img src="로고.svg" className="size-3/4"></img>
+        <Image
+          alt="logo"
+          width={320}
+          height={320}
+          src="/로고.svg"
+          className="size-3/4"
+        />
       </Link>
       <div className="flex-col p-12 gap-10 hidden md:flex overflow-y-auto h-full">
         {data.projects?.map((project, indexP) => {
