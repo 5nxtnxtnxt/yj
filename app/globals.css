@@ -7,6 +7,15 @@
   src: url("/GowunDodum-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "IbarraRealNova";
+  src: url("/IbarraRealNova-VariableFont_wght.ttf") format("truetype");
+}
+
+.realNova {
+  font-family: "IbarraRealNova";
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 241, 242, 234;
@@ -33,13 +42,13 @@ body {
 ::-webkit-scrollbar {
   width: 5px; /* 스크롤 바의 너비 */
   border-radius: 20px;
-  background: #00000033;
+  background: #908b8533;
 }
 
 /* 스크롤 바의 색상 지정 */
 ::-webkit-scrollbar-thumb {
   border-radius: 23px;
-  background-color: #e5e5e5e5; /* 스크롤 바의 색상 */
+  background-color: #ffffff; /* 스크롤 바의 색상 */
 }
 
 /* 스크롤 바 호버 시 색상 지정 */

@@ -20,13 +20,17 @@ const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
       : undefined;
   const TextPage = ({ index }: { index: number }) => {
     return (
-      <div className="size-full overflow-y-auto flex flex-col gap-10">
+      <div className="size-full flex flex-col md:gap-20 gap-10 ">
         {data.contents.findIndex((e) => e.type === "text") === index && (
-          <h1 className="text-2xl ">{data.title}</h1>
+          <h1 className="text-4xl ">{data.title}</h1>
         )}
 
         {data.contents[index].type == "text" && (
-          <h5 className=" whitespace-pre-line">{data.contents[index].data}</h5>
+          <div className="w-full flex-grow  md:pr-[3.125rem] p-2 overflow-y-auto">
+            <h5 className=" whitespace-pre-line">
+              {data.contents[index].data}
+            </h5>
+          </div>
         )}
       </div>
     );
@@ -47,7 +51,7 @@ const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
     );
   };
   const EmptyPage = () => {
-    return <div>empty</div>;
+    return <div></div>;
   };
 
   return (
@@ -56,13 +60,13 @@ const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
         {nowPage > 0 && (
           <button
             onClick={() => setNowPage(nowPage - 1)}
-            className="absolute left-0 top-1/2 w-10 text-2xl"
+            className="absolute text-sm left-2 top-1/2 size-6 bg-opacity-50 bg-white shadow rounded-full text-center content-center"
           >
             {"<"}
           </button>
         )}
 
-        <div className="size-full relative">
+        <div className="size-full relative ">
           {data.contents[nowPage].type === "image" ? (
             <ImagePage index={nowPage} />
           ) : (
@@ -75,37 +79,50 @@ const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
         {nowPage + 1 < data.contents.length && (
           <button
             onClick={() => setNowPage(nowPage + 1)}
-            className="absolute right-0 w-10 top-1/2 text-2xl"
+            className="absolute text-sm right-2 top-1/2 size-6 bg-opacity-50 bg-white shadow rounded-full text-center content-center"
           >
             {">"}
           </button>
         )}
       </div>
-      <div className="grid grid-cols-2 grid-rows-1 h-full max-md:hidden">
-        <div className="size-full relative p-10 pb-20 flex flex-col border-r border-black ">
-          {leftSide.type === "image" ? (
+      <div className="grid grid-cols-2 grid-rows-1 h-full max-md:hidden  ">
+        {leftSide.type === "image" ? (
+          <div className="size-full relative py-[12.5rem] px-[3.125rem] flex flex-col border-r border-black ">
             <ImagePage index={page * 2} />
-          ) : (
-            <TextPage index={page * 2} />
-          )}
-          <h6 className="text-center h-20 absolute bottom-0 content-center w-full left-0">
-            {page * 2 + 1}
-          </h6>
-        </div>
-        <div className="size-full relative p-10 pb-20 flex flex-col">
-          {rightSide === undefined ? (
-            <EmptyPage />
-          ) : rightSide.type === "image" ? (
-            <ImagePage index={page * 2 + 1} />
-          ) : (
-            <TextPage index={page * 2 + 1} />
-          )}
-          {rightSide && (
-            <h6 className="text-center h-20 absolute bottom-0 content-center w-full left-0">
-              {page * 2 + 2}
+            <h6 className="text-center absolute bottom-[3.125rem] content-center w-full left-0">
+              {page * 2 + 1}
             </h6>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="size-full relative py-[12.5rem] pl-36 flex flex-col border-r border-black ">
+            <TextPage index={page * 2} />
+            <h6 className="text-center absolute bottom-[3.125rem] content-center w-full left-0">
+              {page * 2 + 1}
+            </h6>
+          </div>
+        )}
+
+        {rightSide === undefined ? (
+          <EmptyPage />
+        ) : rightSide.type === "image" ? (
+          <div className="size-full relative py-[12.5rem] px-[3.125rem] flex flex-col ">
+            <ImagePage index={page * 2 + 1} />
+            {rightSide && (
+              <h6 className="text-center absolute bottom-[3.125rem] content-center w-full left-0">
+                {page * 2 + 2}
+              </h6>
+            )}
+          </div>
+        ) : (
+          <div className="size-full  relative py-[12.5rem] pr-[6.25rem] pl-[3.125rem] flex flex-col">
+            <TextPage index={page * 2 + 1} />
+            {rightSide && (
+              <h6 className="text-center absolute bottom-[3.125rem] content-center w-full left-0">
+                {page * 2 + 2}
+              </h6>
+            )}
+          </div>
+        )}
       </div>
     </>
   );
@@ -129,10 +146,10 @@ const Layout1 = ({ data, page }: { data: Essay; page: number }) => {
         width={1000}
         height={1000}
       ></Image>
-      <div className="pt-16 flex flex-col gap-[50px] md:py-32 px-5 md:px-[350px] size-full absolute top-0 left-0 p-10">
+      <div className="pt-16 flex flex-col gap-[3.125rem] md:py-32 px-5 md:px-[20rem] size-full absolute top-0 left-0 p-10">
         <div className="px-4 relative size-full overflow-y-auto">
-          <div className="bg-white flex flex-col p-[50px] gap-20 min-h-full">
-            <h1 className="text-[40px]">{data.title}</h1>
+          <div className="bg-white flex flex-col p-[3.125rem] gap-20 min-h-full">
+            <h1 className="text-[2.5rem]">{data.title}</h1>
             <h5 className=" whitespace-pre-line">{text}</h5>
           </div>
         </div>

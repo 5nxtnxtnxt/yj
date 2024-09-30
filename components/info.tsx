@@ -16,7 +16,7 @@ export default function Info({ data }: { data: YJData }) {
           alt="infoIcon"
           width={120}
           height={160}
-          className="fixed right-0 top-0 w-16 m-5 cursor-pointer z-[100]"
+          className="fixed right-0 top-0 w-10 md:w-16  m-5 cursor-pointer z-[100]"
           onClick={() => setOpened(true)}
         />
       )}
@@ -29,16 +29,16 @@ export default function Info({ data }: { data: YJData }) {
               alt="openedIcon"
               width={120}
               height={160}
-              className="w-16  cursor-pointer"
+              className="w-10 md:w-16 cursor-pointer"
             />
             <button
-              className=" w-16 cursor-pointer z-50 text-7xl text-bg-white font-[100] content-center"
+              className="w-10 md:w-16 cursor-pointer z-50 text-5xl text-bg-white font-[10] content-center"
               onClick={() => setOpened(false)}
             >
               X
             </button>
           </div>
-          <div className="md:hidden h-full overflow-y-scroll text-white flex flex-col gap-2 py-10 text-xl">
+          <div className="md:hidden h-full overflow-y-auto text-white flex flex-col gap-5 py-10 text-xl">
             {data.projects.map((p, index) => {
               return (
                 <Link href={`/project/${p.title}`} key={index}>
@@ -52,15 +52,17 @@ export default function Info({ data }: { data: YJData }) {
                   <Link href={`/series/${p.title}`} key={index}>
                     {p.title}
                   </Link>
-                  {p.seriesProjects.map((e, index) => (
-                    <Link
-                      href={`/series/${p.title}/${e.title}`}
-                      key={p.title + index}
-                      className="pl-6 text-sm block"
-                    >
-                      {e.title}
-                    </Link>
-                  ))}
+                  <div className="mt-2 flex flex-col gap-2">
+                    {p.seriesProjects.map((e, index) => (
+                      <Link
+                        href={`/series/${p.title}/${e.title}`}
+                        key={p.title + index}
+                        className="pl-10 text-sm block"
+                      >
+                        {e.title}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               );
             })}

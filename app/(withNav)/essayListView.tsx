@@ -98,6 +98,7 @@ export default function EssayListView({ data }: { data: YJData }) {
           </h3>
         ) : null}
       </div>
+      {/*  1 2 3 > 페이지식으로 pc에선 */}
     </div>
   );
 }

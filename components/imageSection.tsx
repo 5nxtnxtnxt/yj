@@ -36,9 +36,9 @@ export default function ImageSection({ data }: { data: YJData }) {
   return (
     <>
       {isMobile ? (
-        <div className="w-full aspect-[1/1.5] relative">
+        <div className="w-full aspect-[1/1.8] relative">
           <button
-            className="absolute size-8 m-2 z-20 top-1/2 bg-white bg-opacity-50 rounded-full"
+            className="absolute size-12 m-5 z-20 top-1/2 -translate-y-full bg-white bg-opacity-50 rounded-full"
             onClick={() => {
               setNowClick(-1);
               setNowScroll((nowList.length + nowScroll - 1) % nowList.length);
@@ -47,7 +47,7 @@ export default function ImageSection({ data }: { data: YJData }) {
             {"<"}
           </button>
           <button
-            className="absolute size-8 m-2 z-20 top-1/2 right-0 bg-white bg-opacity-50  rounded-full"
+            className="absolute size-12 m-5 z-20 top-1/2 -translate-y-full right-0 bg-white bg-opacity-50  rounded-full"
             onClick={() => {
               setNowClick(-1);
               setNowScroll((nowScroll + 1) % nowList.length);
@@ -55,17 +55,17 @@ export default function ImageSection({ data }: { data: YJData }) {
           >
             {">"}
           </button>
-          <div className="w-full h-full relative overflow-hidden p-24">
+          <div className="w-full h-full relative overflow-hidden px-14 pt-36 pb-48">
             <div
-              className="w-full flex h-full transition-all duration-300"
+              className="w-full flex h-full transition-all duration-500 ease-in-out"
               style={{ transform: `translateX(${nowScroll * -100}%)` }}
             >
               {nowList.map((e, index) => {
                 return (
-                  <div key={index} className="w-full flex-shrink-0">
+                  <div key={index} className="w-full flex-shrink-0 ">
                     <div
                       className={`size-full relative ${
-                        index !== nowScroll && "opacity-70 scale-75"
+                        index !== nowScroll && "opacity-70 scale-90 shadow-2xl"
                       }`}
                       onClick={() => {
                         setNowClick(index);
@@ -84,11 +84,11 @@ export default function ImageSection({ data }: { data: YJData }) {
                         href={`/${e.isSeries ? "series" : "project"}/${
                           e.highTitle
                         }/${e.title}${e.isSeries ? "" : "/0"}`}
-                        className={`flip-preview size-full top-0 left-0 absolute opacity-0 transition-opacity duration-200 delay-75 h-full flex flex-col ${
+                        className={`flip-preview size-full top-0 shadow-2xl left-0 absolute opacity-0 transition-opacity duration-200 delay-75 h-full flex flex-col ${
                           nowClick === index
                             ? "opacity-100"
                             : "pointer-events-none"
-                        } p-6`}
+                        } p-5 gap-10`}
                       >
                         <div className="grid grid-cols-2 relative">
                           <h4 className="truncate">{e.highTitle}</h4>
@@ -106,6 +106,17 @@ export default function ImageSection({ data }: { data: YJData }) {
               })}
               <div className="min-w-10"></div>
             </div>
+          </div>
+          <div className=" absolute bottom-10 w-full h-10 flex gap-3 justify-center items-center">
+            {nowList.map((e, index) => (
+              <div
+                key={index}
+                className={`size-[0.375rem] rounded-full bg-slate-300 cursor-pointer ${
+                  nowScroll === index && "size-[0.625rem] bg-slate-700"
+                }`}
+                onClick={() => setNowScroll(index)}
+              ></div>
+            ))}
           </div>
         </div>
       ) : (
@@ -130,12 +141,12 @@ export default function ImageSection({ data }: { data: YJData }) {
                     nowHover === `${e.highTitle}-${e.title}`
                       ? "blur-none z-[90] bg-bg-white"
                       : e.depth === 0
-                      ? "blur-none z-40 scale-95"
+                      ? "blur-none z-40 scale-[0.9]"
                       : e.depth === 1
-                      ? "blur-[2px] z-30 scale-90"
+                      ? "blur-[2px] z-30 scale-[0.8]"
                       : e.depth === 2
-                      ? "blur-sm z-20 scale-[0.8]"
-                      : "blur z-10 scale-[0.7]"
+                      ? "blur-sm z-20 scale-[0.7]"
+                      : "blur z-10 scale-[0.65]"
                   } ${
                     nowHover !== "" &&
                     nowHover !== `${e.highTitle}-${e.title}` &&
@@ -163,7 +174,7 @@ export default function ImageSection({ data }: { data: YJData }) {
                   <div
                     className={`flip-preview size-full top-0 left-0 absolute opacity-0 transition-opacity duration-200 delay-75 h-full flex flex-col ${
                       nowHover === `${e.highTitle}-${e.title}` && "opacity-100"
-                    } p-[1.87rem] overflow-y-auto overflow-x-hidden gap-8`}
+                    } p-[1.87rem] overflow-x-hidden gap-8 overflow-y-auto`}
                   >
                     <div className="grid grid-cols-2 relative ">
                       <h4 className="truncate">{e.highTitle}</h4>
@@ -200,7 +211,9 @@ const refineData = (data: YJData): DataType[] => {
           depth: essay.depth,
           thumbnail: essay.thumbnail,
           date: essay.date,
-          des: essay.contents.find((c) => c.type === "text")?.data || "",
+          des:
+            essay.contents.find((c) => c.type === "text")?.data.slice(0, 150) +
+              "..." || "",
         });
       })
     );

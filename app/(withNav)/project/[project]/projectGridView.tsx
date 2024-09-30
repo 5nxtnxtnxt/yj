@@ -11,7 +11,7 @@ export default function ProjectGridView({ data }: { data: Project }) {
           return (
             <Link
               key={index}
-              className={`border-b border-black flex flex-col md:grid grid-rows-1 grid-cols-2 w-full p-8 relative gap-[1.875rem] md:h-[31.25rem] ${
+              className={`border-b border-black flex flex-col md:grid grid-rows-1 grid-cols-2 w-full p-5 md:p-8 relative gap-[1.875rem] md:h-[31.25rem] ${
                 index % 2 || "md:border-r"
               }`}
               href={`/project/${data.title}/${essay.title}/0`}
@@ -24,13 +24,13 @@ export default function ProjectGridView({ data }: { data: Project }) {
                   src={essay.thumbnail}
                   className="size-full object-cover"
                 />
-                <div className="truncate flex flex-col gap-10 md:hidden text-white  z-10 absolute top-0 w-full p-5">
+                <div className="truncate flex flex-col gap-14 md:hidden text-white  z-10 absolute top-0 w-full p-5">
                   <div className="flex justify-between w-full text-lg">
                     <h2>{data.title}</h2>
                     <h3>{essay.date}</h3>
                   </div>
 
-                  <h1 className="text-4xl">{essay.title}</h1>
+                  <h1 className="text-3xl">{essay.title}</h1>
                 </div>
               </div>
 
@@ -47,7 +47,7 @@ export default function ProjectGridView({ data }: { data: Project }) {
                     {essay.contents.find((e) => e.type === "text")?.data}
                   </h4>
 
-                  <h4 className="border-t border-gray-500 border-dotted text-center pt-8">
+                  <h4 className="border-t-2 border-gray-400  border-dotted text-center pt-8">
                     READ MORE
                   </h4>
                 </div>
@@ -55,6 +55,9 @@ export default function ProjectGridView({ data }: { data: Project }) {
             </Link>
           );
         })}
+        {data.essays.length % 2 && (
+          <div className="border-b border-black"></div>
+        )}
       </div>
     </div>
   );

@@ -111,7 +111,7 @@ export default function CreateProjectPage({
         <input type="text" id="title" {...form.register("title")} />
         <h5 className="text-red-500">{form.formState.errors.title?.message}</h5>
         <label htmlFor="text">text</label>
-        <input type="text" id="text" {...form.register("text")} />
+        <textarea id="text" {...form.register("text")} />
         <h5 className="text-red-500">{form.formState.errors.text?.message}</h5>
 
         <label htmlFor="link">link</label>

@@ -10,7 +10,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="md:text-[0.84dvw] ">
+    <html lang="en" className="md:text-[0.84dvw] text-[3.25dvw]">
       <body>{children}</body>
     </html>
   );

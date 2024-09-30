@@ -25,8 +25,8 @@ export default function SeriesGridView({ data }: { data: Series }) {
                   className="size-full object-cover"
                 />
               </div>
-              <div className="truncate flex flex-col gap-6 text-black z-10 top-auto w-full max-md:pb-8 row-span-2 md:grid grid-cols-1 grid-rows-[1fr_2fr]">
-                <div className="truncate flex flex-col gap-[1.875rem] max-md:hidden">
+              <div className="truncate flex flex-col gap-6 text-black z-10 top-auto w-full row-span-2 md:grid grid-cols-1 grid-rows-[1fr_2fr]">
+                <div className="truncate flex flex-col gap-3 md:gap-[1.875rem] ">
                   <div className="flex justify-between w-full text-lg">
                     <h2>{data.title}</h2>
                     <h3>{project.date}</h3>
@@ -34,11 +34,11 @@ export default function SeriesGridView({ data }: { data: Series }) {
                   <h1 className="text-4xl">{project.title}</h1>
                 </div>
                 <div className="flex flex-col justify-end gap-6 leading-8">
-                  <h4 className="line-clamp-5 whitespace-pre-line">
+                  <h4 className="line-clamp-3 md:line-clamp-5 whitespace-pre-line">
                     {project.description}
                   </h4>
 
-                  <h4 className="border-t border-black border-dotted text-center pt-8">
+                  <h4 className="border-t-2 border-gray-400  border-dotted text-center pt-8">
                     READ MORE
                   </h4>
                 </div>
@@ -46,6 +46,9 @@ export default function SeriesGridView({ data }: { data: Series }) {
             </Link>
           );
         })}
+        {data.seriesProjects.length % 2 && (
+          <div className="border-b border-black"></div>
+        )}
       </div>
     </div>
   );

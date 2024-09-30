@@ -4,13 +4,11 @@ import { Project, YJData } from "@/firebase/firestoreTypes.d";
 export default function NavigationBar({ data }: { data: YJData }) {
   return (
     <div className="w-full h-full border-r border-black md:h-screen relative flex flex-col">
-      <Link href={"/"}>
-        <div className="flex flex-col items-center border-b border-black h-full md:h-[12.25rem] justify-center">
-          <h1 className="text-4xl font-serif">예진으로부터</h1>
-          <h3 className="text-2xl font-extralight font-serif">
-            formfor.hyunye
-          </h3>
-        </div>
+      <Link
+        href={"/"}
+        className="flex  items-center border-b border-black h-full md:h-[12.25rem] justify-center"
+      >
+        <img src="로고.svg" className="size-3/4"></img>
       </Link>
       <div className="flex-col p-12 gap-10 hidden md:flex overflow-y-auto h-full">
         {data.projects?.map((project, indexP) => {

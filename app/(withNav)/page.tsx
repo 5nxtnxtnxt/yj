@@ -1,5 +1,4 @@
 import ImageSection from "@/components/imageSection";
-import NavigationBar from "@/components/navigationBar";
 import { getProjectData } from "@/firebase/firestore";
 import EssayListView from "./essayListView";
 import Info from "@/components/info";
