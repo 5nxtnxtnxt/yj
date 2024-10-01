@@ -35,12 +35,12 @@ export default function SeriesGridView({ data }: { data: Series }) {
                   </div>
                   <h1 className="text-4xl">{project.title}</h1>
                 </div>
-                <div className="flex flex-col justify-end gap-6 leading-8">
+                <div className="flex flex-col justify-end gap-6 leading-[1.875rem]">
                   <h4 className="line-clamp-3 md:line-clamp-5 whitespace-pre-line">
                     {project.description}
                   </h4>
 
-                  <h4 className="border-t-2 border-gray-400  border-dotted text-center pt-8">
+                  <h4 className="border-t-2 border-border-black border-dotted text-center pt-8">
                     READ MORE
                   </h4>
                 </div>

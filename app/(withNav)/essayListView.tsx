@@ -109,10 +109,10 @@ export default function EssayListView({ data }: { data: YJData }) {
           </Link>
         );
       })}
-      <div className="flex items-center justify-center h-40">
+      <div className="md:hidden flex items-center justify-center h-40">
         {essays.length > page * ESSAY_PER_PAGE ? (
           <div
-            className="md:hidden cursor-pointer items-center flex gap-3"
+            className="cursor-pointer items-center flex gap-3"
             onClick={() => setPage(page + 1)}
           >
             <h4>LOAD MORE</h4>

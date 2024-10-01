@@ -27,7 +27,7 @@ const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
 
         {data.contents[index].type == "text" && (
           <div className="w-full flex-grow  md:pr-[3.125rem] p-2 overflow-y-auto">
-            <h5 className=" whitespace-pre-line">
+            <h5 className=" whitespace-pre-line text-lg leading-8">
               {data.contents[index].data}
             </h5>
           </div>
@@ -150,7 +150,7 @@ const Layout1 = ({ data, page }: { data: Essay; page: number }) => {
         <div className="px-4 relative size-full overflow-y-auto">
           <div className="bg-white flex flex-col p-[3.125rem] gap-20 min-h-full">
             <h1 className="text-[2.5rem]">{data.title}</h1>
-            <h5 className=" whitespace-pre-line">{text}</h5>
+            <h5 className=" whitespace-pre-line text-lg leading-8">{text}</h5>
           </div>
         </div>
         <a

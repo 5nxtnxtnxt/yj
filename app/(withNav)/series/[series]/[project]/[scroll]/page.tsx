@@ -29,7 +29,7 @@ export default async function a({
       <div className={`w-full relative`}>
         <div className="border-b border-border-black flex flex-col justify-end h-80 gap-6 p-14">
           <h1 className="text-4xl font-extrabold">{nowData.title}</h1>
-          <h2>{nowData.description}</h2>
+          <h2 className="text-3xl leading-8">{nowData.description}</h2>
         </div>
         <div className="border-b border-border-black p-5 flex gap-3">
           <Link href={`/series/${nowSeries?.title}`}>{nowSeries?.title}</Link>

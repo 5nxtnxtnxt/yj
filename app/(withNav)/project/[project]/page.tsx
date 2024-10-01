@@ -20,7 +20,7 @@ export default async function a({ params }: { params: { project: string } }) {
           <h1 className="max-md:text-7xl text-8xl realNova text-center">
             {nowData.infoTitle}
           </h1>
-          <h4 className=" whitespace-pre-line text-center text-lg leading-[1.875rem]">
+          <h4 className=" whitespace-pre-line text-center text-lg leading-8">
             {nowData.infoContent}
           </h4>
         </div>

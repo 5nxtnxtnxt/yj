@@ -184,7 +184,7 @@ export default function ImageSection({ data }: { data: YJData }) {
 
                     <h2 className="text-4xl pb-6">{e.title}</h2>
                     <div>
-                      <h4 className="whitespace-pre-line break-words line-clamp-5">
+                      <h4 className="whitespace-pre-line break-words line-clamp-5 text-lg leading-[1.875rem]">
                         {e.des}
                       </h4>
                     </div>

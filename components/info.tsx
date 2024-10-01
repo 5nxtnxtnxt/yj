@@ -16,7 +16,7 @@ export default function Info({ data }: { data: YJData }) {
           alt="infoIcon"
           width={120}
           height={160}
-          className="fixed right-0 top-0 w-10 md:w-16  m-5 cursor-pointer z-[100]"
+          className="fixed right-0 top-0 w-10 md:w-16 m-5 md:m-[3.125rem] cursor-pointer z-[100]"
           onClick={() => setOpened(true)}
         />
       )}

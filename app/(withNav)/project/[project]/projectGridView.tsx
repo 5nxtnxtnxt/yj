@@ -44,12 +44,12 @@ export default function ProjectGridView({ data }: { data: Project }) {
                   </div>
                   <h1 className="text-4xl">{essay.title}</h1>
                 </div>
-                <div className="flex flex-col justify-end gap-6 leading-8">
+                <div className="flex flex-col justify-end gap-6 leading-[1.875rem]">
                   <h4 className="line-clamp-5 whitespace-pre-line">
                     {essay.contents.find((e) => e.type === "text")?.data}
                   </h4>
 
-                  <h4 className="border-t-2 border-gray-400  border-dotted text-center pt-8">
+                  <h4 className="border-t-2 border-border-black  border-dotted text-center pt-8">
                     READ MORE
                   </h4>
                 </div>
