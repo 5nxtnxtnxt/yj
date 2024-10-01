@@ -22,7 +22,7 @@ export default function Info({ data }: { data: YJData }) {
       )}
 
       {opened && (
-        <div className="fixed flex flex-col justify-between gap-6 top-0 right-0 bg-[#B5BBA1] z-[100] w-full  md:w-[calc((100vw-20rem)/2)] h-screen p-5">
+        <div className="fixed flex flex-col justify-between gap-6 top-0 right-0 bg-[#B5BBA1] z-[100] w-full  md:w-[calc((100vw-20rem)/2)] h-screen p-5 md:p-12">
           <div className="flex items-center justify-between">
             <Image
               src="/민들레white.png"
@@ -31,14 +31,17 @@ export default function Info({ data }: { data: YJData }) {
               height={160}
               className="w-10 md:w-16 cursor-pointer"
             />
-            <button
-              className="w-10 md:w-16 cursor-pointer z-50 text-5xl text-bg-white font-[10] content-center"
+
+            <Image
+              src="/x.svg"
+              alt="closedBtn"
+              width={120}
+              height={160}
+              className="w-7 cursor-pointer z-50 text-5xl text-bg-white font-[10] content-center"
               onClick={() => setOpened(false)}
-            >
-              X
-            </button>
+            />
           </div>
-          <div className="md:hidden h-full overflow-y-auto text-white flex flex-col gap-5 py-10 text-xl">
+          <div className="md:hidden h-full overflow-y-auto text-white flex flex-col gap-5 py-10 text-2xl">
             {data.projects.map((p, index) => {
               return (
                 <Link href={`/project/${p.title}`} key={index}>
@@ -52,12 +55,12 @@ export default function Info({ data }: { data: YJData }) {
                   <Link href={`/series/${p.title}`} key={index}>
                     {p.title}
                   </Link>
-                  <div className="mt-2 flex flex-col gap-2">
+                  <div className="mt-4 flex flex-col gap-4">
                     {p.seriesProjects.map((e, index) => (
                       <Link
                         href={`/series/${p.title}/${e.title}`}
                         key={p.title + index}
-                        className="pl-10 text-sm block"
+                        className="pl-10 text-xl block"
                       >
                         {e.title}
                       </Link>

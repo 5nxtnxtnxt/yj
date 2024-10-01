@@ -87,14 +87,14 @@ const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
       </div>
       <div className="grid grid-cols-2 grid-rows-1 h-full max-md:hidden  ">
         {leftSide.type === "image" ? (
-          <div className="size-full relative py-[12.5rem] px-[3.125rem] flex flex-col border-r border-black ">
+          <div className="size-full relative py-[12.5rem] px-[3.125rem] flex flex-col border-r border-border-black ">
             <ImagePage index={page * 2} />
             <h6 className="text-center absolute bottom-[3.125rem] content-center w-full left-0">
               {page * 2 + 1}
             </h6>
           </div>
         ) : (
-          <div className="size-full relative py-[12.5rem] pl-36 flex flex-col border-r border-black ">
+          <div className="size-full relative py-[12.5rem] pl-36 flex flex-col border-r border-border-black ">
             <TextPage index={page * 2} />
             <h6 className="text-center absolute bottom-[3.125rem] content-center w-full left-0">
               {page * 2 + 1}

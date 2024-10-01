@@ -264,7 +264,7 @@ export default function CreateProjectPage({
         {Array.from({ length: nowPage }).map((_, index) => (
           <div
             key={index}
-            className="flex flex-col border-b border-black border-dotted pb-6 gap-3"
+            className="flex flex-col border-b border-border-black border-dotted pb-6 gap-3"
           >
             <h1 className="w-full text-lg font-semibold">{index + 1} page</h1>
             <div>
@@ -308,7 +308,7 @@ export default function CreateProjectPage({
             </div>
             {isText[index] ? (
               <textarea
-                className="h-56 bg-bg-white border rounded border-black border-dashed"
+                className="h-56 bg-bg-white border rounded border-border-black border-dashed"
                 {...form.register(`contents.${index}.data`)}
               ></textarea>
             ) : (

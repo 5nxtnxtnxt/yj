@@ -23,7 +23,7 @@ export default function AdminPage() {
             return (
               <div
                 key={project.title + indexP}
-                className="flex flex-col gap-2 border-b p-6 border-black"
+                className="flex flex-col gap-2 border-b p-6 border-border-black"
               >
                 <div className="flex gap-10 text-2xl">
                   <h2>{project.title}</h2>
@@ -62,12 +62,12 @@ export default function AdminPage() {
           >
             프로젝트 추가하기
           </a>
-          <div className="w-full border-t border-black"></div>
+          <div className="w-full border-t border-border-black"></div>
           {yjData.series.map((series, indexP) => {
             return (
               <div
                 key={series.title + indexP}
-                className="flex flex-col gap-2 border-b p-6 border-black"
+                className="flex flex-col gap-2 border-b p-6 border-border-black"
               >
                 <div className="flex gap-10 text-2xl">
                   <h2>{series.title}</h2>

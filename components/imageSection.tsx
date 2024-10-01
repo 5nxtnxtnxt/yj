@@ -111,8 +111,9 @@ export default function ImageSection({ data }: { data: YJData }) {
             {nowList.map((e, index) => (
               <div
                 key={index}
-                className={`size-[0.375rem] rounded-full bg-slate-300 cursor-pointer ${
-                  nowScroll === index && "size-[0.625rem] bg-slate-700"
+                className={`size-[0.375rem] rounded-full bg-[#908b85] cursor-pointer ${
+                  nowScroll === index &&
+                  "w-[0.625rem] h-[0.625rem] !bg-black rounded-full"
                 }`}
                 onClick={() => setNowScroll(index)}
               ></div>
@@ -182,8 +183,11 @@ export default function ImageSection({ data }: { data: YJData }) {
                     </div>
 
                     <h2 className="text-4xl pb-6">{e.title}</h2>
-
-                    <h4 className="whitespace-pre-line break-words">{e.des}</h4>
+                    <div>
+                      <h4 className="whitespace-pre-line break-words line-clamp-5">
+                        {e.des}
+                      </h4>
+                    </div>
                   </div>
                 </div>
               </Link>
@@ -211,9 +215,7 @@ const refineData = (data: YJData): DataType[] => {
           depth: essay.depth,
           thumbnail: essay.thumbnail,
           date: essay.date,
-          des:
-            essay.contents.find((c) => c.type === "text")?.data.slice(0, 150) +
-              "..." || "",
+          des: essay.contents.find((c) => c.type === "text")?.data || "",
         });
       })
     );

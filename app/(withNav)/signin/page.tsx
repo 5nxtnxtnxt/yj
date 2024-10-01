@@ -28,7 +28,7 @@ export default function SignInPage() {
               type="email"
               name="email"
               id="email"
-              className="bg-bg-white border border-black border-dashed rounded-md"
+              className="bg-bg-white border border-border-black border-dashed rounded-md"
               onChange={(e) => {
                 setEmail(e.currentTarget.value);
               }}
@@ -42,7 +42,7 @@ export default function SignInPage() {
               type="password"
               name="pswd"
               id="pswd"
-              className="bg-bg-white border border-black border-dashed rounded-md"
+              className="bg-bg-white border border-border-black border-dashed rounded-md"
               onChange={(e) => {
                 setPswd(e.currentTarget.value);
               }}

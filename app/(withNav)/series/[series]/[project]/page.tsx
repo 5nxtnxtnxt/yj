@@ -25,11 +25,11 @@ export default async function a({
     <>
       <Info data={data}></Info>
       <div className="w-full relative">
-        <div className="border-b border-black flex flex-col justify-end h-80 gap-6 p-14">
+        <div className="border-b border-border-black flex flex-col justify-end h-80 gap-6 p-14">
           <h1 className="text-4xl font-extrabold">{nowData.title}</h1>
           <h2>{nowData.description}</h2>
         </div>
-        <div className="border-b border-black p-5 flex gap-3">
+        <div className="border-b border-border-black p-5 flex gap-3">
           <Link href={`/series/${nowSeries?.title}`}>{nowSeries?.title}</Link>
           <h6>{">"}</h6>
           <h4>{nowData.title}</h4>
@@ -40,7 +40,7 @@ export default async function a({
         {nowData.seriesContents.map((essay, index) => {
           return (
             <div
-              className="aspect-[2/1] flex flex-col gap-6 md:grid grid-cols-2 border-b border-black p-6 max-md:pb-8"
+              className="aspect-[2/1] flex flex-col gap-6 md:grid grid-cols-2 border-b border-border-black p-6 max-md:pb-8"
               key={index}
             >
               <div

@@ -52,7 +52,7 @@ export default function CreateProjectPage() {
         <div className="flex flex-col gap-1">
           <label htmlFor="title">title</label>
           <input
-            className="bg-bg-white border border-black rounded-md border-dashed"
+            className="bg-bg-white border border-border-black rounded-md border-dashed"
             type="text"
             id="title"
             {...form.register("title")}
@@ -65,7 +65,7 @@ export default function CreateProjectPage() {
         <div className="flex flex-col gap-1">
           <label htmlFor="infoTitle">infoTitle</label>
           <input
-            className="bg-bg-white border border-black rounded-md border-dashed"
+            className="bg-bg-white border border-border-black rounded-md border-dashed"
             type="text"
             id="infoTitle"
             {...form.register("infoTitle")}
@@ -79,7 +79,7 @@ export default function CreateProjectPage() {
           <label htmlFor="infoContent">infoContent</label>
           <textarea
             id="infoContent"
-            className="bg-bg-white border border-black rounded-md border-dashed h-56"
+            className="bg-bg-white border border-border-black rounded-md border-dashed h-56"
             {...form.register("infoContent")}
           />
           <h5 className="text-red-500">

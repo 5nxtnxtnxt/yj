@@ -11,7 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "bg-white": "#f2f2ea",
+        "bg-white": "#efeeeb",
+        "border-black": "#CCC9C6",
       },
       fontFamily: {
         sans: ['"Gowun Dodum"', ...defaultTheme.fontFamily.sans],

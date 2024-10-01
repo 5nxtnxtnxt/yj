@@ -23,7 +23,7 @@ export default function TestView({
       {nowData.seriesContents.map((essay, index) => {
         return (
           <div
-            className={`aspect-[2/1] flex flex-col gap-6 md:grid grid-cols-2 border-b border-black p-6 max-md:pb-8 ${
+            className={`aspect-[2/1] flex flex-col gap-6 md:grid grid-cols-2 border-b border-border-black p-6 max-md:pb-8 ${
               index === scrollIndex ? "autoScrollTarget" : ""
             }`}
             key={index}

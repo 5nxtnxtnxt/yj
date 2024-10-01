@@ -2,6 +2,7 @@
 
 import { YJData } from "@/firebase/firestoreTypes";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const ESSAY_PER_PAGE = 5;
@@ -61,7 +62,7 @@ export default function EssayListView({ data }: { data: YJData }) {
   return (
     <div className="flex flex-col">
       <div
-        className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-y border-black h-16
+        className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-y border-border-black h-16
               }`}
       >
         <h3 className="hidden md:inline-block content-center">CATEGORY</h3>
@@ -82,7 +83,7 @@ export default function EssayListView({ data }: { data: YJData }) {
             }
           >
             <div
-              className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-b border-black h-16 content-center  ${
+              className={`px-6 grid grid-cols-3 md:grid-cols-5 p-3 border-b border-border-black h-16 content-center  ${
                 index < nowList.length - 1 && "border-dashed"
               } ${
                 page * ESSAY_PER_PAGE > index + ESSAY_PER_PAGE
@@ -108,14 +109,21 @@ export default function EssayListView({ data }: { data: YJData }) {
           </Link>
         );
       })}
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center h-40">
         {essays.length > page * ESSAY_PER_PAGE ? (
-          <h3
-            className="md:hidden cursor-pointer h-40 content-center"
+          <div
+            className="md:hidden cursor-pointer items-center flex gap-3"
             onClick={() => setPage(page + 1)}
           >
-            ↓ LOAD MORE ↓
-          </h3>
+            <h4>LOAD MORE</h4>
+            <Image
+              className="size-[1rem]"
+              width={100}
+              height={100}
+              src="/down.svg"
+              alt="loadmore"
+            ></Image>
+          </div>
         ) : null}
       </div>
       <div className="h-96 flex flex-col justify-center items-center max-md:hidden">

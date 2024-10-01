@@ -5,13 +5,15 @@ import Link from "next/link";
 export default function ProjectGridView({ data }: { data: Project }) {
   return (
     <div className="flex w-full flex-col">
-      <h2 className="block border-b border-black w-full text-xl p-6">LIST</h2>
+      <h2 className="block border-b border-border-black w-full text-xl p-6">
+        LIST
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2">
         {data.essays.map((essay, index) => {
           return (
             <Link
               key={index}
-              className={`border-b border-black flex flex-col md:grid grid-rows-1 grid-cols-2 w-full p-5 md:p-8 relative gap-[1.875rem] md:h-[31.25rem] ${
+              className={`border-b border-border-black flex flex-col md:grid grid-rows-1 grid-cols-2 w-full p-5 md:p-8 relative gap-[1.875rem] md:h-[31.25rem] ${
                 index % 2 || "md:border-r"
               }`}
               href={`/project/${data.title}/${essay.title}/0`}
@@ -56,7 +58,7 @@ export default function ProjectGridView({ data }: { data: Project }) {
           );
         })}
         {data.essays.length % 2 ? (
-          <div className="border-b border-black"></div>
+          <div className="border-b border-border-black"></div>
         ) : null}
       </div>
     </div>

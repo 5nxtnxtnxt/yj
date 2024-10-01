@@ -117,7 +117,7 @@ export default function CreateProjectPage({
         <div className="flex flex-col gap-1">
           <label htmlFor="title">title</label>
           <input
-            className="bg-bg-white border rounded-md border-black border-dashed"
+            className="bg-bg-white border rounded-md border-border-black border-dashed"
             type="text"
             id="title"
             {...form.register("title")}
@@ -130,7 +130,7 @@ export default function CreateProjectPage({
         <div className="flex flex-col gap-1">
           <label htmlFor="description">description</label>
           <textarea
-            className="bg-bg-white border rounded-md border-black border-dashed"
+            className="bg-bg-white border rounded-md border-border-black border-dashed"
             id="description"
             {...form.register("description")}
           />
@@ -201,7 +201,7 @@ export default function CreateProjectPage({
         <div>
           <h3>date</h3>
           <input
-            className="bg-bg-white border rounded-md border-black border-dashed"
+            className="bg-bg-white border rounded-md border-border-black border-dashed"
             type="date"
             {...form.register("date")}
           />

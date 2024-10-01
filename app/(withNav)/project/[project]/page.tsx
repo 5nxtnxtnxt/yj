@@ -16,7 +16,7 @@ export default async function a({ params }: { params: { project: string } }) {
     <>
       <Info data={data}></Info>
       <div className=" flex flex-col">
-        <div className="w-full max-md:aspect-square md:h-[50rem] border-b border-black flex flex-col justify-center items-center gap-8 max-md:p-4">
+        <div className="w-full max-md:aspect-square md:h-[50rem] border-b border-border-black flex flex-col justify-center items-center gap-8 max-md:p-4">
           <h1 className="max-md:text-7xl text-8xl realNova text-center">
             {nowData.infoTitle}
           </h1>
