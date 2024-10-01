@@ -45,6 +45,10 @@ export default function CreateProjectPage({
   const [isText, setIsText] = useState<boolean[]>([true]);
   const [url, setUrl] = useState<string[]>([""]);
   const [uploading, setUploading] = useState(false);
+  const [top, setTop] = useState(0);
+  const [left, setLeft] = useState(0);
+  const [width, setWidth] = useState(0);
+  const [depth, setDepth] = useState(0);
   const router = useRouter();
   const form = useForm<z.infer<typeof ProjectSchema>>({
     resolver: zod.zodResolver(ProjectSchema),
@@ -52,10 +56,10 @@ export default function CreateProjectPage({
       layout: 0,
       thumbnail: "",
       onMain: true,
-      top: 10,
+      top: 0,
       left: 0,
       depth: 0,
-      width: 10,
+      width: 0,
       link: "",
       contents: [{ type: "text", data: "" }],
     },
@@ -204,34 +208,39 @@ export default function CreateProjectPage({
           {onMain ? (
             <div>
               <div>
-                <h2>상하</h2>
+                <h2>상하 {top}</h2>
                 <input
                   type="range"
                   {...form.register("top", {
                     valueAsNumber: true,
                   })}
+                  onChange={(e) => setTop(parseInt(e.target.value))}
                 />
-                <h2>좌우</h2>
+
+                <h2>좌우 {left}</h2>
                 <input
                   type="range"
                   {...form.register("left", {
                     valueAsNumber: true,
                   })}
+                  onChange={(e) => setLeft(parseInt(e.target.value))}
                 />
-                <h2>크기</h2>
+                <h2>크기 {width}</h2>
                 <input
                   type="range"
                   {...form.register("width", {
                     valueAsNumber: true,
                   })}
+                  onChange={(e) => setWidth(parseInt(e.target.value))}
                 />
-                <h4>depth</h4>
+                <h4>depth {depth}</h4>
                 <input
                   type="range"
                   max={4}
                   {...form.register("depth", {
                     valueAsNumber: true,
                   })}
+                  onChange={(e) => setDepth(parseInt(e.target.value))}
                 />
               </div>
             </div>
