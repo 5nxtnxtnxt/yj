@@ -18,6 +18,11 @@ const ProjectSchema = z.object({
   image: z.string().min(1, "썸네일을 선택해주세요"),
   text: z.string().min(1),
   link: z.string().min(1),
+  onMain: z.boolean(),
+  top: z.number(),
+  left: z.number(),
+  depth: z.number(),
+  width: z.number(),
 });
 
 export default function CreateProjectPage({
@@ -31,6 +36,10 @@ export default function CreateProjectPage({
   const [nowSeriesIndex, setNowSeriesIndex] = useState<number>();
   const [nowProjectIndex, setNowProjectIndex] = useState<number>();
   const [onMain, setOnMain] = useState(true);
+  const [top, setTop] = useState(0);
+  const [left, setLeft] = useState(0);
+  const [width, setWidth] = useState(0);
+  const [depth, setDepth] = useState(0);
   const [thumbnail, setThumbnail] = useState("");
   const [uploading, setUploading] = useState(false);
   const router = useRouter();
@@ -38,6 +47,11 @@ export default function CreateProjectPage({
     resolver: zod.zodResolver(ProjectSchema),
     defaultValues: {
       image: "",
+      onMain: true,
+      top: 0,
+      left: 0,
+      depth: 0,
+      width: 0,
     },
   });
   useEffect(() => {
@@ -110,6 +124,59 @@ export default function CreateProjectPage({
         <label htmlFor="title">title</label>
         <input type="text" id="title" {...form.register("title")} />
         <h5 className="text-red-500">{form.formState.errors.title?.message}</h5>
+        <div>
+          <label htmlFor="onMain" className="text-xl ">
+            메인에 표시
+          </label>
+          <input
+            type="checkbox"
+            id="onMain"
+            {...form.register("onMain")}
+            onChange={(e) => setOnMain(e.target.checked)}
+          />
+        </div>
+
+        {onMain ? (
+          <div>
+            <div>
+              <h2>상하 {top}</h2>
+              <input
+                type="range"
+                {...form.register("top", {
+                  valueAsNumber: true,
+                })}
+                onChange={(e) => setTop(parseInt(e.target.value))}
+              />
+
+              <h2>좌우 {left}</h2>
+              <input
+                type="range"
+                {...form.register("left", {
+                  valueAsNumber: true,
+                })}
+                onChange={(e) => setLeft(parseInt(e.target.value))}
+              />
+              <h2>크기 {width}</h2>
+              <input
+                type="range"
+                {...form.register("width", {
+                  valueAsNumber: true,
+                })}
+                onChange={(e) => setWidth(parseInt(e.target.value))}
+              />
+              <h4>depth {depth}</h4>
+              <input
+                type="range"
+                max={4}
+                {...form.register("depth", {
+                  valueAsNumber: true,
+                })}
+                onChange={(e) => setDepth(parseInt(e.target.value))}
+              />
+            </div>
+          </div>
+        ) : null}
+
         <label htmlFor="text">text</label>
         <textarea id="text" {...form.register("text")} />
         <h5 className="text-red-500">{form.formState.errors.text?.message}</h5>

@@ -220,25 +220,26 @@ const refineData = (data: YJData): DataType[] => {
         });
       })
     );
-  data.series
-    .filter((e) => e.visible)
-    .forEach((s) =>
-      s.seriesProjects
+  data.series.forEach((t) =>
+    t.seriesProjects.filter((e) =>
+      e.seriesContents
         .filter((e) => e.onMain)
         .forEach((project) => {
           newList.push({
-            highTitle: s.title,
+            highTitle: e.title,
             title: project.title,
             isSeries: true,
             top: project.top,
             width: project.width,
             left: project.left,
             depth: project.depth,
-            thumbnail: project.thumbnail,
+            thumbnail: project.image,
             date: project.date,
-            des: project.description,
+            des: project.text,
           });
         })
-    );
+    )
+  );
+
   return newList;
 };

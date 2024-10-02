@@ -49,12 +49,13 @@ export type SeriesProject = {
   title: string;
   date: string;
   description: string;
-  top: number;
-  left: number;
-  depth: number;
-  width: number;
-  onMain: boolean;
+
   seriesContents: {
+    top: number;
+    left: number;
+    depth: number;
+    width: number;
+    onMain: boolean;
     image: string;
     title: string;
     date: string;

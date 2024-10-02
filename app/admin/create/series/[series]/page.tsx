@@ -23,11 +23,6 @@ const ProjectSchema = z.object({
   date: z.string().min(8),
   thumbnail: z.string().min(1, "썸네일을 선택해주세요"),
   description: z.string().min(1),
-  onMain: z.boolean(),
-  top: z.number(),
-  left: z.number(),
-  depth: z.number(),
-  width: z.number(),
 });
 
 export default function CreateProjectPage({
@@ -38,23 +33,13 @@ export default function CreateProjectPage({
   const seriesTitle = decodeURIComponent(params.series);
   const [YJData, setYJData] = useState<YJData>();
   const [nowData, setNowData] = useState<number>();
-  const [onMain, setOnMain] = useState(true);
   const [thumbnail, setThumbnail] = useState("");
   const [uploading, setUploading] = useState(false);
-  const [top, setTop] = useState(0);
-  const [left, setLeft] = useState(0);
-  const [width, setWidth] = useState(0);
-  const [depth, setDepth] = useState(0);
   const router = useRouter();
   const form = useForm<z.infer<typeof ProjectSchema>>({
     resolver: zod.zodResolver(ProjectSchema),
     defaultValues: {
       thumbnail: "",
-      onMain: true,
-      top: 0,
-      left: 0,
-      depth: 0,
-      width: 0,
     },
   });
   useEffect(() => {
@@ -143,58 +128,6 @@ export default function CreateProjectPage({
           </h5>
         </div>
 
-        <div>
-          <label htmlFor="onMain" className="text-xl ">
-            메인에 표시
-          </label>
-          <input
-            type="checkbox"
-            id="onMain"
-            {...form.register("onMain")}
-            onChange={(e) => setOnMain(e.target.checked)}
-          />
-        </div>
-
-        {onMain ? (
-          <div>
-            <div>
-              <h2>상하 {top}</h2>
-              <input
-                type="range"
-                {...form.register("top", {
-                  valueAsNumber: true,
-                })}
-                onChange={(e) => setTop(parseInt(e.target.value))}
-              />
-
-              <h2>좌우 {left}</h2>
-              <input
-                type="range"
-                {...form.register("left", {
-                  valueAsNumber: true,
-                })}
-                onChange={(e) => setLeft(parseInt(e.target.value))}
-              />
-              <h2>크기 {width}</h2>
-              <input
-                type="range"
-                {...form.register("width", {
-                  valueAsNumber: true,
-                })}
-                onChange={(e) => setWidth(parseInt(e.target.value))}
-              />
-              <h4>depth {depth}</h4>
-              <input
-                type="range"
-                max={4}
-                {...form.register("depth", {
-                  valueAsNumber: true,
-                })}
-                onChange={(e) => setDepth(parseInt(e.target.value))}
-              />
-            </div>
-          </div>
-        ) : null}
         <div>
           <h3>thumbnail</h3>
           {thumbnail !== "" && <img className="w-1/2" src={thumbnail}></img>}
