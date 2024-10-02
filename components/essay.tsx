@@ -60,9 +60,15 @@ const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
         {nowPage > 0 && (
           <button
             onClick={() => setNowPage(nowPage - 1)}
-            className="absolute text-sm left-2 top-1/2 size-6 bg-opacity-50 bg-white shadow rounded-full text-center content-center"
+            className="absolute text-sm left-2 top-1/2 size-8 bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
           >
-            {"<"}
+            <Image
+              className="w-2"
+              width={0}
+              height={0}
+              src="/left.svg"
+              alt="leftPage"
+            ></Image>
           </button>
         )}
 
@@ -79,9 +85,15 @@ const Layout0 = ({ data, page }: { data: Essay; page: number }) => {
         {nowPage + 1 < data.contents.length && (
           <button
             onClick={() => setNowPage(nowPage + 1)}
-            className="absolute text-sm right-2 top-1/2 size-6 bg-opacity-50 bg-white shadow rounded-full text-center content-center"
+            className="absolute right-2 top-1/2 size-8 bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
           >
-            {">"}
+            <Image
+              className="w-2"
+              width={0}
+              height={0}
+              src="/right.svg"
+              alt="rightPage"
+            ></Image>
           </button>
         )}
       </div>
@@ -148,7 +160,7 @@ const Layout1 = ({ data, page }: { data: Essay; page: number }) => {
       ></Image>
       <div className="pt-16 flex flex-col gap-[3.125rem] md:py-32 px-5 md:px-[20rem] size-full absolute top-0 left-0 p-10">
         <div className="px-4 relative size-full overflow-y-auto">
-          <div className="bg-white flex flex-col p-[3.125rem] gap-20 min-h-full">
+          <div className="bg-bg-white flex flex-col p-[3.125rem] gap-20 min-h-full">
             <h1 className="text-[2.5rem]">{data.title}</h1>
             <h5 className=" whitespace-pre-line text-lg leading-8">{text}</h5>
           </div>

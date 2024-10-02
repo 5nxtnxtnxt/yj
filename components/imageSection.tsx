@@ -64,8 +64,9 @@ export default function ImageSection({ data }: { data: YJData }) {
                 return (
                   <div key={index} className="w-full flex-shrink-0 ">
                     <div
-                      className={`size-full relative ${
-                        index !== nowScroll && "opacity-70 scale-90 shadow-2xl"
+                      className={`size-full relative  ${
+                        index !== nowScroll &&
+                        "opacity-50 scale-[0.85] blur-sm "
                       }`}
                       onClick={() => {
                         setNowClick(index);
@@ -76,7 +77,7 @@ export default function ImageSection({ data }: { data: YJData }) {
                         width={1024}
                         height={1024}
                         src={e.thumbnail}
-                        className={`flip-image size-full object-cover transition-all duration-200 ${
+                        className={`flip-image size-full object-cover transition-all duration-200 bg-bg-white shadow-[0_0_25px_5px_#00000022] ${
                           nowClick === index && "opacity-0"
                         }`}
                       />
@@ -84,7 +85,7 @@ export default function ImageSection({ data }: { data: YJData }) {
                         href={`/${e.isSeries ? "series" : "project"}/${
                           e.highTitle
                         }/${e.title}${e.isSeries ? "" : "/0"}`}
-                        className={`flip-preview size-full top-0 shadow-2xl left-0 absolute opacity-0 transition-opacity duration-200 delay-75 h-full flex flex-col ${
+                        className={`bg-bg-white flip-preview size-full top-0 shadow-[0_0_25px_5px_#00000022] left-0 absolute opacity-0 transition-opacity duration-200 delay-75 h-full flex flex-col ${
                           nowClick === index
                             ? "opacity-100"
                             : "pointer-events-none"
@@ -95,8 +96,8 @@ export default function ImageSection({ data }: { data: YJData }) {
                           <h4 className="truncate text-right">{e.date}</h4>
                         </div>
 
-                        <h2 className="text-2xl mt-6 mb-10">{e.title}</h2>
-                        <h4 className="whitespace-pre-line overflow-y-auto">
+                        <h2 className="text-3xl mb-8">{e.title}</h2>
+                        <h4 className="whitespace-pre-line overflow-y-auto leading-8">
                           {e.des}
                         </h4>
                       </Link>
@@ -136,7 +137,7 @@ export default function ImageSection({ data }: { data: YJData }) {
                     width: `${e.width}%`,
                     left: `${e.left}%`,
                   }}
-                  className={`absolute shadow-xl transition-all duration-200 
+                  className={`absolute shadow-2xl transition-all duration-200 
                   
                   ${
                     nowHover === `${e.highTitle}-${e.title}`

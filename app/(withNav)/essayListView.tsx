@@ -94,8 +94,8 @@ export default function EssayListView({ data }: { data: YJData }) {
               <h3 className="hidden md:inline-block">{essay.request}</h3>
               <h2 className="col-span-2 flex gap-2">
                 {index < 3 ? (
-                  <h5 className="bg-black text-bg-white px-2 rounded-sm text-center content-center realNova font-bold">
-                    new
+                  <h5 className="bg-black text-bg-white p-1 rounded-sm text-center content-center realNova text-xs font-bold">
+                    NEW
                   </h5>
                 ) : null}
                 <h4 className=" truncate w-full  ">{essay.title}</h4>

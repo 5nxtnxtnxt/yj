@@ -49,7 +49,7 @@ export default function ProjectGridView({ data }: { data: Project }) {
                     {essay.contents.find((e) => e.type === "text")?.data}
                   </h4>
 
-                  <h4 className="border-t-2 border-border-black  border-dotted text-center pt-8">
+                  <h4 className="border-t border-border-black  border-dotted text-center pt-8">
                     READ MORE
                   </h4>
                 </div>

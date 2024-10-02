@@ -26,8 +26,12 @@ export default async function a({
       <Info data={data}></Info>
       <div className="w-full relative">
         <div className="border-b border-border-black flex flex-col justify-end h-80 gap-6 p-14">
-          <h1 className="text-4xl font-extrabold">{nowData.title}</h1>
-          <h2 className="text-lg leading-8">{nowData.description}</h2>
+          <h1 className="text-4xl font-extrabold max-md:text-center">
+            {nowData.title}
+          </h1>
+          <h2 className="text-lg leading-8 max-md:text-center">
+            {nowData.description}
+          </h2>
         </div>
         <div className="border-b border-border-black p-5 flex gap-3">
           <Link href={`/series/${nowSeries?.title}`}>{nowSeries?.title}</Link>
@@ -57,7 +61,7 @@ export default async function a({
                 />
                 <div className="flex flex-col gap-10 md:hidden text-white  z-10 absolute top-0 w-full p-5">
                   <div className="flex justify-between w-full text-lg gap-3">
-                    <h2 className="flex-grow overflow-hidden  ">
+                    <h2 className="flex-grow overflow-hidden ">
                       {essay.title}
                     </h2>
                     <h3 className="flex-shrink-0 ">{essay.date}</h3>
@@ -72,15 +76,11 @@ export default async function a({
                 }`}
               >
                 <div className="flex justify-between w-full text-lg gap-3 col-span-2 max-md:hidden">
-                  <h2 className="flex-grow overflow-hidden text-3xl">
+                  <h2 className="flex-grow overflow-hidden text-3xl break-keep">
                     {essay.title}
                   </h2>
                   <h3 className="flex-shrink-0 ">{essay.date}</h3>
                 </div>
-                {/* <h1 className="text-3xl pb-10 max-md:hidden overflow-hidden">
-                  {essay.title}
-                </h1>
-                <h3 className="text-right max-md:hidden">{essay.date}</h3> */}
                 <textarea
                   className="col-span-2 bg-bg-white h-[30rem] text-lg leading-8 resize-none outline-none overflow-hidden md:line-clamp-[20] line-clamp-6 max-md:h-36"
                   readOnly
@@ -90,7 +90,7 @@ export default async function a({
                   <a
                     href={essay.link}
                     target="_blank"
-                    className=" text-center max-md:border-t bg-white h-[3.125rem] content-center w-60 shadow-lg rounded-full"
+                    className=" text-center max-md:border-t bg-white bg-opacity-50 h-[3.125rem] content-center w-60 shadow-lg rounded-full"
                   >
                     {"전문 보러가기  >"}
                   </a>
