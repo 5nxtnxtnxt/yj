@@ -28,9 +28,10 @@ const ProjectSchema = z.object({
 export default function CreateProjectPage({
   params,
 }: {
-  params: { series: string };
+  params: { series: string; project: string };
 }) {
   const seriesIndex = parseInt(params.series);
+  const projectIndex = parseInt(params.project);
   const [YJData, setYJData] = useState<YJData>();
   const [thumbnail, setThumbnail] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -44,10 +45,13 @@ export default function CreateProjectPage({
   useEffect(() => {
     const loadNowData = async () => {
       const data = await getProjectData();
-
-      if (data.series[seriesIndex] === undefined) {
+      const target = data.series[seriesIndex].seriesProjects[projectIndex];
+      if (target === undefined) {
         router.push("/admin");
       }
+      form.reset({ ...target });
+      setThumbnail(target.thumbnail);
+      form.trigger();
       setYJData(data);
     };
     loadNowData();
@@ -57,10 +61,11 @@ export default function CreateProjectPage({
     if (YJData?.series[seriesIndex] === undefined) return;
 
     const origin: Series[] = JSON.parse(JSON.stringify(YJData?.series));
-    origin[seriesIndex].seriesProjects.push({
+    origin[seriesIndex].seriesProjects[projectIndex] = {
       ...values,
-      seriesContents: [],
-    });
+      seriesContents:
+        origin[seriesIndex].seriesProjects[projectIndex].seriesContents,
+    };
     const result = await updateSeries(origin);
 
     if (result) {
@@ -99,7 +104,9 @@ export default function CreateProjectPage({
         className="flex flex-col gap-3 p-10"
       >
         <h1 className="text-2xl">
-          시리즈 [{YJData?.series[seriesIndex].title}] 프로젝트 추가
+          [{YJData?.series[seriesIndex].title}] {">"} [
+          {YJData?.series[seriesIndex].seriesProjects[projectIndex].title}]
+          프로젝트 수정
         </h1>
         <div className="flex flex-col gap-1">
           <label htmlFor="title">title</label>

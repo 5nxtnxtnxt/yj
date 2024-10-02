@@ -2,7 +2,13 @@ import { Project, Series } from "@/firebase/firestoreTypes";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function SeriesGridView({ data }: { data: Series }) {
+export default function SeriesGridView({
+  data,
+  seriesIndex,
+}: {
+  data: Series;
+  seriesIndex: number;
+}) {
   return (
     <div className="flex w-full flex-col">
       <h2 className="block border-b border-border-black w-full text-xl p-6">
@@ -16,7 +22,7 @@ export default function SeriesGridView({ data }: { data: Series }) {
               className={`border-b border-border-black flex flex-col md:grid grid-rows-2 grid-cols-2  w-full p-8 relative gap-[1.875rem] md:h-[31.25rem] ${
                 index % 2 || "md:border-r"
               }`}
-              href={`/series/${data.title}/${project.title}`}
+              href={`/series/${seriesIndex}/${index}`}
             >
               <div className="w-full aspect-[2/1] md:h-full overflow-hidden relative md:row-span-2 row-span-1 md:col-span-1 col-span-2">
                 <Image

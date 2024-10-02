@@ -6,10 +6,10 @@ import ProjectGridView from "./projectGridView";
 import Info from "@/components/info";
 
 export default async function a({ params }: { params: { project: string } }) {
-  const projectTitle = decodeURIComponent(params.project);
+  const projectIndex = parseInt(params.project);
 
   const data = await getProjectData();
-  const nowData = data.projects.find((p) => p.title === projectTitle);
+  const nowData = data.projects[projectIndex];
 
   if (!nowData) redirect("/error");
   return (
@@ -24,7 +24,10 @@ export default async function a({ params }: { params: { project: string } }) {
             {nowData.infoContent}
           </h4>
         </div>
-        <ProjectGridView data={nowData}></ProjectGridView>
+        <ProjectGridView
+          data={nowData}
+          projectIndex={projectIndex}
+        ></ProjectGridView>
       </div>
     </>
   );

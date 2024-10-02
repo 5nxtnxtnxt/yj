@@ -2,7 +2,13 @@ import { Project } from "@/firebase/firestoreTypes";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ProjectGridView({ data }: { data: Project }) {
+export default function ProjectGridView({
+  data,
+  projectIndex,
+}: {
+  data: Project;
+  projectIndex: number;
+}) {
   return (
     <div className="flex w-full flex-col">
       <h2 className="block border-b border-border-black w-full text-xl p-6">
@@ -16,7 +22,7 @@ export default function ProjectGridView({ data }: { data: Project }) {
               className={`border-b border-border-black flex flex-col md:grid grid-rows-1 grid-cols-2 w-full p-5 md:p-8 relative gap-[1.875rem] md:h-[31.25rem] ${
                 index % 2 || "md:border-r"
               }`}
-              href={`/project/${data.title}/${essay.title}/0`}
+              href={`/project/${projectIndex}/${index}/0`}
             >
               <div className="w-full aspect-square md:h-full overflow-hidden relative row-start-1 col-start-1">
                 <Image

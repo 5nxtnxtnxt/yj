@@ -8,42 +8,47 @@ import { useEffect, useState } from "react";
 const ESSAY_PER_PAGE = 5;
 
 type EssayTypeForListView = {
+  projectIndex: number;
+  seriesIndex: number;
+  essayIndex: number;
   href: string;
   title: string;
   request: string;
   type: "단편" | "시리즈";
   date: string;
-  page: number;
 };
 export default function EssayListView({ data }: { data: YJData }) {
   const [page, setPage] = useState(1);
   const [essays, setEssays] = useState<EssayTypeForListView[]>([]);
 
   useEffect(() => {
-    console.log("start");
     const newList: EssayTypeForListView[] = [];
-    data.projects.forEach((e) => {
-      e.essays.forEach((essay) => {
+    data.projects.forEach((project, indexP) => {
+      project.essays.forEach((essay, indexE) => {
         newList.push({
           href: "project",
           title: essay.title,
-          request: e.title,
+          request: project.title,
           type: "단편",
           date: essay.date,
-          page: 0,
+          projectIndex: indexP,
+          seriesIndex: 0,
+          essayIndex: indexE,
         });
       });
     });
-    data.series.forEach((series) => {
-      series.seriesProjects.forEach((project) => {
-        project.seriesContents.forEach((essay, index) => {
+    data.series.forEach((series, indexS) => {
+      series.seriesProjects.forEach((project, indexP) => {
+        project.seriesContents.forEach((essay, indexE) => {
           newList.push({
             href: series.title,
             title: essay.title,
             request: project.title,
             type: "시리즈",
             date: essay.date,
-            page: index,
+            projectIndex: indexP,
+            seriesIndex: indexS,
+            essayIndex: indexE,
           });
         });
       });
@@ -54,7 +59,6 @@ export default function EssayListView({ data }: { data: YJData }) {
 
       return bDate - aDate;
     });
-    console.log("useEffect");
     setEssays(newList);
   }, []);
 
@@ -78,8 +82,8 @@ export default function EssayListView({ data }: { data: YJData }) {
             key={essay.title + index}
             href={
               essay.type === "단편"
-                ? `/project/${essay.request}/${essay.title}/0`
-                : `/series/${essay.href}/${essay.request}/${essay.page}}`
+                ? `/project/${essay.projectIndex}/${essay.essayIndex}/0`
+                : `/series/${essay.seriesIndex}/${essay.projectIndex}/${essay.essayIndex}}`
             }
           >
             <div
@@ -92,14 +96,14 @@ export default function EssayListView({ data }: { data: YJData }) {
               }`}
             >
               <h3 className="hidden md:inline-block">{essay.request}</h3>
-              <h2 className="col-span-2 flex gap-2">
+              <div className="col-span-2 flex gap-2">
                 {index < 3 ? (
                   <h5 className="bg-black text-bg-white p-1 rounded-sm text-center content-center realNova text-xs font-bold">
                     NEW
                   </h5>
                 ) : null}
                 <h4 className=" truncate w-full  ">{essay.title}</h4>
-              </h2>
+              </div>
               <h4 className="hidden md:inline-block text-right">
                 {essay.type}
               </h4>

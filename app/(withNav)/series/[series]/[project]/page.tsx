@@ -9,14 +9,12 @@ export default async function a({
 }: {
   params: { series: string; project: string };
 }) {
-  const seriesTitle = decodeURIComponent(params.series);
-  const projectTitle = decodeURIComponent(params.project);
+  const seriesIndex = parseInt(params.series);
+  const projectIndex = parseInt(params.project);
 
   const data = await getProjectData();
-  const nowSeries = data.series.find((p) => p.title === seriesTitle);
-  const nowData = nowSeries?.seriesProjects.find(
-    (e) => e.title === projectTitle
-  );
+  const nowSeries = data.series[seriesIndex];
+  const nowData = nowSeries.seriesProjects[projectIndex];
 
   if (!nowData) {
     redirect("/error");
@@ -34,7 +32,7 @@ export default async function a({
           </h2>
         </div>
         <div className="border-b border-border-black p-5 flex gap-3">
-          <Link href={`/series/${nowSeries?.title}`}>{nowSeries?.title}</Link>
+          <Link href={`/series/${seriesIndex}`}>{nowSeries?.title}</Link>
           <h6>{">"}</h6>
           <h4>{nowData.title}</h4>
           <h6>{">"}</h6>

@@ -7,6 +7,9 @@ import Link from "next/link";
 import useMediaQuery from "@/hook/useMediaQuery";
 
 type DataType = {
+  projectIndex: number;
+  seriesIndex: number;
+  essayIndex: number;
   highTitle: string;
   title: string;
   isSeries: boolean;
@@ -23,7 +26,7 @@ export default function ImageSection({ data }: { data: YJData }) {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [nowScroll, setNowScroll] = useState(0);
   const [nowClick, setNowClick] = useState(-1);
-  const [nowHover, setNowHover] = useState<string>("");
+  const [nowHover, setNowHover] = useState(-1);
   const nowList = useMemo(() => {
     return refineData(data);
   }, [data]);
@@ -82,9 +85,11 @@ export default function ImageSection({ data }: { data: YJData }) {
                         }`}
                       />
                       <Link
-                        href={`/${e.isSeries ? "series" : "project"}/${
-                          e.highTitle
-                        }/${e.title}${e.isSeries ? "" : "/0"}`}
+                        href={
+                          e.isSeries
+                            ? `series/${e.seriesIndex}/${e.projectIndex}/${e.essayIndex}`
+                            : `project/${e.projectIndex}/${e.essayIndex}/0`
+                        }
                         className={`bg-bg-white flip-preview size-full top-0 shadow-[0_0_25px_5px_#00000022] left-0 absolute opacity-0 transition-opacity duration-200 delay-75 h-full flex flex-col ${
                           nowClick === index
                             ? "opacity-100"
@@ -127,9 +132,11 @@ export default function ImageSection({ data }: { data: YJData }) {
             return (
               <Link
                 key={e.highTitle + e.title + index}
-                href={`/${e.isSeries ? "series" : "project"}/${e.highTitle}/${
-                  e.title
-                }${e.isSeries ? "" : "/0"}`}
+                href={
+                  e.isSeries
+                    ? `series/${e.seriesIndex}/${e.projectIndex}/${e.essayIndex}`
+                    : `project/${e.projectIndex}/${e.essayIndex}/0`
+                }
               >
                 <div
                   style={{
@@ -140,7 +147,7 @@ export default function ImageSection({ data }: { data: YJData }) {
                   className={`absolute shadow-2xl transition-all duration-200 
                   
                   ${
-                    nowHover === `${e.highTitle}-${e.title}`
+                    nowHover === index
                       ? "blur-none z-[90] bg-bg-white"
                       : e.depth === 0
                       ? "blur-none z-40 scale-[0.9]"
@@ -150,18 +157,17 @@ export default function ImageSection({ data }: { data: YJData }) {
                       ? "blur-sm z-20 scale-[0.7]"
                       : "blur z-10 scale-[0.65]"
                   } ${
-                    nowHover !== "" &&
-                    nowHover !== `${e.highTitle}-${e.title}` &&
+                    nowHover !== index &&
                     `scale-90 ${
                       e.left + e.width / 2 >= 50 ? "-ml-[2%]" : "ml-[2%]"
                     }
                     ${e.top + e.width / 2 >= 50 ? "-mt-[2%]" : "mt-[2%]"}`
                   }`}
                   onMouseOver={() => {
-                    setNowHover(`${e.highTitle}-${e.title}`);
+                    setNowHover(index);
                   }}
                   onMouseOut={() => {
-                    setNowHover("");
+                    setNowHover(-1);
                   }}
                 >
                   <Image
@@ -170,12 +176,12 @@ export default function ImageSection({ data }: { data: YJData }) {
                     height={1024}
                     src={e.thumbnail}
                     className={`flip-image size-full top-0 left-0 transition-all duration-200 ${
-                      nowHover === `${e.highTitle}-${e.title}` && "opacity-0"
+                      nowHover === index && "opacity-0"
                     }`}
                   />
                   <div
                     className={`flip-preview size-full top-0 left-0 absolute opacity-0 transition-opacity duration-200 delay-75 h-full flex flex-col ${
-                      nowHover === `${e.highTitle}-${e.title}` && "opacity-100"
+                      nowHover === index && "opacity-100"
                     } p-[1.87rem] overflow-x-hidden gap-8 overflow-y-auto`}
                   >
                     <div className="grid grid-cols-2 relative ">
@@ -202,11 +208,11 @@ export default function ImageSection({ data }: { data: YJData }) {
 
 const refineData = (data: YJData): DataType[] => {
   const newList: DataType[] = [];
-  data.projects
-    .filter((e) => e.visible)
-    .forEach((p) =>
-      p.essays.forEach((essay) => {
+  data.projects.forEach((p, indexP) =>
+    p.essays.forEach((essay, indexE) => {
+      if (essay.onMain)
         newList.push({
+          projectIndex: indexP,
           highTitle: p.title,
           title: essay.title,
           isSeries: false,
@@ -217,27 +223,31 @@ const refineData = (data: YJData): DataType[] => {
           thumbnail: essay.thumbnail,
           date: essay.date,
           des: essay.contents.find((c) => c.type === "text")?.data || "",
+          seriesIndex: 0,
+          essayIndex: indexE,
         });
-      })
-    );
-  data.series.forEach((t) =>
-    t.seriesProjects.filter((e) =>
-      e.seriesContents
-        .filter((e) => e.onMain)
-        .forEach((project) => {
+    })
+  );
+  data.series.forEach((s, indexS) =>
+    s.seriesProjects.forEach((p, indexP) =>
+      p.seriesContents.forEach((essay, indexE) => {
+        if (essay.onMain)
           newList.push({
-            highTitle: e.title,
-            title: project.title,
+            highTitle: p.title,
+            title: essay.title,
             isSeries: true,
-            top: project.top,
-            width: project.width,
-            left: project.left,
-            depth: project.depth,
-            thumbnail: project.image,
-            date: project.date,
-            des: project.text,
+            top: essay.top,
+            width: essay.width,
+            left: essay.left,
+            depth: essay.depth,
+            thumbnail: essay.image,
+            date: essay.date,
+            des: essay.text,
+            projectIndex: indexP,
+            seriesIndex: indexS,
+            essayIndex: indexE,
           });
-        })
+      })
     )
   );
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { isLoggedIn } from "@/firebase/auth";
-import { addData } from "@/firebase/firestore";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 

@@ -10,19 +10,16 @@ export default async function a({
 }: {
   params: { project: string; essays: string; page: string };
 }) {
-  const projectTitle = decodeURIComponent(params.project);
-  const essayTitle = decodeURIComponent(params.essays);
+  const projectIndex = parseInt(params.project);
+  const essayIndex = parseInt(params.essays);
   const page = parseInt(params.page);
 
   const data = await getProjectData();
-  const nowData = data.projects
-    .find((p) => p.title === projectTitle)
-    ?.essays.find((e) => e.title === essayTitle);
+  const nowData = data.projects[projectIndex].essays[essayIndex];
 
   if (!nowData) {
     redirect("/error");
   }
-  console.log(nowData);
   return (
     <>
       <Info data={data}></Info>

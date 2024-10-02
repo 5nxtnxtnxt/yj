@@ -21,10 +21,7 @@ export default function NavigationBar({ data }: { data: YJData }) {
         {data.projects?.map((project, indexP) => {
           return (
             <div key={indexP}>
-              <Link
-                href={`/project/${project.title}`}
-                className="text-xl block mb-2"
-              >
+              <Link href={`/project/${indexP}`} className="text-xl block mb-2">
                 {project.title}
               </Link>
               {project.essays.map((essay, indexE) => {
@@ -32,7 +29,7 @@ export default function NavigationBar({ data }: { data: YJData }) {
                   <Link
                     key={`${project.title}${indexE}`}
                     className="ml-10 block mb-1"
-                    href={`/project/${project.title}/${essay.title}/0`}
+                    href={`/project/${indexP}/${indexE}/0`}
                   >
                     {essay.title}
                   </Link>
@@ -44,10 +41,7 @@ export default function NavigationBar({ data }: { data: YJData }) {
         {data.series.map((series, indexS) => {
           return (
             <div key={indexS}>
-              <Link
-                href={`/series/${series.title}`}
-                className="text-xl block mb-2"
-              >
+              <Link href={`/series/${indexS}`} className="text-xl block mb-2">
                 {series.title}
               </Link>
               {series.seriesProjects.map((sProject, indexP) => {
@@ -55,7 +49,7 @@ export default function NavigationBar({ data }: { data: YJData }) {
                   <Link
                     key={`${sProject.title}${indexP}`}
                     className="ml-10 block mb-1"
-                    href={`/series/${series.title}/${sProject.title}`}
+                    href={`/series/${indexS}/${indexS}`}
                   >
                     {sProject.title}
                   </Link>

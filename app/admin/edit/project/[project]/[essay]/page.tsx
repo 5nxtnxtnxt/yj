@@ -34,9 +34,10 @@ const ProjectSchema = z.object({
 export default function CreateProjectPage({
   params,
 }: {
-  params: { project: string };
+  params: { project: string; essay: string };
 }) {
   const projectIndex = parseInt(params.project);
+  const essayIndex = parseInt(params.essay);
   const [YJData, setYJData] = useState<YJData>();
   const [onMain, setOnMain] = useState(true);
   const [nowPage, setNowPage] = useState(1);
@@ -66,11 +67,22 @@ export default function CreateProjectPage({
   useEffect(() => {
     const loadNowData = async () => {
       const data = await getProjectData();
-
-      if (data.projects[projectIndex] === undefined) {
+      const target = data.projects[projectIndex].essays[essayIndex];
+      if (target === undefined) {
         router.push("/admin");
       }
+      form.reset({ ...target });
+      setThumbnail(target.thumbnail);
+      setOnMain(target.onMain);
+      setTop(target.top);
+      setLeft(target.left);
+      setIsText(target.contents.map((e) => e.type === "text"));
+      setUrl(target.contents.map((e) => (e.type === "image" ? e.data : "")));
+      setNowPage(target.contents.length);
+      setDepth(target.depth);
+      setWidth(target.width);
       setYJData(data);
+      form.trigger();
     };
     loadNowData();
   }, []);
@@ -98,7 +110,7 @@ export default function CreateProjectPage({
       }
     }
     const origin: Project[] = JSON.parse(JSON.stringify(YJData?.projects));
-    origin[projectIndex].essays.push(values);
+    origin[projectIndex].essays[essayIndex] = { ...values };
     const result = await updateProject(origin);
 
     if (result) {
@@ -170,7 +182,9 @@ export default function CreateProjectPage({
                 type="radio"
                 value={0}
                 name="test"
-                defaultChecked
+                defaultChecked={
+                  YJData.projects[projectIndex].essays[essayIndex].layout === 0
+                }
                 onClick={() => {
                   form.setValue("layout", 0);
                 }}
@@ -181,6 +195,9 @@ export default function CreateProjectPage({
               <input
                 type="radio"
                 value={1}
+                defaultChecked={
+                  YJData.projects[projectIndex].essays[essayIndex].layout === 1
+                }
                 name="test"
                 onClick={() => form.setValue("layout", 1)}
               />
@@ -277,7 +294,7 @@ export default function CreateProjectPage({
                   <input
                     type="radio"
                     name={"contents" + index}
-                    defaultChecked
+                    defaultChecked={isText[index]}
                     onClick={() => {
                       form.setValue(`contents.${index}.type`, "text");
                       form.setValue(`contents.${index}.data`, "");
@@ -294,6 +311,7 @@ export default function CreateProjectPage({
                 <div className="flex gap-1">
                   <input
                     type="radio"
+                    defaultChecked={!isText[index]}
                     name={"contents" + index}
                     onClick={() => {
                       form.setValue(`contents.${index}.type`, "image");

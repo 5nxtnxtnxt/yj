@@ -28,10 +28,11 @@ const ProjectSchema = z.object({
 export default function CreateProjectPage({
   params,
 }: {
-  params: { series: string; project: string };
+  params: { series: string; project: string; essay: string };
 }) {
   const seriesIndex = parseInt(params.series);
   const projectIndex = parseInt(params.project);
+  const essayIndex = parseInt(params.essay);
   const [YJData, setYJData] = useState<YJData>();
   const [onMain, setOnMain] = useState(true);
   const [top, setTop] = useState(0);
@@ -55,12 +56,20 @@ export default function CreateProjectPage({
   useEffect(() => {
     const loadNowData = async () => {
       const data = await getProjectData();
-
-      if (
-        data?.series[seriesIndex].seriesProjects[projectIndex] === undefined
-      ) {
+      const target =
+        data.series[seriesIndex].seriesProjects[projectIndex].seriesContents[
+          essayIndex
+        ];
+      if (target === undefined) {
         router.push("/admin");
       }
+      form.reset({ ...target });
+      setThumbnail(target.image);
+      setOnMain(target.onMain);
+      setTop(target.top);
+      setLeft(target.left);
+      setDepth(target.depth);
+      setWidth(target.width);
       setYJData(data);
     };
     loadNowData();
@@ -70,9 +79,11 @@ export default function CreateProjectPage({
     if (YJData?.series[seriesIndex].seriesProjects[projectIndex] === undefined)
       return;
     const origin: Series[] = JSON.parse(JSON.stringify(YJData?.series));
-    origin[seriesIndex].seriesProjects[projectIndex].seriesContents.push({
+    origin[seriesIndex].seriesProjects[projectIndex].seriesContents[
+      essayIndex
+    ] = {
       ...values,
-    });
+    };
     const result = await updateSeries(origin);
 
     if (result) {
@@ -110,9 +121,14 @@ export default function CreateProjectPage({
         className="flex flex-col gap-3 p-10"
       >
         <h1 className="text-2xl">
-          시리즈 프로젝트 [
-          {YJData?.series[seriesIndex].seriesProjects[projectIndex].title}]
-          에세이 추가
+          [{YJData?.series[seriesIndex].title}]{">"}[
+          {YJData?.series[seriesIndex].seriesProjects[projectIndex].title}]{">"}
+          [
+          {
+            YJData?.series[seriesIndex].seriesProjects[projectIndex]
+              .seriesContents[essayIndex].title
+          }
+          ] 에세이 수정
         </h1>
 
         <label htmlFor="title">title</label>

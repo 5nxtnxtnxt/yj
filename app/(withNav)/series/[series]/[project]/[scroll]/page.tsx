@@ -10,15 +10,13 @@ export default async function a({
 }: {
   params: { series: string; project: string; scroll: string };
 }) {
-  const seriesTitle = decodeURIComponent(params.series);
-  const projectTitle = decodeURIComponent(params.project);
+  const seriesIndex = parseInt(params.series);
+  const projectIndex = parseInt(params.project);
   const scrollIndex = parseInt(params.scroll);
 
   const data = await getProjectData();
-  const nowSeries = data.series.find((p) => p.title === seriesTitle);
-  const nowData = nowSeries?.seriesProjects.find(
-    (e) => e.title === projectTitle
-  );
+  const nowSeries = data.series[seriesIndex];
+  const nowData = nowSeries.seriesProjects[projectIndex];
 
   if (!nowData) {
     redirect("/error");

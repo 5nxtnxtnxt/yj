@@ -4,10 +4,10 @@ import SeriesGridView from "./seriesGridView";
 import Info from "@/components/info";
 
 export default async function a({ params }: { params: { series: string } }) {
-  const seriesTitle = decodeURIComponent(params.series);
+  const seriesIndex = parseInt(params.series);
 
   const data = await getProjectData();
-  const nowData = data.series.find((p) => p.title === seriesTitle);
+  const nowData = data.series[seriesIndex];
 
   if (!nowData) redirect("/error");
   return (
@@ -20,7 +20,7 @@ export default async function a({ params }: { params: { series: string } }) {
             {nowData.infoContent}
           </h4>
         </div>
-        <SeriesGridView data={nowData} />
+        <SeriesGridView data={nowData} seriesIndex={seriesIndex} />
       </div>
     </>
   );

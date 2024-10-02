@@ -42,23 +42,23 @@ export default function Info({ data }: { data: YJData }) {
             />
           </div>
           <div className="md:hidden h-full  text-white flex flex-col gap-5 py-10 text-2xl">
-            {data.projects.map((p, index) => {
+            {data.projects.map((p, indexP) => {
               return (
-                <Link href={`/project/${p.title}`} key={index}>
+                <Link href={`/project/${indexP}`} key={indexP}>
                   {p.title}
                 </Link>
               );
             })}
-            {data.series.map((p, index) => {
+            {data.series.map((p, indexS) => {
               return (
-                <div key={index}>
-                  <Link href={`/series/${p.title}`} key={index}>
+                <div key={indexS}>
+                  <Link href={`/series/${indexS}`} key={indexS}>
                     {p.title}
                   </Link>
                   <div className="mt-4 flex flex-col gap-4">
                     {p.seriesProjects.map((e, index) => (
                       <Link
-                        href={`/series/${p.title}/${e.title}`}
+                        href={`/series/${indexS}/${index}`}
                         key={p.title + index}
                         className="pl-10 text-xl block"
                       >
