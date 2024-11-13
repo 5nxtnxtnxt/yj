@@ -6,12 +6,7 @@ import {
   updateSeries,
   uploadImageToFireStroage,
 } from "@/firebase/firestore";
-import {
-  EssayContent,
-  Project,
-  Series,
-  YJData,
-} from "@/firebase/firestoreTypes";
+import { Series, YJData } from "@/firebase/firestoreTypes";
 import * as zod from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";

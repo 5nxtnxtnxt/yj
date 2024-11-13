@@ -22,10 +22,15 @@ export async function uploadImageToFireStroage(imageFile: File) {
   return url;
 }
 
+export async function deleteProjectData(
+  projectIndex: number,
+  essayIndex: number
+) {}
+
 export async function updateSeries(series: Series[]) {
   try {
     const firestore = getFirestore(firebaseApp);
-    await updateDoc(doc(firestore, "FromYJ", "YJData"), {
+    await updateDoc(doc(firestore, "FromYJ", "YJData2"), {
       series: series,
     });
     return true;
@@ -35,7 +40,7 @@ export async function updateSeries(series: Series[]) {
 export async function updateProject(project: Project[]) {
   try {
     const firestore = getFirestore(firebaseApp);
-    await updateDoc(doc(firestore, "FromYJ", "YJData"), {
+    await updateDoc(doc(firestore, "FromYJ", "YJData2"), {
       projects: project,
     });
     return true;
@@ -46,7 +51,7 @@ export async function getProjectData(force: boolean = false): Promise<YJData> {
   if (myData && !force) return myData;
   const fireStore = getFirestore(firebaseApp);
   if (!fireStore) return { series: [], projects: [] };
-  const data = await getDoc(doc(collection(fireStore, "FromYJ"), "YJData"));
+  const data = await getDoc(doc(collection(fireStore, "FromYJ"), "YJData2"));
 
   return data.data() as YJData;
 }

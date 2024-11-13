@@ -30,11 +30,10 @@ export type Essay = {
   depth: number;
   width: number;
   onMain: boolean;
-  contents: EssayContent[];
+  firstImage: string;
+  text: string;
   link: string;
 };
-
-export type EssayContent = { type: "image" | "text"; data: string };
 
 export type Series = {
   title: string;

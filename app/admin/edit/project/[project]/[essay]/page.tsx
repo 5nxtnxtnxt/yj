@@ -5,7 +5,7 @@ import {
   updateProject,
   uploadImageToFireStroage,
 } from "@/firebase/firestore";
-import { EssayContent, Project, YJData } from "@/firebase/firestoreTypes";
+import { Project, YJData } from "@/firebase/firestoreTypes";
 import * as zod from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -23,12 +23,8 @@ const ProjectSchema = z.object({
   depth: z.number(),
   width: z.number(),
   link: z.string(),
-  contents: z.array(
-    z.object({
-      type: z.union([z.literal("image"), z.literal("text")]),
-      data: z.string().min(1),
-    })
-  ),
+  text: z.string(),
+  firstImage: z.string().min(1, "사진을 선택해 주세요"),
 });
 
 export default function CreateProjectPage({
@@ -42,8 +38,7 @@ export default function CreateProjectPage({
   const [onMain, setOnMain] = useState(true);
   const [nowPage, setNowPage] = useState(1);
   const [thumbnail, setThumbnail] = useState("");
-  const [isText, setIsText] = useState<boolean[]>([true]);
-  const [url, setUrl] = useState<string[]>([""]);
+  const [url, setUrl] = useState<string>("");
   const [uploading, setUploading] = useState(false);
   const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
@@ -61,7 +56,7 @@ export default function CreateProjectPage({
       depth: 0,
       width: 0,
       link: "",
-      contents: [{ type: "text", data: "" }],
+      firstImage: "",
     },
   });
   useEffect(() => {
@@ -76,9 +71,7 @@ export default function CreateProjectPage({
       setOnMain(target.onMain);
       setTop(target.top);
       setLeft(target.left);
-      setIsText(target.contents.map((e) => e.type === "text"));
-      setUrl(target.contents.map((e) => (e.type === "image" ? e.data : "")));
-      setNowPage(target.contents.length);
+      setUrl(target.firstImage);
       setDepth(target.depth);
       setWidth(target.width);
       setYJData(data);
@@ -88,27 +81,6 @@ export default function CreateProjectPage({
   }, []);
 
   const onSubmit = async (values: z.infer<typeof ProjectSchema>) => {
-    if (values.layout === 1) {
-      if (values.contents.find((e) => e.type === "image") === undefined) {
-        form.setError("contents", {
-          message: "적어도 한개의 이미지가 필요합니다.",
-        });
-        return;
-      }
-      if (values.contents.find((e) => e.type === "text") === undefined) {
-        form.setError("contents", {
-          message: "적어도 한개의 텍스트가 필요합니다.",
-        });
-        return;
-      }
-    } else {
-      if (values.contents.length < 1) {
-        form.setError("contents", {
-          message: "적어도 한개의 콘텐츠가 필요합니다.",
-        });
-        return;
-      }
-    }
     const origin: Project[] = JSON.parse(JSON.stringify(YJData?.projects));
     origin[projectIndex].essays[essayIndex] = { ...values };
     const result = await updateProject(origin);
@@ -118,43 +90,13 @@ export default function CreateProjectPage({
     }
   };
 
-  const addContents = () => {
-    const newContents = form.getValues("contents");
-    newContents.push({ type: "text", data: "" });
-    form.setValue("contents", newContents);
-    setIsText([...isText, true]);
-    setNowPage(newContents.length);
-    setUrl([...url, ""]);
-  };
-
-  const removeContents = () => {
-    const newContents = form.getValues("contents");
-    newContents.pop();
-    form.setValue("contents", newContents);
-    setIsText([...isText].slice(0, -1));
-    setNowPage(newContents.length);
-    setUrl([...url].slice(0, -1));
-  };
-
-  const uploadImage = async (
-    e: ChangeEvent<HTMLInputElement>,
-    index?: number
-  ) => {
+  const uploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) return;
     setUploading(true);
     const file = e.target.files[0];
     const uploadedUrl = await uploadImageToFireStroage(file);
-
-    if (index !== undefined) {
-      const newUrl = [...url];
-      newUrl[index] = uploadedUrl;
-      setUrl(newUrl);
-      form.setValue(`contents.${index}.data`, uploadedUrl);
-    } else {
-      setThumbnail(uploadedUrl);
-      form.setValue("thumbnail", uploadedUrl);
-    }
     setUploading(false);
+    return uploadedUrl;
   };
 
   if (YJData === undefined) return <div>loading...</div>;
@@ -267,7 +209,11 @@ export default function CreateProjectPage({
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => uploadImage(e)}
+            onChange={async (e) => {
+              const url = (await uploadImage(e)) || "";
+              form.setValue("thumbnail", url);
+              setThumbnail(url);
+            }}
           />
         </div>
         <div>
@@ -278,83 +224,25 @@ export default function CreateProjectPage({
         <input type="text" id="link" {...form.register("link")} />
         <h5 className="text-red-500">{form.formState.errors.link?.message}</h5>
 
-        <h3 className="text-2xl font-bold">contents</h3>
-        <h5 className="text-red-500">
-          {form.formState.errors.contents?.message}
-        </h5>
-        {Array.from({ length: nowPage }).map((_, index) => (
-          <div
-            key={index}
-            className="flex flex-col border-b border-border-black border-dotted pb-6 gap-3"
-          >
-            <h1 className="w-full text-lg font-semibold">{index + 1} page</h1>
-            <div>
-              <div className="flex gap-3">
-                <div className="flex gap-1">
-                  <input
-                    type="radio"
-                    name={"contents" + index}
-                    defaultChecked={isText[index]}
-                    onClick={() => {
-                      form.setValue(`contents.${index}.type`, "text");
-                      form.setValue(`contents.${index}.data`, "");
-                      const newIsText = [...isText];
-                      newIsText[index] = true;
-                      const newUrl = [...url];
-                      newUrl[index] = "";
-                      setIsText(newIsText);
-                      setUrl(newUrl);
-                    }}
-                  />
-                  <h6>text</h6>
-                </div>
-                <div className="flex gap-1">
-                  <input
-                    type="radio"
-                    defaultChecked={!isText[index]}
-                    name={"contents" + index}
-                    onClick={() => {
-                      form.setValue(`contents.${index}.type`, "image");
-                      form.setValue(`contents.${index}.data`, "");
-                      const newIsText = [...isText];
-                      newIsText[index] = false;
-                      setIsText(newIsText);
-                      const newUrl = [...url];
-                      newUrl[index] = "";
-                      setUrl(newUrl);
-                    }}
-                  />
-                  <h6>image</h6>
-                </div>
-              </div>
-            </div>
-            {isText[index] ? (
-              <textarea
-                className="h-56 bg-bg-white border rounded border-border-black border-dashed"
-                {...form.register(`contents.${index}.data`)}
-              ></textarea>
-            ) : (
-              <div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => uploadImage(e, index)}
-                />
-                {url[index] !== "" && (
-                  <img className="w-1/2" src={url[index]}></img>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
-        <button type="button" onClick={addContents}>
-          +
-        </button>
-        {nowPage > 1 && (
-          <button type="button" onClick={removeContents}>
-            -
-          </button>
-        )}
+        <h3 className="text-2xl font-bold">본문</h3>
+
+        <div>
+          <h3>Image</h3>
+          {url !== "" && <img className="w-1/2" src={url}></img>}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={async (e) => {
+              const url = (await uploadImage(e)) || "";
+              form.setValue("firstImage", url);
+              setUrl(url);
+            }}
+          />
+        </div>
+
+        <textarea {...form.register("text")}></textarea>
+        <h5 className="text-red-500">{form.formState.errors.text?.message}</h5>
+
         <button>완료</button>
       </form>
     </div>

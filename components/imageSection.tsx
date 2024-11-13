@@ -135,7 +135,7 @@ export default function ImageSection({ data }: { data: YJData }) {
                 href={
                   e.isSeries
                     ? `series/${e.seriesIndex}/${e.projectIndex}/${e.essayIndex}`
-                    : `project/${e.projectIndex}/${e.essayIndex}/0`
+                    : `project/${e.projectIndex}/${e.essayIndex}`
                 }
               >
                 <div
@@ -222,7 +222,7 @@ const refineData = (data: YJData): DataType[] => {
           depth: essay.depth,
           thumbnail: essay.thumbnail,
           date: essay.date,
-          des: essay.contents.find((c) => c.type === "text")?.data || "",
+          des: essay.text,
           seriesIndex: 0,
           essayIndex: indexE,
         });

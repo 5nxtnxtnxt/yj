@@ -29,7 +29,7 @@ export default function NavigationBar({ data }: { data: YJData }) {
                   <Link
                     key={`${project.title}${indexE}`}
                     className="ml-10 block mb-1"
-                    href={`/project/${indexP}/${indexE}/0`}
+                    href={`/project/${indexP}/${indexE}`}
                   >
                     {essay.title}
                   </Link>

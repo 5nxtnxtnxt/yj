@@ -52,7 +52,7 @@ export default function ProjectGridView({
                 </div>
                 <div className="flex flex-col justify-end gap-6 leading-[1.875rem]">
                   <h4 className="line-clamp-5 whitespace-pre-line">
-                    {essay.contents.find((e) => e.type === "text")?.data}
+                    {essay.text}
                   </h4>
 
                   <h4 className="border-t border-border-black  border-dotted text-center pt-8">
