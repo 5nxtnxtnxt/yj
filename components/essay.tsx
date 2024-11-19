@@ -4,6 +4,7 @@ import { Essay } from "@/firebase/firestoreTypes";
 import { redirect, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import useMediaQuery from "@/hook/useMediaQuery";
 
 const EssayView = ({ data }: { data: Essay }) => {
   const layout = [Layout0, Layout1];
@@ -28,6 +29,7 @@ const Layout0 = ({ data }: { data: Essay }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [nowPage, setNowPage] = useState(0);
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const first = useRef<HTMLDivElement>(null);
   const test = useRef<HTMLDivElement>(null);
   const text = data.text;
@@ -101,6 +103,7 @@ const Layout0 = ({ data }: { data: Essay }) => {
   }, [texts]);
   console.log("!!", texts);
   console.log(isLoading);
+
   return (
     <>
       {isLoading ? (
@@ -108,12 +111,28 @@ const Layout0 = ({ data }: { data: Essay }) => {
           <h1 className="text-3xl animate-bounce">loading...</h1>
         </div>
       ) : null}
-      <div className="grid grid-cols-2 grid-rows-1 h-full max-md:hidden px-36 whitespace-pre-line ">
-        {/* 왼쪽화면 */}
-        <div className="size-full relative flex flex-col border-r-[0.5px] border-border-black pr-12">
-          <div className=" size-full my-[12.5rem] relative overflow-hidden">
+
+      {isMobile ? (
+        <div className="size-full relative flex flex-col border-r-[0.5px] border-border-black whitespace-pre-line px-14">
+          <div className=" size-full relative overflow-hidden">
             {nowPage > 0 ? (
-              <h4 className=" size-full">{texts[nowPage * 2 - 1]}</h4>
+              <div className="flex flex-col size-full gap-10 pt-20 pb-[9.375rem]">
+                {nowPage === 1 ? (
+                  <h1 className="text-[2.5rem] break-keep">{data.title}</h1>
+                ) : null}
+                <h4 className="size-full overflow-hidden">
+                  {texts[nowPage - 1]}
+                </h4>
+                {data.link !== "" ? (
+                  <a
+                    className="text-center absolute bottom-20 inline-block w-full"
+                    href={data.link}
+                    target="_blank"
+                  >
+                    전문 구매하기 {">"}
+                  </a>
+                ) : null}
+              </div>
             ) : (
               <Image
                 width={1000}
@@ -125,69 +144,133 @@ const Layout0 = ({ data }: { data: Essay }) => {
             )}
 
             {/* 텍스트 자르기 계산용 */}
-            <div className="absolute size-full top-0 opacity-0">
-              <div className="flex flex-col size-full gap-20 ">
-                <h1 className="text-[2.5rem] break-keep">{data.title}</h1>
-                <div className=" flex-grow overflow-hidden" ref={first}></div>
+            <div className="absolute size-full top-0 opacity-0 ">
+              <div className="flex flex-col size-full gap-10 pt-20 pb-[9.375rem] bg-white">
+                <h1 className="text-[2.5rem] break-keep border border-red-400">
+                  {data.title}
+                </h1>
+                <div
+                  className=" flex-grow overflow-hidden border border-red-400"
+                  ref={first}
+                ></div>
               </div>
               <div
-                className="size-full max-h-full absolute top-0 left-0  overflow-hidden"
+                className="size-full max-h-full absolute pt-20 pb-[9.375rem] top-0 left-0  overflow-hidden"
                 ref={test}
               ></div>
             </div>
           </div>
-        </div>
-        {/* 오른쪽화면 */}
-        <div className="size-full relative  flex flex-col pl-12 border-l-[0.5px]">
-          <div className=" size-full my-[12.5rem] overflow-y-hidden">
-            {nowPage > 0 ? (
-              <h4 className=" size-full">{texts[nowPage * 2]}</h4>
-            ) : (
-              <div className="size-full flex gap-20 flex-col">
-                <h1 className="text-[2.5rem] break-keep">{data.title}</h1>
-                <h4>{texts[nowPage * 2]}</h4>
-              </div>
-            )}
-          </div>
-          {data.link !== "" && (texts.length + 1) / 2 - 1 <= nowPage ? (
-            <a
-              className="text-center absolute bottom-32 block w-full"
-              href={data.link}
-              target="_blank"
+          {nowPage > 0 ? (
+            <button
+              onClick={() => setNowPage(nowPage - 1)}
+              className="absolute left-2 top-1/2 size-8 bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
             >
-              전문 구매하기 {">"}
-            </a>
+              <Image
+                className="w-2"
+                width={0}
+                height={0}
+                src="/left.svg"
+                alt="leftPage"
+              ></Image>
+            </button>
+          ) : null}
+          {texts.length > nowPage ? (
+            <button
+              onClick={() => setNowPage(nowPage + 1)}
+              className="absolute right-2 top-1/2 size-8 bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
+            >
+              <Image
+                className="w-2"
+                width={0}
+                height={0}
+                src="/right.svg"
+                alt="rightPage"
+              ></Image>
+            </button>
           ) : null}
         </div>
-        {nowPage > 0 ? (
-          <button
-            onClick={() => setNowPage(nowPage - 1)}
-            className="absolute left-2 top-1/2 size-8 bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
-          >
-            <Image
-              className="w-2"
-              width={0}
-              height={0}
-              src="/left.svg"
-              alt="leftPage"
-            ></Image>
-          </button>
-        ) : null}
-        {(texts.length + 1) / 2 - 1 > nowPage && (
-          <button
-            onClick={() => setNowPage(nowPage + 1)}
-            className="absolute right-2 top-1/2 size-8 bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
-          >
-            <Image
-              className="w-2"
-              width={0}
-              height={0}
-              src="/right.svg"
-              alt="rightPage"
-            ></Image>
-          </button>
-        )}
-      </div>
+      ) : (
+        <div className="grid grid-cols-2 grid-rows-1 h-full px-36 whitespace-pre-line ">
+          {/* 왼쪽화면 */}
+          <div className="size-full relative flex flex-col border-r-[0.5px] border-border-black pr-12">
+            <div className=" size-full my-[12.5rem] relative overflow-hidden">
+              {nowPage > 0 ? (
+                <h4 className=" size-full">{texts[nowPage * 2 - 1]}</h4>
+              ) : (
+                <Image
+                  width={1000}
+                  height={1000}
+                  src={data.firstImage}
+                  alt="image"
+                  className="size-full object-contain"
+                ></Image>
+              )}
+
+              {/* 텍스트 자르기 계산용 */}
+              <div className="absolute size-full top-0 opacity-0">
+                <div className="flex flex-col size-full gap-20 ">
+                  <h1 className="text-[2.5rem] break-keep">{data.title}</h1>
+                  <div className=" flex-grow overflow-hidden" ref={first}></div>
+                </div>
+                <div
+                  className="size-full max-h-full absolute top-0 left-0  overflow-hidden"
+                  ref={test}
+                ></div>
+              </div>
+            </div>
+          </div>
+          {/* 오른쪽화면 */}
+          <div className="size-full relative  flex flex-col pl-12 border-l-[0.5px]">
+            <div className=" size-full my-[12.5rem] overflow-y-hidden">
+              {nowPage > 0 ? (
+                <h4 className=" size-full">{texts[nowPage * 2]}</h4>
+              ) : (
+                <div className="size-full flex gap-20 flex-col">
+                  <h1 className="text-[2.5rem] break-keep">{data.title}</h1>
+                  <h4>{texts[nowPage * 2]}</h4>
+                </div>
+              )}
+            </div>
+            {data.link !== "" && (texts.length + 1) / 2 - 1 <= nowPage ? (
+              <a
+                className="text-center absolute bottom-32 block w-full"
+                href={data.link}
+                target="_blank"
+              >
+                전문 구매하기 {">"}
+              </a>
+            ) : null}
+          </div>
+          {nowPage > 0 ? (
+            <button
+              onClick={() => setNowPage(nowPage - 1)}
+              className="absolute left-2 top-1/2 size-8 bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
+            >
+              <Image
+                className="w-2"
+                width={0}
+                height={0}
+                src="/left.svg"
+                alt="leftPage"
+              ></Image>
+            </button>
+          ) : null}
+          {(texts.length + 1) / 2 - 1 > nowPage && (
+            <button
+              onClick={() => setNowPage(nowPage + 1)}
+              className="absolute right-2 top-1/2 size-8 bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
+            >
+              <Image
+                className="w-2"
+                width={0}
+                height={0}
+                src="/right.svg"
+                alt="rightPage"
+              ></Image>
+            </button>
+          )}
+        </div>
+      )}
     </>
   );
 };
