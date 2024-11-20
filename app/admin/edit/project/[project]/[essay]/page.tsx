@@ -24,6 +24,7 @@ const ProjectSchema = z.object({
   width: z.number(),
   link: z.string(),
   text: z.string(),
+  category: z.string(),
   firstImage: z.string().min(1, "사진을 선택해 주세요"),
 });
 
@@ -114,7 +115,7 @@ export default function CreateProjectPage({
         className="flex flex-col gap-3 p-10"
       >
         <h1 className="text-2xl">
-          프로젝트 [{YJData?.projects[projectIndex].title}] 에세이 추가
+          프로젝트 [{YJData?.projects[projectIndex].title}] 에세이 수정
         </h1>
         <div className="flex flex-col">
           <h2 className="text-xl ">layout</h2>
@@ -223,6 +224,12 @@ export default function CreateProjectPage({
         <label htmlFor="link">본문 링크</label>
         <input type="text" id="link" {...form.register("link")} />
         <h5 className="text-red-500">{form.formState.errors.link?.message}</h5>
+
+        <label htmlFor="link">카테고리</label>
+        <input type="text" id="link" {...form.register("category")} />
+        <h5 className="text-red-500">
+          {form.formState.errors.category?.message}
+        </h5>
 
         <h3 className="text-2xl font-bold">본문</h3>
 

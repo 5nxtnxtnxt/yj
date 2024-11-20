@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function NavigationBar({ data }: { data: YJData }) {
   return (
-    <div className="w-full h-full border-r border-border-black md:h-screen relative flex flex-col">
+    <div className="w-full h-full border-r border-border-black relative flex flex-col">
       <Link
         href={"/"}
         className="flex  items-center border-b border-border-black h-full md:h-[12.25rem] justify-center"

@@ -24,6 +24,7 @@ const ProjectSchema = z.object({
   width: z.number(),
   link: z.string(),
   text: z.string(),
+  category: z.string(),
   firstImage: z.string().min(1, "사진을 선택해 주세요"),
 });
 
@@ -187,6 +188,13 @@ export default function CreateProjectPage({
         <label htmlFor="title">title</label>
         <input type="text" id="title" {...form.register("title")} />
         <h5 className="text-red-500">{form.formState.errors.title?.message}</h5>
+
+        <label htmlFor="category">category</label>
+        <input type="text" id="category" {...form.register("category")} />
+        <h5 className="text-red-500">
+          {form.formState.errors.category?.message}
+        </h5>
+
         <div>
           <h3>thumbnail</h3>
           {thumbnail !== "" && <img className="w-1/2" src={thumbnail}></img>}

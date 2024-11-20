@@ -58,7 +58,7 @@ export default function ImageSection({ data }: { data: YJData }) {
           >
             {">"}
           </button>
-          <div className="w-full h-full relative overflow-hidden px-14 pt-36 pb-48">
+          <div className="w-full h-full relative overflow-hidden px-14 pt-20 pb-36">
             <div
               className="w-full flex h-full transition-all duration-500 ease-in-out"
               style={{ transform: `translateX(${nowScroll * -100}%)` }}
@@ -88,7 +88,7 @@ export default function ImageSection({ data }: { data: YJData }) {
                         href={
                           e.isSeries
                             ? `series/${e.seriesIndex}/${e.projectIndex}/${e.essayIndex}`
-                            : `project/${e.projectIndex}/${e.essayIndex}/0`
+                            : `project/${e.projectIndex}/${e.essayIndex}`
                         }
                         className={`bg-bg-white flip-preview size-full top-0 shadow-[0_0_25px_5px_#00000022] left-0 absolute opacity-0 transition-opacity duration-200 delay-75 h-full flex flex-col ${
                           nowClick === index
@@ -101,7 +101,9 @@ export default function ImageSection({ data }: { data: YJData }) {
                           <h4 className="truncate text-right">{e.date}</h4>
                         </div>
 
-                        <h2 className="text-3xl mb-8">{e.title}</h2>
+                        <h2 className="text-3xl mb-8 whitespace-pre-line break-keep">
+                          {e.title}
+                        </h2>
                         <h4 className="whitespace-pre-line overflow-y-auto leading-8">
                           {e.des}
                         </h4>
@@ -113,7 +115,7 @@ export default function ImageSection({ data }: { data: YJData }) {
               <div className="min-w-10"></div>
             </div>
           </div>
-          <div className=" absolute bottom-10 w-full h-10 flex gap-3 justify-center items-center">
+          <div className=" absolute bottom-20 w-full h-10 flex gap-3 justify-center items-center">
             {nowList.map((e, index) => (
               <div
                 key={index}
@@ -148,7 +150,7 @@ export default function ImageSection({ data }: { data: YJData }) {
                   
                   ${
                     nowHover === index
-                      ? "blur-none z-[90] bg-bg-white"
+                      ? "blur-none z-[90] bg-bg-white scroll-smooth"
                       : e.depth === 0
                       ? "blur-none z-40 scale-[0.9]"
                       : e.depth === 1
@@ -189,7 +191,9 @@ export default function ImageSection({ data }: { data: YJData }) {
                       <h4 className="truncate text-right">{e.date}</h4>
                     </div>
 
-                    <h2 className="text-4xl pb-6">{e.title}</h2>
+                    <h2 className="text-4xl pb-6 whitespace-pre-line break-keep">
+                      {e.title}
+                    </h2>
                     <div>
                       <h4 className="whitespace-pre-line break-words line-clamp-5 text-lg leading-[1.875rem]">
                         {e.des}
@@ -213,7 +217,7 @@ const refineData = (data: YJData): DataType[] => {
       if (essay.onMain)
         newList.push({
           projectIndex: indexP,
-          highTitle: p.title,
+          highTitle: essay.category === "" ? p.title : essay.category,
           title: essay.title,
           isSeries: false,
           top: essay.top,

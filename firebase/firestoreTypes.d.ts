@@ -22,6 +22,7 @@ export interface Project {
 
 export type Essay = {
   layout: 0 | 1;
+  category: string;
   title: string;
   date: string;
   thumbnail: string;

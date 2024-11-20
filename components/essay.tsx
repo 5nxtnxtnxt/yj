@@ -125,7 +125,7 @@ const Layout0 = ({ data }: { data: Essay }) => {
                 </h4>
                 {data.link !== "" ? (
                   <a
-                    className="text-center absolute bottom-20 inline-block w-full"
+                    className="text-center absolute bottom-20 inline-block w-full z-50"
                     href={data.link}
                     target="_blank"
                   >
@@ -195,7 +195,9 @@ const Layout0 = ({ data }: { data: Essay }) => {
           <div className="size-full relative flex flex-col border-r-[0.5px] border-border-black pr-12">
             <div className=" size-full my-[12.5rem] relative overflow-hidden">
               {nowPage > 0 ? (
-                <h4 className=" size-full">{texts[nowPage * 2 - 1]}</h4>
+                <h4 className=" size-full text-lg leading-8">
+                  {texts[nowPage * 2 - 1]}
+                </h4>
               ) : (
                 <Image
                   width={1000}
@@ -210,10 +212,13 @@ const Layout0 = ({ data }: { data: Essay }) => {
               <div className="absolute size-full top-0 opacity-0">
                 <div className="flex flex-col size-full gap-20 ">
                   <h1 className="text-[2.5rem] break-keep">{data.title}</h1>
-                  <div className=" flex-grow overflow-hidden" ref={first}></div>
+                  <div
+                    className=" flex-grow overflow-hidden text-lg leading-8"
+                    ref={first}
+                  ></div>
                 </div>
                 <div
-                  className="size-full max-h-full absolute top-0 left-0  overflow-hidden"
+                  className="size-full max-h-full absolute top-0 left-0 overflow-hidden text-lg leading-8"
                   ref={test}
                 ></div>
               </div>
@@ -223,11 +228,13 @@ const Layout0 = ({ data }: { data: Essay }) => {
           <div className="size-full relative  flex flex-col pl-12 border-l-[0.5px]">
             <div className=" size-full my-[12.5rem] overflow-y-hidden">
               {nowPage > 0 ? (
-                <h4 className=" size-full">{texts[nowPage * 2]}</h4>
+                <h4 className=" size-full text-lg leading-8">
+                  {texts[nowPage * 2]}
+                </h4>
               ) : (
                 <div className="size-full flex gap-20 flex-col">
                   <h1 className="text-[2.5rem] break-keep">{data.title}</h1>
-                  <h4>{texts[nowPage * 2]}</h4>
+                  <h4 className="text-lg leading-8">{texts[nowPage * 2]}</h4>
                 </div>
               )}
             </div>

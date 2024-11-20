@@ -34,7 +34,9 @@ export default function ProjectGridView({
                 />
                 <div className="truncate flex flex-col gap-14 md:hidden text-white  z-10 absolute top-0 w-full p-5">
                   <div className="flex justify-between w-full text-lg">
-                    <h2>{data.title}</h2>
+                    <h2>
+                      {essay.category === "" ? data.title : essay.category}
+                    </h2>
                     <h3>{essay.date}</h3>
                   </div>
 
@@ -45,7 +47,9 @@ export default function ProjectGridView({
               <div className="flex md:grid grid-cols-1 grid-rows-[1fr_2fr] gap-6">
                 <div className="truncate flex flex-col gap-[1.875rem] max-md:hidden">
                   <div className="flex justify-between">
-                    <h2>{data.title}</h2>
+                    <h2>
+                      {essay.category === "" ? data.title : essay.category}
+                    </h2>
                     <h3>{essay.date}</h3>
                   </div>
                   <h1 className="text-4xl">{essay.title}</h1>
