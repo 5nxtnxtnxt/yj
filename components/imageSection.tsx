@@ -41,22 +41,34 @@ export default function ImageSection({ data }: { data: YJData }) {
       {isMobile ? (
         <div className="w-full aspect-[1/1.8] relative">
           <button
-            className="absolute size-12 m-5 z-20 top-1/2 -translate-y-full bg-white bg-opacity-50 rounded-full"
+            className="shadow absolute size-[3.125rem] m-5 z-20 top-1/2 -translate-y-full bg-white bg-opacity-50 rounded-full flex justify-center items-center"
             onClick={() => {
               setNowClick(-1);
               setNowScroll((nowList.length + nowScroll - 1) % nowList.length);
             }}
           >
-            {"<"}
+            <Image
+              className="w-[10px]"
+              width={0}
+              height={0}
+              src="/left.svg"
+              alt="leftPage"
+            ></Image>
           </button>
           <button
-            className="absolute size-12 m-5 z-20 top-1/2 -translate-y-full right-0 bg-white bg-opacity-50  rounded-full"
+            className="shadow absolute size-[3.125rem] m-5 z-20 top-1/2 -translate-y-full right-0 bg-white bg-opacity-50 rounded-full flex justify-center items-center"
             onClick={() => {
               setNowClick(-1);
               setNowScroll((nowScroll + 1) % nowList.length);
             }}
           >
-            {">"}
+            <Image
+              className="w-[10px]"
+              width={0}
+              height={0}
+              src="/right.svg"
+              alt="rightPage"
+            ></Image>
           </button>
           <div className="w-full h-full relative overflow-hidden px-14 pt-20 pb-36">
             <div
@@ -101,7 +113,7 @@ export default function ImageSection({ data }: { data: YJData }) {
                           <h4 className="truncate text-right">{e.date}</h4>
                         </div>
 
-                        <h2 className="text-3xl mb-8 whitespace-pre-line break-keep">
+                        <h2 className="text-3xl mb-8 whitespace-pre-line break-keep leading-[2.625rem]">
                           {e.title}
                         </h2>
                         <h4 className="whitespace-pre-line overflow-y-auto leading-8">

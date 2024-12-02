@@ -82,7 +82,7 @@ export default function EssayListView({ data }: { data: YJData }) {
             key={essay.title + index}
             href={
               essay.type === "단편"
-                ? `/project/${essay.projectIndex}/${essay.essayIndex}/0`
+                ? `/project/${essay.projectIndex}/${essay.essayIndex}`
                 : `/series/${essay.seriesIndex}/${essay.projectIndex}/${essay.essayIndex}}`
             }
           >
@@ -98,7 +98,7 @@ export default function EssayListView({ data }: { data: YJData }) {
               <h3 className="hidden md:inline-block">{essay.request}</h3>
               <div className="col-span-2 flex gap-2">
                 {index < 3 ? (
-                  <h5 className="bg-black text-bg-white p-1 rounded-sm text-center content-center realNova text-xs font-bold">
+                  <h5 className="bg-black text-bg-white p-1 text-center content-center realNova text-xs font-bold">
                     NEW
                   </h5>
                 ) : null}

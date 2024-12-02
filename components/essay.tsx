@@ -116,11 +116,15 @@ const Layout0 = ({ data }: { data: Essay }) => {
         <div className="size-full relative flex flex-col border-r-[0.5px] border-border-black whitespace-pre-line px-14">
           <div className=" size-full relative overflow-hidden">
             {nowPage > 0 ? (
-              <div className="flex flex-col size-full gap-10 pt-20 pb-[9.375rem]">
+              <div
+                className={`flex flex-col size-full gap-10 pt-10 pb-[9.375rem] ${
+                  nowPage > 1 && "pt-[4.375rem]"
+                }`}
+              >
                 {nowPage === 1 ? (
                   <h1 className="text-[2.5rem] break-keep">{data.title}</h1>
                 ) : null}
-                <h4 className="size-full overflow-hidden">
+                <h4 className="size-full overflow-hidden leading-[1.825rem]">
                   {texts[nowPage - 1]}
                 </h4>
                 {data.link !== "" ? (
@@ -145,17 +149,17 @@ const Layout0 = ({ data }: { data: Essay }) => {
 
             {/* 텍스트 자르기 계산용 */}
             <div className="absolute size-full top-0 opacity-0 ">
-              <div className="flex flex-col size-full gap-10 pt-20 pb-[9.375rem] bg-white">
+              <div className="flex flex-col size-full gap-10 pt-10 pb-[9.375rem] bg-white">
                 <h1 className="text-[2.5rem] break-keep border border-red-400">
                   {data.title}
                 </h1>
                 <div
-                  className=" flex-grow overflow-hidden border border-red-400"
+                  className=" flex-grow overflow-hidden border border-red-400 leading-[1.825rem]"
                   ref={first}
                 ></div>
               </div>
               <div
-                className="size-full max-h-full absolute pt-20 pb-[9.375rem] top-0 left-0  overflow-hidden"
+                className="size-full max-h-full absolute pt-[4.375rem] pb-[9.375rem] top-0 left-0  overflow-hidden leading-[1.825rem]"
                 ref={test}
               ></div>
             </div>
@@ -163,10 +167,10 @@ const Layout0 = ({ data }: { data: Essay }) => {
           {nowPage > 0 ? (
             <button
               onClick={() => setNowPage(nowPage - 1)}
-              className="absolute left-2 top-1/2 size-8 bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
+              className="absolute left-5 top-1/2 size-[50px] bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
             >
               <Image
-                className="w-2"
+                className="w-[10px]"
                 width={0}
                 height={0}
                 src="/left.svg"
@@ -177,10 +181,10 @@ const Layout0 = ({ data }: { data: Essay }) => {
           {texts.length > nowPage ? (
             <button
               onClick={() => setNowPage(nowPage + 1)}
-              className="absolute right-2 top-1/2 size-8 bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
+              className="absolute right-5 top-1/2 size-[50px] bg-opacity-50 bg-white shadow rounded-full flex items-center justify-center"
             >
               <Image
-                className="w-2"
+                className="w-[10px]"
                 width={0}
                 height={0}
                 src="/right.svg"

@@ -46,7 +46,7 @@ export default function TestView({
                   <h3 className="flex-shrink-0 ">{essay.date}</h3>
                 </div>
 
-                <h1 className="text-4xl">{essay.title}</h1>
+                <h1 className="text-3xl leading-[2.625rem]">{essay.title}</h1>
               </div>
             </div>
             <div
@@ -55,7 +55,7 @@ export default function TestView({
               }`}
             >
               <div className="flex justify-between w-full text-lg gap-3 col-span-2 max-md:hidden">
-                <h2 className="flex-grow overflow-hidden text-3xl">
+                <h2 className="flex-grow overflow-hidden text-4xl leading-[2.625rem]">
                   {essay.title}
                 </h2>
                 <h3 className="flex-shrink-0 ">{essay.date}</h3>

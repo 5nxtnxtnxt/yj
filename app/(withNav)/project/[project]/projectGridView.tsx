@@ -22,7 +22,7 @@ export default function ProjectGridView({
               className={`border-b border-border-black flex flex-col md:grid grid-rows-1 grid-cols-2 w-full p-5 md:p-8 relative gap-[1.875rem] md:h-[31.25rem] ${
                 index % 2 || "md:border-r"
               }`}
-              href={`/project/${projectIndex}/${index}/0`}
+              href={`/project/${projectIndex}/${index}`}
             >
               <div className="w-full aspect-square md:h-full overflow-hidden relative row-start-1 col-start-1">
                 <Image
