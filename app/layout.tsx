@@ -16,6 +16,12 @@ export default function RootLayout({
       lang="en"
       className="2xl:text-[16px] xl:text-[14px] md:text-[10px] text-[14px] overflow-x-hidden"
     >
+      <head>
+        <meta
+          name="google-site-verification"
+          content="epzJ9FpfXp9BhdeCeHjCRpiM6-koY5PM0GDan_oVCQ8"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
