@@ -44,9 +44,25 @@ export default function Info({ data }: { data: YJData }) {
           <div className="md:hidden h-full  text-white flex flex-col gap-5 py-10 text-2xl">
             {data.projects.map((p, indexP) => {
               return (
-                <Link href={`/project/${indexP}`} key={indexP}>
-                  {p.title}
-                </Link>
+                <div key={indexP}>
+                  <Link href={`/project/${indexP}`} key={indexP}>
+                    {p.title}
+                  </Link>
+                  <div className="mt-4 flex flex-col gap-4">
+                    {p.essays.map((e, index) => (
+                      <Link
+                        href={`/project/${indexP}/${index}`}
+                        key={p.title + index}
+                        className="pl-10 text-xl block"
+                      >
+                        {e.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                // <Link href={`/project/${indexP}`} key={indexP}>
+                //   {p.title}
+                // </Link>
               );
             })}
             {data.series.map((p, indexS) => {
@@ -72,28 +88,32 @@ export default function Info({ data }: { data: YJData }) {
           </div>
           <div className="text-bg-white text-lg flex flex-col md:flex-row md:gap-12 gap-20 max-md:border-t max-md:py-10 border-bg-white">
             <div className="flex flex-col gap-5 ">
-              <Image
-                src="/info.svg"
-                alt="info"
-                width={10}
-                height={10}
-                className="w-11"
-              />
-              <h4 className="md:leading-8 break-keep">
+              <div className="flex justify-start">
+                <Image
+                  src="/info.svg"
+                  alt="info"
+                  width={0}
+                  height={0}
+                  className="h-5 w-auto brightness-0 invert"
+                />
+              </div>
+              <h4 className="md:leading-8 break-keep max-md:leading-8">
                 {
                   "발신인 예진은 텍스트 기반 작업자다. 다양한 매체 및 플랫폼에서 에디터로 활동하며, 브랜드의 언어를 들리는 형태로 변환해 화자와 청자 사이에 가교를 놓는다. <예진으로부터>는 예진의 편지 프로젝트로, 활자를 통해 연결되는 경험을 제공한다. 이미지나 영상이 주류가 된 시대에 글의 가치를 재고하며, 고유의 이야기로 세계를 구축하는 일에 관심이 많다."
                 }
               </h4>
             </div>
             <div className="flex flex-col gap-5">
-              <Image
-                src="/contect.svg"
-                alt="contect"
-                width={10}
-                height={10}
-                className="w-[5.375rem]"
-              />
-              <div className="flex flex-col gap-1 md:leading-8">
+              <div className="flex justify-start">
+                <Image
+                  src="/contect.svg"
+                  alt="contect"
+                  width={0}
+                  height={0}
+                  className="h-5 w-auto brightness-0 invert"
+                />
+              </div>
+              <div className="flex flex-col gap-1 md:leading-8 max-md:gap-[0.625rem]">
                 <h4>+82 1033013191</h4>
                 <h4>HYUNDOTHYUN@GMAIL.COM</h4>
                 <a href="https://www.instagram.com/hyunye___/" target="_blank">
