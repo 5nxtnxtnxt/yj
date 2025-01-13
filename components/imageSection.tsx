@@ -203,7 +203,7 @@ export default function ImageSection({ data }: { data: YJData }) {
                       <h4 className="truncate text-right">{e.date}</h4>
                     </div>
 
-                    <h2 className="text-4xl pb-6 whitespace-pre-line break-keep">
+                    <h2 className="text-4xl pb-6 whitespace-pre-line break-keep leading-[3.25rem]">
                       {e.title}
                     </h2>
                     <div>

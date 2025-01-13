@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const ESSAY_PER_PAGE = 5;
+const ESSAY_PER_PAGE = 14;
 
 type EssayTypeForListView = {
   projectIndex: number;
@@ -116,10 +116,10 @@ export default function EssayListView({ data }: { data: YJData }) {
       <div className="md:hidden flex items-center justify-center ">
         {essays.length > page * ESSAY_PER_PAGE ? (
           <div
-            className="cursor-pointer items-center flex gap-3"
+            className="cursor-pointer items-center flex gap-3 text-center h-[6.25rem]"
             onClick={() => setPage(page + 1)}
           >
-            <h4>LOAD MORE</h4>
+            <h4 className="">LOAD MORE</h4>
             <Image
               className="size-[1rem]"
               width={100}
