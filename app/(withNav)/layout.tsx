@@ -19,8 +19,7 @@ export default async function RootLayout({
       <NavigationBar data={data} />
       <main className="overflow-y-auto">
         {children}
-        {/* <Footer /> */}
-        <div className="w-full h-[27rem] border-t border-border-black flex items-center justify-center">
+        <div className="w-full h-[27rem] flex items-center justify-center">
           <div className="max-md:hidden flex flex-col gap-[1.875rem] items-center">
             <Image
               alt="logo"

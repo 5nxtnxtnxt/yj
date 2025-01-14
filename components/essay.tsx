@@ -54,12 +54,6 @@ const Layout0 = ({ data }: { data: Essay }) => {
         target.innerText = nowText + " " + word;
 
         if (target.scrollHeight > target.clientHeight) {
-          console.log(
-            target.scrollHeight,
-            target.clientHeight,
-            target.innerText,
-            "-------------------------"
-          );
           newTexts.push(nowText);
           nowText = word;
 
@@ -107,13 +101,13 @@ const Layout0 = ({ data }: { data: Essay }) => {
   return (
     <>
       {isLoading ? (
-        <div className="size-full bg-bg-white absolute z-50 flex items-center justify-center">
+        <div className="size-full bg-bg-white absolute z-50 flex items-center justify-center border-b border-border-black">
           <h1 className="text-3xl animate-bounce">loading...</h1>
         </div>
       ) : null}
 
       {isMobile ? (
-        <div className="size-full relative flex flex-col border-r-[0.5px] border-border-black whitespace-pre-line px-14">
+        <div className="size-full relative flex flex-col border-r-[0.5px] border-border-black whitespace-pre-line px-14 border-b">
           <div className=" size-full relative overflow-hidden">
             {nowPage > 0 ? (
               <div
@@ -194,7 +188,7 @@ const Layout0 = ({ data }: { data: Essay }) => {
           ) : null}
         </div>
       ) : (
-        <div className="grid grid-cols-2 grid-rows-1 h-full px-36 whitespace-pre-line ">
+        <div className="grid grid-cols-2 grid-rows-1 h-full px-36 whitespace-pre-line border-b border-border-black">
           {/* 왼쪽화면 */}
           <div className="size-full relative flex flex-col border-r-[0.5px] border-border-black pr-12">
             <div className=" size-full my-[12.5rem] relative overflow-hidden">
@@ -311,13 +305,13 @@ const Layout1 = ({ data }: { data: Essay }) => {
             <h5 className=" whitespace-pre-line text-lg leading-8">{text}</h5>
           </div>
         </div>
-        <a
+        {/* <a
           className="text-white text-center block"
           href={data.link}
           target="_blank"
         >
           전문 구매하기 {">"}
-        </a>
+        </a> */}
       </div>
     </div>
   );

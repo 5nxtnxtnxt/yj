@@ -74,7 +74,7 @@ export default async function a({
                 }`}
               >
                 <div className="flex justify-between w-full text-lg gap-3 col-span-2 max-md:hidden">
-                  <h2 className="flex-grow overflow-hidden text-4xl leading-[2.625rem] break-keep">
+                  <h2 className="flex-grow overflow-hidden text-4xl leading-[3.375rem] break-keep">
                     {essay.title}
                   </h2>
                   <h3 className="flex-shrink-0 ">{essay.date}</h3>

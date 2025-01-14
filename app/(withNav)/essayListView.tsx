@@ -113,10 +113,10 @@ export default function EssayListView({ data }: { data: YJData }) {
           </Link>
         );
       })}
-      <div className="md:hidden flex items-center justify-center ">
+      <div className="md:hidden flex items-center justify-center border-b border-border-black">
         {essays.length > page * ESSAY_PER_PAGE ? (
           <div
-            className="cursor-pointer items-center flex gap-3 text-center h-[6.25rem]"
+            className="cursor-pointer items-center flex gap-3 text-center h-[6.25rem] "
             onClick={() => setPage(page + 1)}
           >
             <h4 className="">LOAD MORE</h4>
@@ -130,7 +130,7 @@ export default function EssayListView({ data }: { data: YJData }) {
           </div>
         ) : null}
       </div>
-      <div className="h-96 flex flex-col justify-center items-center max-md:hidden">
+      <div className="h-96 flex flex-col justify-center items-center max-md:hidden border-b border-border-black">
         <div className="flex gap-4 items-center">
           {Array.from({
             length: Math.ceil(essays.length / ESSAY_PER_PAGE),

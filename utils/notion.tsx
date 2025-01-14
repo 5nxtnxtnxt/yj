@@ -76,10 +76,9 @@ export interface MyData {
 }
 export async function getDataFromNotion(forceUpdate: boolean = false) {
   if (cd && !forceUpdate) {
-    console.log("cached");
     return cd;
   }
-  console.log("fetching");
+
   const notion = new Client({ auth: process.env.NOTION_SECRET });
   const databaseId = process.env.NOTION_DB_ID as string;
   const response = await notion.databases.query({

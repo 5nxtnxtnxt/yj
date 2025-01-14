@@ -19,7 +19,9 @@ export default function SeriesGridView({
           return (
             <Link
               key={index}
-              className={`border-b border-border-black flex flex-col md:grid grid-rows-2 grid-cols-2  w-full p-8 relative gap-[1.875rem] md:h-[31.25rem] ${
+              className={`${
+                data.seriesProjects.length - 1 > index && "border-b"
+              } border-border-black flex flex-col md:grid grid-rows-2 grid-cols-2  w-full p-8 relative gap-[1.875rem] md:h-[31.25rem] ${
                 index % 2 || "md:border-r"
               }`}
               href={`/series/${seriesIndex}/${index}`}
@@ -54,9 +56,6 @@ export default function SeriesGridView({
             </Link>
           );
         })}
-        {data.seriesProjects.length % 2 ? (
-          <div className="border-b border-border-black"></div>
-        ) : null}
       </div>
     </div>
   );

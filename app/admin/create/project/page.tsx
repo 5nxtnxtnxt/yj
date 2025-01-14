@@ -33,11 +33,10 @@ export default function CreateProjectPage() {
   }, []);
 
   const onSubmit = async (values: z.infer<typeof ProjectSchema>) => {
-    console.log(values);
     const origin: Project[] = JSON.parse(JSON.stringify(nowData?.projects));
     origin.push({ ...values, essays: [] });
     const result = await updateProject(origin);
-    // console.log(result, "!!!!!!!!!");
+
     if (result) {
       router.push("/admin");
     }
