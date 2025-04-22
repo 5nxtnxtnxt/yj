@@ -59,7 +59,7 @@ export default function ProjectGridView({
                     {essay.text}
                   </h4>
 
-                  <h4 className="border-t border-border-black  border-dotted text-center pt-8">
+                  <h4 className="border-t border-border-black border-dotted text-center pt-8">
                     READ MORE
                   </h4>
                 </div>
@@ -68,7 +68,7 @@ export default function ProjectGridView({
           );
         })}
         {data.essays.length % 2 ? (
-          <div className="border-b border-border-black"></div>
+          <div className="md:border-b border-border-black"></div>
         ) : null}
       </div>
     </div>

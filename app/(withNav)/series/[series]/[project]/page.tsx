@@ -60,7 +60,7 @@ export default async function a({
                 <div className="flex flex-col gap-10 md:hidden text-white  z-10 absolute top-0 w-full p-5">
                   <div className="flex justify-between w-full text-lg gap-3">
                     <h2 className="flex-grow overflow-hidden ">
-                      {essay.title}
+                      {nowData.title}
                     </h2>
                     <h3 className="flex-shrink-0 ">{essay.date}</h3>
                   </div>
@@ -80,7 +80,7 @@ export default async function a({
                   <h3 className="flex-shrink-0 ">{essay.date}</h3>
                 </div>
                 <textarea
-                  className="col-span-2 bg-bg-white h-[30rem] text-lg leading-8 resize-none outline-none overflow-hidden md:line-clamp-[20] line-clamp-6 max-md:h-36"
+                  className="col-span-2 bg-bg-white h-[30rem] text-lg leading-8 resize-none outline-none overflow-hidden md:line-clamp-[20] line-clamp-6 max-md:h-40"
                   readOnly
                   value={essay.text}
                 ></textarea>

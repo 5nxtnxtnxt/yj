@@ -86,7 +86,7 @@ export default function Info({ data }: { data: YJData }) {
               );
             })}
           </div>
-          <div className="text-bg-white text-lg flex flex-col md:flex-row md:gap-12 gap-20 max-md:border-t max-md:py-10 border-bg-white">
+          <div className="text-bg-white text-lg flex flex-col md:flex-row md:gap-12 gap-20 max-md:pb-[200px] max-md:border-t max-md:py-10 border-bg-white bg-[#B5BBA1]">
             <div className="flex flex-col gap-5 ">
               <div className="flex justify-start">
                 <Image

@@ -10,17 +10,18 @@ export default function SeriesGridView({
   seriesIndex: number;
 }) {
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col max-md:border-b border-border-black">
       <h2 className="block border-b border-border-black w-full text-xl p-6">
         LIST
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 border-b border-border-black">
         {data.seriesProjects.map((project, index) => {
           return (
             <Link
               key={index}
               className={`${
-                data.seriesProjects.length - 1 > index && "border-b"
+                Math.floor(data.seriesProjects.length / 2) >
+                  Math.floor(index / 2) && "border-b"
               } border-border-black flex flex-col md:grid grid-rows-2 grid-cols-2  w-full p-8 relative gap-[1.875rem] md:h-[31.25rem] ${
                 index % 2 || "md:border-r"
               }`}
